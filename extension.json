@@ -1,0 +1,30 @@
+{
+	"name": "CreatedPagesList",
+	"version": "1.0.0",
+	"author": "Edward Chernenko",
+	"url": "https://www.mediawiki.org/wiki/Extension:CreatedPagesList",
+	"descriptionmsg": "createdpageslist-desc",
+	"license-name": "GPL-2.0+",
+	"type": "specialpage",
+	"SpecialPages": {
+		"CreatedPagesList": "SpecialCreatedPagesList"
+	},
+	"ExtensionMessagesFiles": {
+		"CreatedPagesListAlias": "CreatedPagesList.alias.php"
+	},
+	"MessagesDirs": {
+		"CreatedPagesList": [
+			"i18n"
+		]
+	},
+	"AutoloadClasses": {
+		"CreatedPagesListUpdater": "includes/CreatedPagesListUpdater.php",
+		"SpecialCreatedPagesList": "includes/SpecialCreatedPagesList.php"
+	},
+	"Hooks": {
+		"LoadExtensionSchemaUpdates": [
+			"CreatedPagesListUpdater::onLoadExtensionSchemaUpdates"
+		]
+	},
+	"manifest_version": 1
+}

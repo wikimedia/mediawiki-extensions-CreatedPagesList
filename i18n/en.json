@@ -1,0 +1,14 @@
+{
+	"@metadata": {
+		"authors": [
+			"Edward Chernenko"
+		]
+	},
+
+	"createdpageslist": "Created pages list",
+	"createdpageslist-desc": "Adds [[Special:CreatedPagesList]] page, which lists all articles created by the selected author",
+	"createdpageslist-notfound": "User not found.",
+	"createdpageslist-username": "User",
+	"createdpageslist-submit": "Find",
+	"createdpageslist-summary": "This special page lists all articles (i.e. pages in content namespaces) created by specific user."
+}

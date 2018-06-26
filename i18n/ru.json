@@ -1,0 +1,14 @@
+{
+	"@metadata": {
+		"authors": [
+			"Edward Chernenko"
+		]
+	},
+
+	"createdpageslist": "Созданные участником страницы",
+	"createdpageslist-desc": "Добавляет страницу [[Служебная:CreatedPagesList]], которая показывает список всех статей, созданных выбранным автором",
+	"createdpageslist-notfound": "Участник не найден.",
+	"createdpageslist-username": "Участник",
+	"createdpageslist-submit": "Найти",
+	"createdpageslist-summary": "На этой странице перечислены все статьи (страницы в контентных пространствах), созданные указанным участником."
+}
