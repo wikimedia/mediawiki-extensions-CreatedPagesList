@@ -64,7 +64,6 @@ class SpecialCreatedPagesList extends PageQueryPage {
 	}
 
 	protected function showForm( $error = false ) {
-
 		$form = new HTMLForm( [
 			'username' => [
 				'type' => 'text',
@@ -77,7 +76,7 @@ class SpecialCreatedPagesList extends PageQueryPage {
 ;
 		$form->setWrapperLegendMsg( 'createdpageslist' );
 		$form->setSubmitTextMsg( 'createdpageslist-submit' );
-		$form->setAction( $this->getTitle()->getFullURL() );
+		$form->setAction( $this->getPageTitle()->getFullURL() );
 		$form->setMethod( 'get' );
 
 		$form->prepareForm()->displayForm( $error );
