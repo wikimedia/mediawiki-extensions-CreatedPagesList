@@ -41,7 +41,14 @@ class CreatedPagesListTest extends SpecialPageTestBase
 		return true;
 	}
 
-	public function addDBDataOnce() {
+	protected function setUp() {
+		parent::setUp();
+		$this->tablesUsed = array_merge( $this->tablesUsed, [
+			'page', 'revision', 'text', 'user'
+		] );
+	}
+
+	public function addDBData() {
 		$user = User::createNew( $this->username );
 		foreach ( $this->titles as $title ) {
 			$page = WikiPage::factory( Title::newFromText( $title ) );
@@ -102,9 +109,6 @@ class CreatedPagesListTest extends SpecialPageTestBase
 				[ "querystring", [ false ] ]
 	*/
 	public function testShowPages( $subpageHasUsername ) {
-		$dbw = wfGetDB( DB_MASTER );
-		$res = $dbw->select( 'revision', '*', '', __METHOD__ );
-
 		$html = $subpageHasUsername ?
 			$this->runSpecial( $this->username ) :
 			$this->runSpecial( '', [ 'username' => $this->username ] );
