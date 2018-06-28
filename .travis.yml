@@ -32,7 +32,7 @@ cache:
 before_script:
   - phpenv config-rm xdebug.ini
   - bash -ex ./tests/travis/build_mediawiki.sh "$branch"
-  - rsync -a --exclude buildcache --exclude mediawiki --exclude .git * mediawiki/extensions/CrearedPagesList/
+  - rsync -a --exclude buildcache --exclude mediawiki --exclude .git * mediawiki/extensions/CreatedPagesList/
   - cd mediawiki
   - >
       php maintenance/install.php traviswiki admin
@@ -43,9 +43,9 @@ before_script:
       --dbpass ""
       --scriptpath "/w"
   - echo -en "\n\nrequire_once __DIR__ . '/includes/DevelopmentSettings.php';\n" >> ./LocalSettings.php
-  - echo -en "\n\nrequire_once __DIR__ . '/extensions/CrearedPagesList/tests/travis/CrearedPagesListSettings.php';\n" >> ./LocalSettings.php
+  - echo -en "\n\nrequire_once __DIR__ . '/extensions/CreatedPagesList/tests/travis/CreatedPagesListSettings.php';\n" >> ./LocalSettings.php
   - php -l ./LocalSettings.php
   - php maintenance/update.php --quick
 
 script:
-  - php tests/phpunit/phpunit.php extensions/CrearedPagesList/tests/phpunit/
+  - php tests/phpunit/phpunit.php extensions/CreatedPagesList/tests/phpunit/
