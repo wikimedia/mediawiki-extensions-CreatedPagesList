@@ -91,61 +91,64 @@ class CreatedPagesList {
 	}
 
 	/**
-		@brief Scan latest edits of $user and update createdpageslist table.
-
-		This function is mainly to detect pages which were created
-		before Extension:CreatedPagesList was installed
-		(first time someone's Special:CreatedPagesList is visited).
-
-		New pages are normally added in onPageContentInsertComplete().
+		@brief Update createdpageslist table.
+		This is called from update.php.
 	*/
-	public static function updateForUser( User $user ) {
-		if ( wfReadOnly() ) {
-			return; /* No big problem if CreatedPagesList displays stale data */
-		}
-
+	public static function recalculateSqlTable() {
 		$dbr = wfGetDB( DB_SLAVE );
 		$res = $dbr->select(
 			[
+				'page',
 				'revision',
-				'page'
 			],
 			[
 				'page_namespace AS namespace',
 				'page_title AS title',
-				'rev_timestamp AS timestamp'
+				'MIN(rev_timestamp) AS timestamp', // First revision on the page
+				'rev_user_text AS user_text',
+				'rev_user AS user'
 			],
 			[
-				'rev_user_text' => $user->getName(),
-				'rev_parent_id' => 0, // This revision created a new page
+				'page_is_redirect' => 0,
+				'page_namespace' => MWNamespace::getContentNamespaces()
 			],
 			__METHOD__,
 			[
-				'ORDER BY' => 'rev_timestamp DESC',
-				'USE INDEX' => [
-					'revision' => 'usertext_timestamp'
+				'GROUP BY' => 'rev_page',
+				'INDEX' => [
+					'page' => 'page_redirect_namespace_len',
+					'revision' => 'rev_page_id'
 				]
 			],
 			[
-				'page' => [ 'INNER JOIN', [
-					'page_id=rev_page',
-					'page_is_redirect' => 0,
-					'page_namespace' => MWNamespace::getContentNamespaces()
+				'revision' => [ 'INNER JOIN', [
+					'rev_page=page_id'
 				] ]
 			]
 		);
 		if ( $res->numRows() == 0 ) {
-			return; /* No new articles */
+			return; /* No articles */
 		}
 
 		$dbw = wfGetDB( DB_MASTER );
+
+		$dbw->startAtomic( __METHOD__ );
+		$dbw->delete( 'createdpageslist', '*', __METHOD__ );
 		foreach ( $res as $row ) {
-			self::add( $user,
-				Title::makeTitle( $row->namespace, $row->title ),
-				$row->timestamp,
-				false /* Redirects are already filtered */
+			$dbw->insert(
+				'createdpageslist',
+				[
+					'cpl_timestamp' => $dbw->timestamp( $row->timestamp ),
+					'cpl_user' => $row->user,
+					'cpl_user_text' => $row->user_text,
+					'cpl_namespace' => $row->namespace,
+					'cpl_title' => $row->title
+				],
+				__METHOD__,
+				[ 'IGNORE' ]
 			);
 		}
+		$dbw->endAtomic( __METHOD__ );
 	}
 
 	/**

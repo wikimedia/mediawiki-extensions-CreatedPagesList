@@ -24,7 +24,15 @@ class CreatedPagesListUpdater {
 	public static function onLoadExtensionSchemaUpdates( DatabaseUpdater $updater ) {
 		$base = dirname( __FILE__ );
 		$updater->addExtensionTable( 'createdpageslist', "$base/../sql/patch-createdpageslist.sql" );
+		$updater->addExtensionUpdate( [ [ __CLASS__, 'populateSqlTable' ] ] );
 
 		return true;
+	}
+
+	public static function populateSqlTable( DatabaseUpdater $updater ) {
+		// Recalculate only if the table is empty, not on every update.php
+		if ( $updater->getDB()->selectRowCount( 'createdpageslist' ) == 0 ) {
+			CreatedPagesList::recalculateSqlTable();
+		}
 	}
 }

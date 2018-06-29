@@ -54,8 +54,6 @@ class SpecialCreatedPagesList extends PageQueryPage {
 		}
 
 		$this->user = User::newFromName( $username, false );
-		CreatedPagesList::updateForUser( $this->user );
-
 		parent::execute( $param );
 	}
 
