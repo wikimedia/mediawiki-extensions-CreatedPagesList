@@ -32,6 +32,7 @@ class CreatedPagesListUpdater {
 	public static function populateSqlTable( DatabaseUpdater $updater ) {
 		// Recalculate only if the table is empty, not on every update.php
 		if ( $updater->getDB()->selectRowCount( 'createdpageslist' ) == 0 ) {
+			$updater->output( "Populating createdpageslist table...\n" );
 			CreatedPagesList::recalculateSqlTable();
 		}
 	}

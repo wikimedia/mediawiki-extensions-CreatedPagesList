@@ -95,24 +95,30 @@ class CreatedPagesList {
 		This is called from update.php.
 	*/
 	public static function recalculateSqlTable() {
-		$dbr = wfGetDB( DB_SLAVE );
-		$res = $dbr->select(
+		$dbw = wfGetDB( DB_MASTER );
+
+		$dbw->startAtomic( __METHOD__ );
+		$dbw->delete( 'createdpageslist', '*', __METHOD__ );
+
+		$dbw->insertSelect(
+			'createdpageslist',
 			[
 				'page',
 				'revision',
 			],
 			[
-				'page_namespace AS namespace',
-				'page_title AS title',
-				'MIN(rev_timestamp) AS timestamp', // First revision on the page
-				'rev_user_text AS user_text',
-				'rev_user AS user'
+				'cpl_namespace' => 'page_namespace',
+				'cpl_title' => 'page_title',
+				'cpl_timestamp' => 'MIN(rev_timestamp)', // First revision on the page
+				'cpl_user_text' => 'rev_user_text',
+				'cpl_user' => 'rev_user'
 			],
 			[
 				'page_is_redirect' => 0,
 				'page_namespace' => MWNamespace::getContentNamespaces()
 			],
 			__METHOD__,
+			[],
 			[
 				'GROUP BY' => 'rev_page',
 				'INDEX' => [
@@ -126,28 +132,6 @@ class CreatedPagesList {
 				] ]
 			]
 		);
-		if ( $res->numRows() == 0 ) {
-			return; /* No articles */
-		}
-
-		$dbw = wfGetDB( DB_MASTER );
-
-		$dbw->startAtomic( __METHOD__ );
-		$dbw->delete( 'createdpageslist', '*', __METHOD__ );
-		foreach ( $res as $row ) {
-			$dbw->insert(
-				'createdpageslist',
-				[
-					'cpl_timestamp' => $dbw->timestamp( $row->timestamp ),
-					'cpl_user' => $row->user,
-					'cpl_user_text' => $row->user_text,
-					'cpl_namespace' => $row->namespace,
-					'cpl_title' => $row->title
-				],
-				__METHOD__,
-				[ 'IGNORE' ]
-			);
-		}
 		$dbw->endAtomic( __METHOD__ );
 	}
 
