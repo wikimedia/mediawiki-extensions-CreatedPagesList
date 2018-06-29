@@ -22,7 +22,7 @@
 
 class SpecialCreatedPagesList extends PageQueryPage {
 
-	protected $username = null; /**< Name of user who created pages that we need to list. */
+	protected $user = null; /**< User object (user who created pages that we need to list). */
 
     	function __construct( $name = 'CreatedPagesList' ) {
 		parent::__construct( $name );
@@ -32,7 +32,7 @@ class SpecialCreatedPagesList extends PageQueryPage {
 		return false;
 	}
 	function getOrderFields() {
-		return [ 'rev_timestamp' ];
+		return [ 'cpl_timestamp' ];
 	}
 
 	function sortDescending() {
@@ -44,19 +44,23 @@ class SpecialCreatedPagesList extends PageQueryPage {
 	}
 
 	function execute( $param ) {
-		$this->username = $this->getRequest()->getVal( 'username', $param );
-		if ( $this->username ) {
-			parent::execute( $param );
-		}
-		else {
+		$username = $this->getRequest()->getVal( 'username', $param );
+		if ( !$username ) {
 			$this->setHeaders();
 			$this->outputHeader();
 			$this->showForm();
+
+			return;
 		}
+
+		$this->user = User::newFromName( $username, false );
+		CreatedPagesList::updateForUser( $this->user );
+
+		parent::execute( $param );
 	}
 
 	function linkParameters() {
-		return [ 'username' => $this->username ];
+		return $this->user ? [ 'username' => $this->user->getName() ] : [];
 	}
 
 	protected function showEmptyText() {
@@ -84,27 +88,18 @@ class SpecialCreatedPagesList extends PageQueryPage {
 
 	function getQueryInfo() {
 		return [
-			'tables' => [ 'revision', 'page' ],
+			'tables' => [ 'createdpageslist' ],
 			'fields' => [
-				'page_namespace AS namespace',
-				'page_title AS title'
+				'cpl_namespace AS namespace',
+				'cpl_title AS title'
 			],
 			'conds' => [
-				'rev_user_text' => str_replace( '_', ' ', $this->username ),
-				'rev_parent_id' => 0
+				'cpl_user_text' => str_replace( '_', ' ', $this->user->getName() )
 			],
 			'options' => [
-				'USE INDEX' => [
-					'revision' => 'rev_newpagesbyuser'
-				]
+				'USE INDEX' => 'createdpageslist_user_timestamp'
 			],
-			'join_conds' => [
-				'page' => [ 'INNER JOIN', [
-					'page_id=rev_page',
-					'page_is_redirect' => 0,
-					'page_namespace' => MWNamespace::getContentNamespaces()
-				] ]
-			]
+			'join_conds' => []
 		];
 	}
 }

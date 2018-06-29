@@ -18,12 +18,25 @@
 		]
 	},
 	"AutoloadClasses": {
+		"CreatedPagesList": "includes/CreatedPagesList.class.php",
 		"CreatedPagesListUpdater": "includes/CreatedPagesListUpdater.php",
 		"SpecialCreatedPagesList": "includes/SpecialCreatedPagesList.php"
 	},
 	"Hooks": {
+		"ArticleDeleteComplete": [
+			"CreatedPagesList::onArticleDeleteComplete"
+		],
+		"ArticleRevisionUndeleted": [
+			"CreatedPagesList::onArticleRevisionUndeleted"
+		],
 		"LoadExtensionSchemaUpdates": [
 			"CreatedPagesListUpdater::onLoadExtensionSchemaUpdates"
+		],
+		"PageContentInsertComplete": [
+			"CreatedPagesList::onPageContentInsertComplete"
+		],
+		"TitleMoveComplete": [
+			"CreatedPagesList::onTitleMoveComplete"
 		]
 	},
 	"manifest_version": 1

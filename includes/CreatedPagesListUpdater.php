@@ -23,7 +23,7 @@
 class CreatedPagesListUpdater {
 	public static function onLoadExtensionSchemaUpdates( DatabaseUpdater $updater ) {
 		$base = dirname( __FILE__ );
-		$updater->addExtensionIndex( 'revision', 'rev_newpagesbyuser', "$base/../sql/patch-revision-rev_newpagesbyuser.sql" );
+		$updater->addExtensionTable( 'createdpageslist', "$base/../sql/patch-createdpageslist.sql" );
 
 		return true;
 	}
