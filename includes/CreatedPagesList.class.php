@@ -56,7 +56,7 @@ class CreatedPagesList {
 	/**
 		@brief Add newly undeleted article into the 'createdpageslist' SQL table.
 	*/
-	public static function onArticleUndelete( $title, $created, $comment, $oldPageId, $restoredPages ) {
+	public static function onArticleUndelete( $title, $created, $comment, $oldPageId, $restoredPages = [] ) {
 		DeferredUpdates::addCallableUpdate( function() use ( $title ) {
 			$rev = $title->getFirstRevision();
 			$user = User::newFromName(
