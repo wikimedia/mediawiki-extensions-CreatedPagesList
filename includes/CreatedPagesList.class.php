@@ -89,6 +89,27 @@ class CreatedPagesList {
 	}
 
 	/**
+		@brief Extra DB fields to rename when user is renamed via Extension:UserMerge.
+	*/
+	public static function onUserMergeAccountFields( &$updateFields )
+	{
+		$updateFields[] = [
+			'createdpageslist',
+			'cpl_user',
+			'cpl_user_text',
+			'batchKey' => 'cpl_id',
+			'options' => [ 'IGNORE' ]
+		];
+		return true;
+	}
+
+	/** @brief Delete extra DB rows when account is deleted. */
+	public static function onUserMergeAccountDeleteTables( &$tablesToDelete ) {
+		$tablesToDelete['createdpageslist'] = 'cpl_user';
+		return true;
+	}
+
+	/**
 		@brief Update createdpageslist table.
 		This is called from update.php.
 	*/

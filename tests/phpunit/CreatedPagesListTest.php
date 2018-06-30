@@ -32,8 +32,12 @@ class CreatedPagesListTest extends MediaWikiTestCase
 
 	protected function setUp() {
 		parent::setUp();
-		$this->tablesUsed[] = 'revision';
-		$this->tablesUsed[] = 'createdpageslist';
+		$this->tablesUsed = array_merge( $this->tablesUsed, [
+			'createdpageslist',
+			'revision',
+			'page',
+			'text'
+		] );
 	}
 
 	/** @brief Returns User object of test user. */
@@ -138,5 +142,51 @@ class CreatedPagesListTest extends MediaWikiTestCase
 		$archive->undelete( [] );
 
 		$this->assertCreatedBy( $user, $title );
+	}
+
+	/**
+		@brief Ensures that user being renamed by Extension:UserMerge updates 'createdpageslist' table.
+	*/
+	public function testRenamedUser() {
+		$this->skipIfNoUserMerge();
+
+		$performer = User::newFromName( '127.0.0.1', false );
+		$title = $this->getExistingTitle();
+
+		$oldUser = WikiPage::factory( $title )->getCreator();
+		$newUser = ( new TestUser( 'Some other user' ) )->getUser();
+
+		$this->assertCreatedBy( $oldUser, $title );  // Assert starting conditions
+
+		$mu = new MergeUser( $oldUser, $newUser, new UserMergeLogger() );
+		$mu->merge( $performer );
+
+		$this->assertCreatedBy( $newUser, $title );
+	}
+
+	/**
+		@brief Ensures that user being deleted by Extension:UserMerge updates 'createdpageslist' table.
+	*/
+	public function testDeletedUser() {
+		$this->skipIfNoUserMerge();
+
+		$performer = User::newFromName( '127.0.0.1', false );
+		$title = $this->getExistingTitle();
+
+		$oldUser = WikiPage::factory( $title )->getCreator();
+		$newUser = ( new TestUser( 'Some other user' ) )->getUser();
+
+		$this->assertCreatedBy( $oldUser, $title );  // Assert starting conditions
+
+		$mu = new MergeUser( $oldUser, $newUser, new UserMergeLogger() );
+		$mu->delete( $performer, 'wfMessage' );
+
+		$this->assertCreatedBy( null, $title );
+	}
+
+	public function skipIfNoUserMerge() {
+		if ( !class_exists( 'MergeUser' ) ) {
+			$this->markTestSkipped( 'Test skipped: UserMerge extension must be installed to run it.' );
+		}
 	}
 }

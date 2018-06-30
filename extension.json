@@ -37,6 +37,12 @@
 		],
 		"TitleMoveComplete": [
 			"CreatedPagesList::onTitleMoveComplete"
+		],
+		"UserMergeAccountFields": [
+			"CreatedPagesList::onUserMergeAccountFields"
+		],
+		"UserMergeAccountDeleteTables": [
+			"CreatedPagesList::onUserMergeAccountDeleteTables"
 		]
 	},
 	"manifest_version": 1
