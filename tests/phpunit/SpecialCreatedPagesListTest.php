@@ -24,15 +24,8 @@
 /**
 	@covers SpecialCreatedPagesList
 */
-class CreatedPagesListTest extends SpecialPageTestBase
+class SpecialCreatedPagesListTest extends SpecialPageTestBase
 {
-	protected $username = 'CreatedPagesList TestUser';
-	protected $titles = [
-		'Test page 1',
-		'Test page 2',
-		'Test page 3'
-	];
-
 	protected function newSpecialPage() {
 		return new SpecialCreatedPagesList();
 	}
@@ -43,26 +36,7 @@ class CreatedPagesListTest extends SpecialPageTestBase
 
 	protected function setUp() {
 		parent::setUp();
-		$this->tablesUsed = array_merge( $this->tablesUsed, [
-			'page', 'revision', 'text', 'user'
-		] );
-	}
-
-	public function addDBData() {
-		$user = User::createNew( $this->username );
-		foreach ( $this->titles as $title ) {
-			$page = WikiPage::factory( Title::newFromText( $title ) );
-			$status = $page->doEditContent(
-				new WikitextContent( 'UTContent' ),
-				'UTPageSummary',
-				EDIT_NEW,
-				false,
-				$user
-			);
-			if ( !$status->isOK() ) {
-				throw new MWException( 'Preparing the test: doEditContent() failed: ' . $status->getMessage() );
-			}
-		}
+		$this->tablesUsed[] = 'createdpageslist';
 	}
 
 	/**
@@ -109,27 +83,55 @@ class CreatedPagesListTest extends SpecialPageTestBase
 				[ "querystring", [ false ] ]
 	*/
 	public function testShowPages( $subpageHasUsername ) {
+		/* Populate 'createdpagelist' table */
+		$user = $this->getTestUser()->getUser();
+		$titles = [
+			'Test page 1',
+			'Test page 2',
+			'Test page 3'
+		];
+
+		$dbw = wfGetDB( DB_MASTER );
+		foreach ( $titles as $title ) {
+			$titleObj = Title::newFromText( $title );
+
+			$dbw->insert(
+				'createdpageslist',
+				[
+					'cpl_timestamp' => $dbw->timestamp(),
+					'cpl_user' => $user->getId(),
+					'cpl_user_text' => $user->getName(),
+					'cpl_namespace' => $titleObj->getNamespace(),
+					'cpl_title' => $titleObj->getDBKey()
+				],
+				__METHOD__,
+				[ 'IGNORE' ]
+			);
+		}
+
+		/* Now test the contents of Special:CreatedPagesList */
+
 		$html = $subpageHasUsername ?
-			$this->runSpecial( $this->username ) :
-			$this->runSpecial( '', [ 'username' => $this->username ] );
+			$this->runSpecial( $user->getName() ) :
+			$this->runSpecial( '', [ 'username' => $user->getName() ] );
 
 		$dom = new DomDocument;
 		$dom->loadHTML( $html );
 
 		$this->assertNotContains( '(createdpageslist-notfound)', $dom->textContent );
 
-		$foundTitles = []; /* [ Page1 => /wiki/Page1, ... ] */
+		$foundTitles = []; /* [ 'Title1' => 'HTML of link1', ... ] */
 		$xpath = new DomXpath( $dom );
 		foreach ( $xpath->query( '//li/a' ) as $link ) {
-			$foundTitles[$link->textContent] = $link->getAttribute( 'href' );
+			$foundTitles[$link->textContent] = $link->ownerDocument->saveXML( $link );
 		}
 
-		foreach ( $this->titles as $expectedTitle ) {
+		foreach ( $titles as $expectedTitle ) {
 			$this->assertArrayHasKey( $expectedTitle, $foundTitles,
 				"Special:CreatedPagesList: expected page [$expectedTitle] wasn't listed" );
 
-			$expectedUrl = Title::newFromText( $expectedTitle )->getLocalURL();
-			$this->assertEquals( $expectedUrl, $foundTitles[$expectedTitle] );
+			$expectedHtml = Linker::link( Title::newFromText( $expectedTitle ) );
+			$this->assertEquals( $expectedHtml, $foundTitles[$expectedTitle] );
 		}
 	}
 
