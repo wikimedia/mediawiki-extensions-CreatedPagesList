@@ -36,8 +36,15 @@ class CreatedPagesListTest extends MediaWikiTestCase
 		$this->tablesUsed[] = 'createdpageslist';
 	}
 
+	/** @brief Returns User object of test user. */
 	public function getUser() {
 		return User::newFromName( 'UTSysop' );
+	}
+
+	/** @brief Returns Title object of existing test page. */
+	public function getExistingTitle() {
+		// Always created in MediaWikiTestCase::addCoreDBData()
+		return Title::newFromText( 'UTPage' );
 	}
 
 	/**
@@ -67,7 +74,7 @@ class CreatedPagesListTest extends MediaWikiTestCase
 		$title = Title::newFromText( 'Non-existent page' );
 		$user = $this->getUser();
 
-		$this->assertCreatedBy( null, $title );
+		$this->assertCreatedBy( null, $title ); // Assert starting conditions
 
 		$page = WikiPage::factory( $title );
 		$status = $page->doEditContent(
@@ -88,11 +95,11 @@ class CreatedPagesListTest extends MediaWikiTestCase
 		@brief Ensures that deleted page is deleted from 'createdpageslist' table.
 	*/
 	public function testDeletedPage() {
-		$title = Title::newFromText( 'UTPage' ); // Always created in MediaWikiTestCase::addCoreDBData()
+		$title = $this->getExistingTitle();
 		$page = WikiPage::factory( $title );
 
 		$user = $page->getCreator();
-		$this->assertCreatedBy( $user, $title );
+		$this->assertCreatedBy( $user, $title ); // Assert starting conditions
 
 		$page->doDeleteArticle( 'for some reason' );
 
@@ -103,16 +110,33 @@ class CreatedPagesListTest extends MediaWikiTestCase
 		@brief Ensures that moved page remains in 'createdpageslist' table.
 	*/
 	public function testMovedPage() {
-		$ot = Title::newFromText( 'UTPage' ); // Always created im MediaWikiTestCase::addCoreDBData()
+		$ot = $this->getExistingTitle();
 		$nt = Title::newFromText( 'New page title' );
 		$user = WikiPage::factory( $ot )->getCreator();
 
-		$this->assertCreatedBy( $user, $ot );
+		$this->assertCreatedBy( $user, $ot );  // Assert starting conditions
 
 		$mp = new MovePage( $ot, $nt );
 		$mp->move( $this->getUser(), 'for some reason', true );
 
 		$this->assertCreatedBy( $user, $nt );
 		$this->assertCreatedBy( null, $ot );
+	}
+
+	/**
+		@brief Ensures that undeleted page is restored in 'createdpageslist' table.
+	*/
+	public function testUndeletedPage() {
+		$title = $this->getExistingTitle();
+		$page = WikiPage::factory( $title );
+		$user = $page->getCreator();
+
+		$page->doDeleteArticle( 'for some reason' );
+		$this->assertCreatedBy( null, $title ); // Assert starting conditions
+
+		$archive = new PageArchive( $title );
+		$archive->undelete( [] );
+
+		$this->assertCreatedBy( $user, $title );
 	}
 }
