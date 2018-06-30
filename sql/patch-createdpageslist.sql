@@ -26,7 +26,7 @@ CREATE TABLE /*_*/createdpageslist (
 
 ) /*$wgDBTableOptions*/;
 
-CREATE UNIQUE INDEX /*i*/createdpageslist_user_page ON /*_*/createdpageslist (cpl_user_text, cpl_namespace, cpl_title);
+CREATE UNIQUE INDEX /*i*/createdpageslist_page ON /*_*/createdpageslist (cpl_namespace, cpl_title);
 
 -- Index used by Special:CreatedPageList
 CREATE INDEX /*i*/createdpageslist_user_timestamp ON /*_*/createdpageslist (cpl_user_text, cpl_timestamp);

@@ -150,8 +150,9 @@ class CreatedPagesList {
 		}
 
 		$dbw = wfGetDB( DB_MASTER );
-		$dbw->insert(
+		$dbw->replace(
 			'createdpageslist',
+			[ 'cpl_namespace', 'cpl_title' ],
 			[
 				'cpl_timestamp' => $dbw->timestamp( $timestamp ),
 				'cpl_user' => $user->getId(),
@@ -159,8 +160,7 @@ class CreatedPagesList {
 				'cpl_namespace' => $title->getNamespace(),
 				'cpl_title' => $title->getDBKey()
 			],
-			__METHOD__,
-			[ 'IGNORE' ]
+			__METHOD__
 		);
 	}
 }
