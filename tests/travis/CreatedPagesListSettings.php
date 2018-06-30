@@ -20,4 +20,7 @@
 	@brief Additional LocalSettings.php for Travis testing of Extension:CreatedPagesList.
 */
 
-wfLoadExtension( 'CreatedPagesList' );
+wfLoadExtensions( [
+	'CreatedPagesList',
+	'UserMerge'
+] );

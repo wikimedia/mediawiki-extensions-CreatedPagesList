@@ -15,6 +15,12 @@ if [ ! -f buildcache/mediawiki/COMPLETE ]; then
 		rm -rf mediawiki
 		git clone $GITCLONE_OPTS https://gerrit.wikimedia.org/r/p/mediawiki/core.git mediawiki
 
+		for EXT in UserMerge; do
+			git clone $GITCLONE_OPTS \
+				https://gerrit.wikimedia.org/r/p/mediawiki/extensions/$EXT.git \
+				mediawiki/extensions/$EXT
+		done
+
 		cd mediawiki
 		[[ -f includes/DevelopmentSettings.php ]] || \
 			wget https://raw.githubusercontent.com/wikimedia/mediawiki/master/includes/DevelopmentSettings.php \
