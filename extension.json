@@ -26,8 +26,8 @@
 		"ArticleDeleteComplete": [
 			"CreatedPagesList::onArticleDeleteComplete"
 		],
-		"ArticleRevisionUndeleted": [
-			"CreatedPagesList::onArticleRevisionUndeleted"
+		"ArticleUndelete": [
+			"CreatedPagesList::onArticleUndelete"
 		],
 		"LoadExtensionSchemaUpdates": [
 			"CreatedPagesListUpdater::onLoadExtensionSchemaUpdates"

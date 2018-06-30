@@ -56,17 +56,15 @@ class CreatedPagesList {
 	/**
 		@brief Add newly undeleted article into the 'createdpageslist' SQL table.
 	*/
-	public static function onArticleRevisionUndeleted( $title, $revision, $oldPageID ) {
-		if ( $revision->getParentId() != 0 ) {
-			return; /* Not the first revision of a page */
-		}
-
-		DeferredUpdates::addCallableUpdate( function() use ( $title, $revision ) {
-			self::add(
-				User::newFromName( $revision->getUserText(), false ),
-				$title,
-				$revision->getTimestamp()
+	public static function onArticleUndelete( $title, $created, $comment, $oldPageId, $restoredPages ) {
+		DeferredUpdates::addCallableUpdate( function() use ( $title ) {
+			$rev = $title->getFirstRevision();
+			$user = User::newFromName(
+				$rev->getUserText( Revision::RAW ),
+				false
 			);
+
+			self::add( $user, $title, $rev->getTimestamp() );
 		} );
 	}
 
