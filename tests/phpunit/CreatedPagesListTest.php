@@ -36,6 +36,10 @@ class CreatedPagesListTest extends MediaWikiTestCase
 		$this->tablesUsed[] = 'createdpageslist';
 	}
 
+	public function getUser() {
+		return User::newFromName( 'UTSysop' );
+	}
+
 	/**
 		@brief Asserts that $expectedAuthor is recorded as creator of $title.
 		@param $expectedAuthor User object or null (null means "assert that $title is not in the database").
@@ -61,7 +65,7 @@ class CreatedPagesListTest extends MediaWikiTestCase
 	*/
 	public function testNewPage() {
 		$title = Title::newFromText( 'Non-existent page' );
-		$user = $this->getTestUser()->getUser();
+		$user = $this->getUser();
 
 		$this->assertCreatedBy( null, $title );
 
@@ -84,12 +88,12 @@ class CreatedPagesListTest extends MediaWikiTestCase
 		@brief Ensures that deleted page is deleted from 'createdpageslist' table.
 	*/
 	public function testDeletedPage() {
-		$title = Title::newFromText( 'UTPage' ); // Always created im MediaWikiTestCase::addCoreDBData()
-		$user = $this->getTestSysop()->getUser(); // User who created $title in MediaWikiTestCase::addCoreDBData()
+		$title = Title::newFromText( 'UTPage' ); // Always created in MediaWikiTestCase::addCoreDBData()
+		$page = WikiPage::factory( $title );
 
+		$user = $page->getCreator();
 		$this->assertCreatedBy( $user, $title );
 
-		$page = WikiPage::factory( $title );
 		$page->doDeleteArticle( 'for some reason' );
 
 		$this->assertCreatedBy( null, $title );
@@ -101,12 +105,12 @@ class CreatedPagesListTest extends MediaWikiTestCase
 	public function testMovedPage() {
 		$ot = Title::newFromText( 'UTPage' ); // Always created im MediaWikiTestCase::addCoreDBData()
 		$nt = Title::newFromText( 'New page title' );
-		$user = $this->getTestSysop()->getUser(); // User who created $ot in MediaWikiTestCase::addCoreDBData()
+		$user = WikiPage::factory( $ot )->getCreator();
 
 		$this->assertCreatedBy( $user, $ot );
 
 		$mp = new MovePage( $ot, $nt );
-		$mp->move( $this->getTestUser()->getUser(), 'for some reason', true );
+		$mp->move( $this->getUser(), 'for some reason', true );
 
 		$this->assertCreatedBy( $user, $nt );
 		$this->assertCreatedBy( null, $ot );
