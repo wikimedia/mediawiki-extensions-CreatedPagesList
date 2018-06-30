@@ -48,4 +48,4 @@ before_script:
   - php maintenance/update.php --quick
 
 script:
-  - php tests/phpunit/phpunit.php extensions/CreatedPagesList/tests/phpunit/
+  - php tests/phpunit/phpunit.php --use-normal-tables extensions/CreatedPagesList/tests/phpunit/
