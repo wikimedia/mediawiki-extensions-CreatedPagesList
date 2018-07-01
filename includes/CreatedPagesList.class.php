@@ -47,7 +47,10 @@ class CreatedPagesList {
 			],
 			[
 				'page_is_redirect' => 0,
-				'page_namespace' => MWNamespace::getContentNamespaces()
+				'page_namespace' => MWNamespace::getContentNamespaces(),
+
+				// insertSelect() in MediaWiki 1.27 doesn't have $joinConds parameter
+				'rev_page=page_id'
 			],
 			__METHOD__,
 			[],
@@ -57,11 +60,6 @@ class CreatedPagesList {
 					'page' => 'page_redirect_namespace_len',
 					'revision' => 'rev_page_id'
 				]
-			],
-			[
-				'revision' => [ 'INNER JOIN', [
-					'rev_page=page_id'
-				] ]
 			]
 		);
 		$dbw->endAtomic( __METHOD__ );
