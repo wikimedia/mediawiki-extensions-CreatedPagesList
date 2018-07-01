@@ -19,30 +19,31 @@
 	},
 	"AutoloadClasses": {
 		"CreatedPagesList": "includes/CreatedPagesList.class.php",
+		"CreatedPagesListHooks": "includes/CreatedPagesListHooks.php",
 		"CreatedPagesListUpdater": "includes/CreatedPagesListUpdater.php",
 		"SpecialCreatedPagesList": "includes/SpecialCreatedPagesList.php"
 	},
 	"Hooks": {
 		"ArticleDeleteComplete": [
-			"CreatedPagesList::onArticleDeleteComplete"
+			"CreatedPagesListHooks::onArticleDeleteComplete"
 		],
 		"ArticleUndelete": [
-			"CreatedPagesList::onArticleUndelete"
+			"CreatedPagesListHooks::onArticleUndelete"
 		],
 		"LoadExtensionSchemaUpdates": [
 			"CreatedPagesListUpdater::onLoadExtensionSchemaUpdates"
 		],
 		"PageContentInsertComplete": [
-			"CreatedPagesList::onPageContentInsertComplete"
+			"CreatedPagesListHooks::onPageContentInsertComplete"
 		],
 		"TitleMoveComplete": [
-			"CreatedPagesList::onTitleMoveComplete"
+			"CreatedPagesListHooks::onTitleMoveComplete"
 		],
 		"UserMergeAccountFields": [
-			"CreatedPagesList::onUserMergeAccountFields"
+			"CreatedPagesListHooks::onUserMergeAccountFields"
 		],
 		"UserMergeAccountDeleteTables": [
-			"CreatedPagesList::onUserMergeAccountDeleteTables"
+			"CreatedPagesListHooks::onUserMergeAccountDeleteTables"
 		]
 	},
 	"manifest_version": 1

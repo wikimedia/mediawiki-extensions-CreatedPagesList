@@ -17,97 +17,10 @@
 
 /**
 	@file
-	@brief Keeps 'createdpageslist' SQL table up to date.
+	@brief Methods to keep 'createdpageslist' SQL table up to date.
 */
 
 class CreatedPagesList {
-
-	/**
-		@brief Add newly created article into the 'createdpageslist' SQL table.
-	*/
-	public static function onPageContentInsertComplete( $wikiPage, User $user, $content,
-		$summary, $isMinor, $isWatch, $section, $flags, Revision $revision
-	) {
-		self::add(
-			$user,
-			$wikiPage->getTitle(),
-			$revision->getTimestamp(),
-			$wikiPage->isRedirect()
-		);
-	}
-
-	/**
-		@brief Remove deleted article from the 'createdpageslist' SQL table.
-	*/
-	public static function onArticleDeleteComplete( &$article, User &$user, $reason, $id, $content, LogEntry $logEntry ) {
-		$title = $article->getTitle();
-
-		$dbw = wfGetDB( DB_MASTER );
-		$dbw->delete(
-			'createdpageslist',
-			[
-				'cpl_namespace' => $title->getNamespace(),
-				'cpl_title' => $title->getDBKey()
-			],
-			__METHOD__
-		);
-	}
-
-	/**
-		@brief Add newly undeleted article into the 'createdpageslist' SQL table.
-	*/
-	public static function onArticleUndelete( $title, $created, $comment, $oldPageId, $restoredPages = [] ) {
-		DeferredUpdates::addCallableUpdate( function() use ( $title ) {
-			$rev = $title->getFirstRevision();
-			$user = User::newFromName(
-				$rev->getUserText( Revision::RAW ),
-				false
-			);
-
-			self::add( $user, $title, $rev->getTimestamp() );
-		} );
-	}
-
-	/**
-		@brief Rename the moved article in 'createdpageslist' SQL table.
-	*/
-	public static function onTitleMoveComplete( Title &$title, Title &$newTitle, User $user, $oldid, $newid, $reason, Revision $revision ) {
-		$dbw = wfGetDB( DB_MASTER );
-		$dbw->update(
-			'createdpageslist',
-			[
-				'cpl_namespace' => $newTitle->getNamespace(),
-				'cpl_title' => $newTitle->getDBKey()
-			],
-			[
-				'cpl_namespace' => $title->getNamespace(),
-				'cpl_title' => $title->getDBKey()
-			],
-			__METHOD__,
-			[ 'IGNORE' ]
-		);
-	}
-
-	/**
-		@brief Extra DB fields to rename when user is renamed via Extension:UserMerge.
-	*/
-	public static function onUserMergeAccountFields( &$updateFields )
-	{
-		$updateFields[] = [
-			'createdpageslist',
-			'cpl_user',
-			'cpl_user_text',
-			'batchKey' => 'cpl_id',
-			'options' => [ 'IGNORE' ]
-		];
-		return true;
-	}
-
-	/** @brief Delete extra DB rows when account is deleted. */
-	public static function onUserMergeAccountDeleteTables( &$tablesToDelete ) {
-		$tablesToDelete['createdpageslist'] = 'cpl_user';
-		return true;
-	}
 
 	/**
 		@brief Update createdpageslist table.
@@ -159,7 +72,7 @@ class CreatedPagesList {
 		@param $timestamp String (MediaWiki timestamp).
 		@param $isRedirect True/false if known, null to get form $title.
 	*/
-	protected static function add( User $user, Title $title, $timestamp, $isRedirect = null ) {
+	public static function add( User $user, Title $title, $timestamp, $isRedirect = null ) {
 		if ( !MWNamespace::isContent( $title->getNamespace() ) ) {
 			return; /* We only need articles, not templates, etc. */
 		}
@@ -180,6 +93,41 @@ class CreatedPagesList {
 				'cpl_title' => $title->getDBKey()
 			],
 			__METHOD__
+		);
+	}
+
+	/**
+		@brief Delete page $title from the CreatedPagesList.
+	*/
+	public static function delete( Title $title ) {
+		$dbw = wfGetDB( DB_MASTER );
+		$dbw->delete(
+			'createdpageslist',
+			[
+				'cpl_namespace' => $title->getNamespace(),
+				'cpl_title' => $title->getDBKey()
+			],
+			__METHOD__
+		);
+	}
+
+	/**
+		@brief Rename page $title in the CreatedPagesList.
+	*/
+	public static function move( Title $title, Title $newTitle ) {
+		$dbw = wfGetDB( DB_MASTER );
+		$dbw->update(
+			'createdpageslist',
+			[
+				'cpl_namespace' => $newTitle->getNamespace(),
+				'cpl_title' => $newTitle->getDBKey()
+			],
+			[
+				'cpl_namespace' => $title->getNamespace(),
+				'cpl_title' => $title->getDBKey()
+			],
+			__METHOD__,
+			[ 'IGNORE' ]
 		);
 	}
 }
