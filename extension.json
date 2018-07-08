@@ -18,7 +18,7 @@
 		]
 	},
 	"AutoloadClasses": {
-		"CreatedPagesList": "includes/CreatedPagesList.class.php",
+		"CreatedPagesList": "includes/CreatedPagesList.php",
 		"CreatedPagesListHooks": "includes/CreatedPagesListHooks.php",
 		"CreatedPagesListUpdater": "includes/CreatedPagesListUpdater.php",
 		"SpecialCreatedPagesList": "includes/SpecialCreatedPagesList.php"
