@@ -20,8 +20,7 @@
 	@brief Parent class for tests that check 'createdpageslist' SQL table.
 */
 
-class CreatedPagesListTestBase extends MediaWikiTestCase
-{
+class CreatedPagesListTestBase extends MediaWikiTestCase {
 	public function needsDB() {
 		return true;
 	}
@@ -48,9 +47,10 @@ class CreatedPagesListTestBase extends MediaWikiTestCase
 	}
 
 	/**
-		@brief Asserts that $expectedAuthor is recorded as creator of $title.
-		@param $expectedAuthor User object or null (null means "assert that $title is not in the database").
-	*/
+	 * @brief Asserts that $expectedAuthor is recorded as creator of $title.
+	 * @param User|null $expectedAuthor
+	 * @param Title $title
+	 */
 	protected function assertCreatedBy( User $expectedAuthor = null, Title $title ) {
 		$this->assertSelect( 'createdpageslist',
 			[ 'cpl_user', 'cpl_user_text' ],
@@ -67,9 +67,7 @@ class CreatedPagesListTestBase extends MediaWikiTestCase
 		);
 	}
 
-	/**
-		@brief Same as assertCreatedBy(), but expects User/Title as strings.
-	*/
+	/** @brief Same as assertCreatedBy(), but expects User/Title as strings. */
 	protected function assertCreatedByText( $username = '', $pageName ) {
 		$this->assertCreatedBy(
 			$username ? User::newFromName( $username, false ) : null,

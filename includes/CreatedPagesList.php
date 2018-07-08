@@ -23,9 +23,9 @@
 class CreatedPagesList {
 
 	/**
-		@brief Update createdpageslist table.
-		This is called from update.php.
-	*/
+	 * @brief Update createdpageslist table.
+	 * This is called from update.php.
+	 */
 	public static function recalculateSqlTable() {
 		$dbw = wfGetDB( DB_MASTER );
 
@@ -66,10 +66,12 @@ class CreatedPagesList {
 	}
 
 	/**
-		@brief Add page $title into the CreatedPagesList of $user.
-		@param $timestamp String (MediaWiki timestamp).
-		@param $isRedirect True/false if known, null to get form $title.
-	*/
+	 * @brief Add page $title into the CreatedPagesList of $user.
+	 * @param User $user
+	 * @param Title $title
+	 * @param string $timestamp MediaWiki timestamp.
+	 * @param bool|null $isRedirect True/false if known, null to get from $title.
+	 */
 	public static function add( User $user, Title $title, $timestamp, $isRedirect = null ) {
 		if ( !MWNamespace::isContent( $title->getNamespace() ) ) {
 			return; /* We only need articles, not templates, etc. */
@@ -94,9 +96,7 @@ class CreatedPagesList {
 		);
 	}
 
-	/**
-		@brief Delete page $title from the CreatedPagesList.
-	*/
+	/** @brief Delete page $title from the CreatedPagesList. */
 	public static function delete( Title $title ) {
 		$dbw = wfGetDB( DB_MASTER );
 		$dbw->delete(
@@ -109,9 +109,7 @@ class CreatedPagesList {
 		);
 	}
 
-	/**
-		@brief Rename page $title in the CreatedPagesList.
-	*/
+	/** @brief Rename page $title in the CreatedPagesList. */
 	public static function move( Title $title, Title $newTitle ) {
 		$dbw = wfGetDB( DB_MASTER );
 		$dbw->update(

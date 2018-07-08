@@ -22,9 +22,7 @@
 
 class CreatedPagesListHooks {
 
-	/**
-		@brief Add newly created article into the 'createdpageslist' SQL table.
-	*/
+	/** @brief Add newly created article into the 'createdpageslist' SQL table. */
 	public static function onPageContentInsertComplete( $wikiPage, User $user, $content,
 		$summary, $isMinor, $isWatch, $section, $flags, Revision $revision
 	) {
@@ -36,18 +34,18 @@ class CreatedPagesListHooks {
 		);
 	}
 
-	/**
-		@brief Remove deleted article from the 'createdpageslist' SQL table.
-	*/
-	public static function onArticleDeleteComplete( &$article, User &$user, $reason, $id, $content, LogEntry $logEntry ) {
+	/** @brief Remove deleted article from the 'createdpageslist' SQL table. */
+	public static function onArticleDeleteComplete(
+		&$article, User &$user, $reason, $id, $content, LogEntry $logEntry
+	) {
 		CreatedPagesList::delete( $article->getTitle() );
 	}
 
-	/**
-		@brief Add newly undeleted article into the 'createdpageslist' SQL table.
-	*/
-	public static function onArticleUndelete( $title, $created, $comment, $oldPageId, $restoredPages = [] ) {
-		DeferredUpdates::addCallableUpdate( function() use ( $title ) {
+	/** @brief Add newly undeleted article into the 'createdpageslist' SQL table. */
+	public static function onArticleUndelete(
+		$title, $created, $comment, $oldPageId, $restoredPages = []
+	) {
+		DeferredUpdates::addCallableUpdate( function () use ( $title ) {
 			$rev = $title->getFirstRevision();
 			$user = User::newFromName(
 				$rev->getUserText( Revision::RAW ),
@@ -58,18 +56,16 @@ class CreatedPagesListHooks {
 		} );
 	}
 
-	/**
-		@brief Rename the moved article in 'createdpageslist' SQL table.
-	*/
-	public static function onTitleMoveComplete( Title &$title, Title &$newTitle, User $user, $oldid, $newid, $reason, Revision $revision ) {
+	/** @brief Rename the moved article in 'createdpageslist' SQL table. */
+	public static function onTitleMoveComplete(
+		Title &$title, Title &$newTitle, User $user,
+		$oldid, $newid, $reason, Revision $revision
+	) {
 		CreatedPagesList::move( $title, $newTitle );
 	}
 
-	/**
-		@brief Extra DB fields to rename when user is renamed via Extension:UserMerge.
-	*/
-	public static function onUserMergeAccountFields( &$updateFields )
-	{
+	/** @brief Extra DB fields to rename when user is renamed via Extension:UserMerge. */
+	public static function onUserMergeAccountFields( &$updateFields ) {
 		$updateFields[] = [
 			'createdpageslist',
 			'cpl_user',

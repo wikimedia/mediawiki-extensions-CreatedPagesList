@@ -18,16 +18,15 @@
 /**
 	@file
 	@brief Tests of the hooks that update 'createdpageslist' SQL table.
-	@group Database
 */
 
 require_once __DIR__ . '/CreatedPagesListTestBase.php';
 
 /**
+	@group Database
 	@covers CreatedPagesListHooks
 */
-class CreatedPagesListHooksTest extends CreatedPagesListTestBase
-{
+class CreatedPagesListHooksTest extends CreatedPagesListTestBase {
 	/**
 		@brief Ensures that newly created page appears in 'createdpageslist' table.
 		@covers CreatedPagesListHooks::onPageContentInsertComplete
