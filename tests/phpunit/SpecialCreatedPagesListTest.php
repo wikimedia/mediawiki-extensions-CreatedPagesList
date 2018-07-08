@@ -18,11 +18,11 @@
 /**
 	@file
 	@brief Checks [[Special:CreatedPagesList]] special page.
-	@group Database
 */
 
 /**
 	@covers SpecialCreatedPagesList
+	@group Database
 */
 class SpecialCreatedPagesListTest extends SpecialPageTestBase {
 	protected function newSpecialPage() {
@@ -78,8 +78,7 @@ class SpecialCreatedPagesListTest extends SpecialPageTestBase {
 
 	/**
 		@brief Checks how Special:CreatedPagesList prints the list of pages.
-		@testWith	[ "subpage", [ true ] ]
-				[ "querystring", [ false ] ]
+		@dataProvider dataProviderShowPages
 	*/
 	public function testShowPages( $subpageHasUsername ) {
 		/* Populate 'createdpagelist' table */
@@ -132,6 +131,16 @@ class SpecialCreatedPagesListTest extends SpecialPageTestBase {
 			$expectedHtml = Linker::link( Title::newFromText( $expectedTitle ) );
 			$this->assertEquals( $expectedHtml, $foundTitles[$expectedTitle] );
 		}
+	}
+
+	/**
+	 * @brief Provide datasets for testShowPages() runs.
+	 */
+	public function dataProviderShowPages() {
+		return [
+			'subpage' => [ true ]
+			'querystring' => [ false ]
+		];
 	}
 
 	/**

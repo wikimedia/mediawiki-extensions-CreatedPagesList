@@ -18,11 +18,13 @@
 /**
 	@file
 	@brief Checks situation when user is renamed/deleted by Extension:UserMerge.
-	@group Database
 */
 
 require_once __DIR__ . '/CreatedPagesListTestBase.php';
 
+/**
+ * @group Database
+ */
 class CreatedPagesListUserMergeTest extends CreatedPagesListTestBase {
 	public static function setUpBeforeClass() {
 		if ( !class_exists( 'MergeUser' ) ) {

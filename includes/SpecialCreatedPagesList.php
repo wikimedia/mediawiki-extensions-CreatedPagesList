@@ -22,7 +22,8 @@
 
 class SpecialCreatedPagesList extends PageQueryPage {
 
-	protected $user = null; /**< User object (user who created pages that we need to list). */
+	/** @var User Author of the pages we need to list */
+	protected $user = null;
 
 	function __construct( $name = 'CreatedPagesList' ) {
 		parent::__construct( $name );

@@ -18,11 +18,13 @@
 /**
 	@file
 	@brief Tests of recalculation of 'createdpageslist' SQL table.
-	@group Database
 */
 
 require_once __DIR__ . '/CreatedPagesListTestBase.php';
 
+/**
+ * @group Database
+ */
 class CreatedPagesListRecalculateTest extends CreatedPagesListTestBase {
 	/**
 		@brief Ensures that 'createdpageslist' table is correctly populated.
