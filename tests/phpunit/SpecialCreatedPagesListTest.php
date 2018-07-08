@@ -138,7 +138,7 @@ class SpecialCreatedPagesListTest extends SpecialPageTestBase {
 	 */
 	public function dataProviderShowPages() {
 		return [
-			'subpage' => [ true ]
+			'subpage' => [ true ],
 			'querystring' => [ false ]
 		];
 	}
