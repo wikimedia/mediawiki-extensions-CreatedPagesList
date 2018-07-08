@@ -22,7 +22,7 @@
 
 class CreatedPagesListUpdater {
 	public static function onLoadExtensionSchemaUpdates( DatabaseUpdater $updater ) {
-		$base = dirname( __FILE__ );
+		$base = __DIR__;
 		$updater->addExtensionTable( 'createdpageslist', "$base/../sql/patch-createdpageslist.sql" );
 		$updater->addExtensionUpdate( [ [ __CLASS__, 'populateSqlTable' ] ] );
 

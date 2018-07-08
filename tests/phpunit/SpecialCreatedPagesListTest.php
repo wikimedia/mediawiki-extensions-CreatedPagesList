@@ -24,8 +24,7 @@
 /**
 	@covers SpecialCreatedPagesList
 */
-class SpecialCreatedPagesListTest extends SpecialPageTestBase
-{
+class SpecialCreatedPagesListTest extends SpecialPageTestBase {
 	protected function newSpecialPage() {
 		return new SpecialCreatedPagesList();
 	}

@@ -20,8 +20,7 @@
 	@brief Parent class for tests that check 'createdpageslist' SQL table.
 */
 
-class CreatedPagesListTestBase extends MediaWikiTestCase
-{
+class CreatedPagesListTestBase extends MediaWikiTestCase {
 	public function needsDB() {
 		return true;
 	}

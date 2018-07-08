@@ -23,8 +23,7 @@
 
 require_once __DIR__ . '/CreatedPagesListTestBase.php';
 
-class CreatedPagesListRecalculateTest extends CreatedPagesListTestBase
-{
+class CreatedPagesListRecalculateTest extends CreatedPagesListTestBase {
 	/**
 		@brief Ensures that 'createdpageslist' table is correctly populated.
 		@covers CreatedPagesList::recalculateSqlTable

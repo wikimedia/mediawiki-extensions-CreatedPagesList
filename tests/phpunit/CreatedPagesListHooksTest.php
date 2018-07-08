@@ -26,8 +26,7 @@ require_once __DIR__ . '/CreatedPagesListTestBase.php';
 /**
 	@covers CreatedPagesListHooks
 */
-class CreatedPagesListHooksTest extends CreatedPagesListTestBase
-{
+class CreatedPagesListHooksTest extends CreatedPagesListTestBase {
 	/**
 		@brief Ensures that newly created page appears in 'createdpageslist' table.
 		@covers CreatedPagesListHooks::onPageContentInsertComplete

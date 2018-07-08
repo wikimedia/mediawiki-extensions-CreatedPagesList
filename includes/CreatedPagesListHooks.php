@@ -47,7 +47,7 @@ class CreatedPagesListHooks {
 		@brief Add newly undeleted article into the 'createdpageslist' SQL table.
 	*/
 	public static function onArticleUndelete( $title, $created, $comment, $oldPageId, $restoredPages = [] ) {
-		DeferredUpdates::addCallableUpdate( function() use ( $title ) {
+		DeferredUpdates::addCallableUpdate( function () use ( $title ) {
 			$rev = $title->getFirstRevision();
 			$user = User::newFromName(
 				$rev->getUserText( Revision::RAW ),
@@ -68,8 +68,7 @@ class CreatedPagesListHooks {
 	/**
 		@brief Extra DB fields to rename when user is renamed via Extension:UserMerge.
 	*/
-	public static function onUserMergeAccountFields( &$updateFields )
-	{
+	public static function onUserMergeAccountFields( &$updateFields ) {
 		$updateFields[] = [
 			'createdpageslist',
 			'cpl_user',
