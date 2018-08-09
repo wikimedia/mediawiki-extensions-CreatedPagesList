@@ -1,0 +1,13 @@
+{
+	"@metadata": {
+		"authors": [
+			"Bjankuloski06"
+		]
+	},
+	"createdpageslist": "Список на создадени страници",
+	"createdpageslist-desc": "Додава службена страница „[[Special:CreatedPagesList|Список на создадени страници]]“, каде се наведени сите статии создадени од избраниот корисник",
+	"createdpageslist-notfound": "Корисникот не е пронајден",
+	"createdpageslist-username": "Корисник",
+	"createdpageslist-submit": "Најди",
+	"createdpageslist-summary": "Оваа службена страница ги наведува сите статии (т.е. страници во содржински именски простори) создадени од даден корисник."
+}

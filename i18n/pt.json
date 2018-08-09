@@ -1,0 +1,13 @@
+{
+	"@metadata": {
+		"authors": [
+			"Hamilton Abreu"
+		]
+	},
+	"createdpageslist": "Lista de páginas criadas",
+	"createdpageslist-desc": "Acrescenta a página [[Special:CreatedPagesList]], que lista todos os artigos criados pelo autor selecionado",
+	"createdpageslist-notfound": "O utilizador foi não encontrado.",
+	"createdpageslist-username": "Utilizador",
+	"createdpageslist-submit": "Procurar",
+	"createdpageslist-summary": "Esta página especial lista todos os artigos (isto é, as páginas do espaço nominal/domínio de conteúdo) criados por um utilizador específico."
+}

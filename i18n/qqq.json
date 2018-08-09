@@ -1,5 +1,5 @@
 {
-	"@metadata": {},
+	"@metadata": [],
 	"createdpageslist": "{{name}}",
 	"createdpageslist-desc": "{{desc|name=CreatedPagesList|url=https://www.mediawiki.org/wiki/Extension:CreatedPagesList}}",
 	"createdpageslist-notfound": "Used as error message",

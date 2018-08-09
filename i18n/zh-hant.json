@@ -1,0 +1,13 @@
+{
+	"@metadata": {
+		"authors": [
+			"Kly"
+		]
+	},
+	"createdpageslist": "建立頁面清單",
+	"createdpageslist-desc": "添加 [[Special:CreatedPagesList]] 頁面，這可列出指名作者所創建過的所有條目",
+	"createdpageslist-notfound": "找不到使用者。",
+	"createdpageslist-username": "使用者",
+	"createdpageslist-submit": "搜尋",
+	"createdpageslist-summary": "此特殊頁面可列出指定使用者所創建過的所有條目（註：在內容命名空間裡的頁面）。"
+}

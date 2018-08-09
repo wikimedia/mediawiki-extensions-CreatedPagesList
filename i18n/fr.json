@@ -1,0 +1,13 @@
+{
+	"@metadata": {
+		"authors": [
+			"Gomoko"
+		]
+	},
+	"createdpageslist": "Liste de pages créée",
+	"createdpageslist-desc": "Ajoute la page [[Special:CreatedPagesList]], qui liste tous les articles créés par l’auteur sélectionné",
+	"createdpageslist-notfound": "Utilisateur non trouvé.",
+	"createdpageslist-username": "Utilisateur",
+	"createdpageslist-submit": "Trouver",
+	"createdpageslist-summary": "Cette page spéciale liste tous les articles (c.-à-d. les pages dans les espaces de nom de contenu) créés par l’utilisateur spécifique."
+}
