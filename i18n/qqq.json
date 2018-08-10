@@ -1,9 +1,13 @@
 {
-	"@metadata": [],
+	"@metadata": {
+		"authors": [
+			"Robby"
+		]
+	},
 	"createdpageslist": "{{name}}",
 	"createdpageslist-desc": "{{desc|name=CreatedPagesList|url=https://www.mediawiki.org/wiki/Extension:CreatedPagesList}}",
 	"createdpageslist-notfound": "Used as error message",
-	"createdpageslist-username": "Used as label message",
-	"createdpageslist-submit": "Used as button label",
+	"createdpageslist-username": "Used as label message\n{{Identical|User}}",
+	"createdpageslist-submit": "Used as button label\n{{Identical|Find}}",
 	"createdpageslist-summary": "Used as summary message on a special page"
 }

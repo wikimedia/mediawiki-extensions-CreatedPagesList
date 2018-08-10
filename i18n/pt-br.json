@@ -1,0 +1,13 @@
+{
+	"@metadata": {
+		"authors": [
+			"Eduardo Addad de Oliveira"
+		]
+	},
+	"createdpageslist": "Lista de páginas criadas",
+	"createdpageslist-desc": "Acrescenta a página [[Special:CreatedPagesList]], que lista todos os artigos criados pelo autor selecionado",
+	"createdpageslist-notfound": "O usuário não foi encontrado.",
+	"createdpageslist-username": "Usuário",
+	"createdpageslist-submit": "Procurar",
+	"createdpageslist-summary": "Esta página especial lista todos os artigos (isto é, as páginas do espaço nominal/domínio de conteúdo) criados por um usuário específico."
+}
