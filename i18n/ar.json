@@ -1,0 +1,13 @@
+{
+	"@metadata": {
+		"authors": [
+			"ديفيد"
+		]
+	},
+	"createdpageslist": "قائمة الصفحات المنشأة",
+	"createdpageslist-desc": "يضيف صفحة [[Special:CreatedPagesList]]، والتي تسرد جميع المقالات التي أنشأها المؤلف المختار",
+	"createdpageslist-notfound": "المستخدم ليس موجودا.",
+	"createdpageslist-username": "المستخدم",
+	"createdpageslist-submit": "ابحث",
+	"createdpageslist-summary": "تسرد هذه الصفحة الخاصة جميع المقالات (أي الصفحات في نطاقت المحتوى) المنشأة بواسطة مستخدم معين."
+}
