@@ -4,7 +4,9 @@
 			"Chrumps"
 		]
 	},
+	"createdpageslist-desc": "Dodaje stronę [[Special:CreatedPagesList]], zawierającą listę wszystkich artykułów utworzonych przez wybranego autora",
 	"createdpageslist-notfound": "Użytkownik nie został znaleziony.",
 	"createdpageslist-username": "Użytkownik",
-	"createdpageslist-submit": "Znajdź"
+	"createdpageslist-submit": "Znajdź",
+	"createdpageslist-summary": "Ta strona specjalna zawiera listę wszystkich artykułów (tj. stron w przestrzeni nazw treści) utworzonych przez określonego użytkownika."
 }
