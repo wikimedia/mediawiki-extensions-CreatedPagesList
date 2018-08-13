@@ -1,0 +1,13 @@
+{
+	"@metadata": {
+		"authors": [
+			"Joetaras"
+		]
+	},
+	"createdpageslist": "Elenghe de le pàggene ccrejate",
+	"createdpageslist-desc": "Aggiunge 'na pàgene [[Special:CreatedPagesList]], addò se elengane tutte le vôsce ccrejate da 'n'autore scacchiate",
+	"createdpageslist-notfound": "Utende none acchiate.",
+	"createdpageslist-username": "Utende",
+	"createdpageslist-submit": "Iacchie",
+	"createdpageslist-summary": "Sta pàgena speciale elenghe tutte le vôsce (i.e. le pàggene jndr'à le namespace de le condenute) ccrejate da 'n'utende specifiche."
+}
