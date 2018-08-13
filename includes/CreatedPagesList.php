@@ -32,36 +32,51 @@ class CreatedPagesList {
 		$dbw->startAtomic( __METHOD__ );
 		$dbw->delete( 'createdpageslist', '*', __METHOD__ );
 
-		$dbw->insertSelect(
-			'createdpageslist',
+		$res = $dbw->select(
 			[
 				'page',
 				'revision',
 			],
 			[
-				'cpl_namespace' => 'page_namespace',
-				'cpl_title' => 'page_title',
-				'cpl_timestamp' => 'MIN(rev_timestamp)', // First revision on the page
-				'cpl_user_text' => 'rev_user_text',
-				'cpl_user' => 'rev_user'
+				'page_namespace AS namespace',
+				'page_title AS title',
+				'MIN(rev_timestamp) AS timestamp', // First revision on the page
+				'rev_user_text AS user_text',
+				'rev_user AS user'
 			],
 			[
 				'page_is_redirect' => 0,
-				'page_namespace' => MWNamespace::getContentNamespaces(),
-
-				// insertSelect() in MediaWiki 1.27 doesn't have $joinConds parameter
-				'rev_page=page_id'
+				'page_namespace' => MWNamespace::getContentNamespaces()
 			],
 			__METHOD__,
-			[],
 			[
 				'GROUP BY' => 'rev_page',
 				'INDEX' => [
 					'page' => 'page_redirect_namespace_len',
 					'revision' => 'rev_page_id'
 				]
+			],
+			[
+				'revision' => [ 'INNER JOIN', [
+					'rev_page=page_id'
+				] ]
 			]
 		);
+
+		foreach ( $res as $row ) {
+			$dbw->insert(
+				'createdpageslist',
+				[
+					'cpl_namespace' => $row->namespace,
+					'cpl_title' => $row->title,
+					'cpl_timestamp' => $row->timestamp,
+					'cpl_user_text' => $row->user_text,
+					'cpl_user' => $row->user
+				],
+				__METHOD__
+			);
+		}
+
 		$dbw->endAtomic( __METHOD__ );
 	}
 
