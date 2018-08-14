@@ -1,0 +1,13 @@
+{
+	"@metadata": {
+		"authors": [
+			"Hedda"
+		]
+	},
+	"createdpageslist": "Oluşturulan sayfalar listesi",
+	"createdpageslist-desc": "Seçilen yazarın oluşturduğu tüm maddeleri listeleyen [[Special:CreatedPagesList|OluşturulanSayfalarListesi]] sayfasını ekler",
+	"createdpageslist-notfound": "Kullanıcı bulunamadı.",
+	"createdpageslist-username": "Kullanıcı",
+	"createdpageslist-submit": "Bul",
+	"createdpageslist-summary": "Bu özel sayfa, belirli bir kullanıcı tarafından oluşturulan tüm maddeleri (ör. içerik ad alanlarındaki sayfaları) listeler."
+}
