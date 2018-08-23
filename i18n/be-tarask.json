@@ -4,5 +4,6 @@
 			"Red Winged Duck"
 		]
 	},
-	"createdpageslist": "Сьпіс створаных старонак"
+	"createdpageslist": "Сьпіс створаных старонак",
+	"createdpageslist-desc": "Дадае старонку [[Special:CreatedPagesList]], якая ўтрымлівае сьпісы ўсіх артыкулаў, створаных абраным аўтарам"
 }
