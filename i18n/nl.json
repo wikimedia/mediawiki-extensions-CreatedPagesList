@@ -1,12 +1,13 @@
 {
 	"@metadata": {
 		"authors": [
-			"Mainframe98"
+			"Mainframe98",
+			"Goefie"
 		]
 	},
-	"createdpageslist-desc": "Voegt de [[Special:CreatedPagesList]] pagina toe, die alle artikelen door de geselecteerde auteur toont",
+	"createdpageslist-desc": "Voegt een [[Special:CreatedPagesList]] pagina toe, die alle artikelen toont die door de geselecteerde auteur werden aangemaakt.",
 	"createdpageslist-notfound": "Gebruiker niet gevonden.",
 	"createdpageslist-username": "Gebruiker",
 	"createdpageslist-submit": "Zoeken",
-	"createdpageslist-summary": "Deze pagina toont alle artikelen (pagina's in inhoudsnaamruimten) aangemaakt door een specifieke gebruiker."
+	"createdpageslist-summary": "Deze bijzonder pagina toont alle artikelen (i.e. pagina's in inhoudsnaamruimten) aangemaakt door een specifieke gebruiker."
 }
