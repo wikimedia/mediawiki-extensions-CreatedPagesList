@@ -4,7 +4,10 @@
 			"BadDog"
 		]
 	},
+	"createdpageslist": "Направљен списак страница",
+	"createdpageslist-desc": "Додаје страницу [[Special:CreatedPagesList]], на којој се налазе сви чланци које је направио изабрани аутор",
 	"createdpageslist-notfound": "Корисник није пронађен.",
 	"createdpageslist-username": "Корисник",
-	"createdpageslist-submit": "Пронађи"
+	"createdpageslist-submit": "Пронађи",
+	"createdpageslist-summary": "На овој посебној страници се налазе сви чланци (нпр. странице у именским просторима садржаја) које је направио одређени корисник."
 }

@@ -8,5 +8,6 @@
 	"createdpageslist-desc": "Дадае старонку [[Special:CreatedPagesList]], якая ўтрымлівае сьпісы ўсіх артыкулаў, створаных абраным аўтарам",
 	"createdpageslist-notfound": "Удзельнік ня знойдзены.",
 	"createdpageslist-username": "Удзельнік",
-	"createdpageslist-submit": "Знайсьці"
+	"createdpageslist-submit": "Знайсьці",
+	"createdpageslist-summary": "Гэтая спэцыяльная старонка пералічвае ўсе артыкулы (старонкі ў прасторах назваў зьместу), створаныя пэўным ўдзельнікам."
 }
