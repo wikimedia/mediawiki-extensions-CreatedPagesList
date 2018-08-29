@@ -1,9 +1,14 @@
 {
 	"@metadata": {
 		"authors": [
-			"Kingu"
+			"Kingu",
+			"Jon Harald Søby"
 		]
 	},
+	"createdpageslist": "Liste over opprettede sider",
+	"createdpageslist-desc": "Legger til spesialsiden [[Special:CreatedPagesList]], som lister opp alle artikler opprettet av den valgte bidragsyteren",
+	"createdpageslist-notfound": "Bruker ikke funnet.",
 	"createdpageslist-username": "Bruker",
-	"createdpageslist-submit": "Finn"
+	"createdpageslist-submit": "Finn",
+	"createdpageslist-summary": "Denne spesialsiden lister opp alle artikler (dvs. sider i innholdsnavnerommet) som er opprettet av en gitt bruker."
 }
