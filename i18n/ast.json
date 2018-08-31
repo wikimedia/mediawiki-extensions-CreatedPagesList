@@ -1,0 +1,13 @@
+{
+	"@metadata": {
+		"authors": [
+			"Xuacu"
+		]
+	},
+	"createdpageslist": "Llista de páxines creaes",
+	"createdpageslist-desc": "Añade la páxina [[Special:CreatedPagesList]], qu'amuesa tolos artículos creaos pol autor seleicionáu",
+	"createdpageslist-notfound": "Nun s'alcontró l'usuariu.",
+	"createdpageslist-username": "Usuariu",
+	"createdpageslist-submit": "Alcontrar",
+	"createdpageslist-summary": "Esta páxina especial recueye tolos artículos (esto ye, páxines de los espacios de nomes de conteníu) creaos por un usuariu determínáu."
+}
