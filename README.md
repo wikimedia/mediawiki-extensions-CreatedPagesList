@@ -1,3 +1,5 @@
+[![devDependencies Status](https://david-dm.org/wikimedia/mediawiki-extensions-CreatedPagesList/dev-status.svg)](https://david-dm.org/wikimedia/mediawiki-extensions-CreatedPagesList?type=dev)
+
 CreatedPagesList
 ====================
 
