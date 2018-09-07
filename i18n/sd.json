@@ -4,5 +4,10 @@
 			"Tweety"
 		]
 	},
-	"createdpageslist-submit": "ڳوليو"
+	"createdpageslist": "صفحن جي فهرست جوڙي وئي",
+	"createdpageslist-desc": "صفحو [[Special:CreatedPagesList]] شامل ڪيو ويو، ان ۾ اهي مضمون هوندا جيڪي چونڊيل واپرائيندڙ جا تخليق ٿيل هجن",
+	"createdpageslist-notfound": "واپرائيندڙ نه لڌو.",
+	"createdpageslist-username": "واپرائيندڙ",
+	"createdpageslist-submit": "ڳوليو",
+	"createdpageslist-summary": " هن خاص صفحي ۾ ڪنهن مخصوص واپرائيندڙ پاران تخليق ڪيل سمورا مضمون (ڄاڻيل نانءُ فضا ورا) شامل آهن."
 }
