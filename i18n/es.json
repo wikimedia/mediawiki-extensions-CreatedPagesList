@@ -1,10 +1,12 @@
 {
 	"@metadata": {
 		"authors": [
-			"Tiberius1701"
+			"Tiberius1701",
+			"Jelou"
 		]
 	},
 	"createdpageslist": "Lista de páginas creadas",
+	"createdpageslist-desc": "Añade la página [[Special:CreatedPagesList]], que enumera todos los artículos creados por el autor seleccionado",
 	"createdpageslist-notfound": "Usuario no encontrado.",
 	"createdpageslist-username": "Usuario",
 	"createdpageslist-submit": "Buscar",
