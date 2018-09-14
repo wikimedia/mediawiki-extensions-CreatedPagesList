@@ -57,11 +57,7 @@ class SpecialCreatedPagesListTest extends SpecialPageTestBase {
 		$input = $xpath->query( '//input[@name="username"]', $form )->item( 0 );
 		$this->assertNotNull( $input, 'Special:CreatedPagesList: <input name="username"/> not found' );
 
-		$label = $xpath->query( '//label[@for="username"]', $form )->item( 0 );
-		$this->assertNotNull( $label, 'Special:CreatedPagesList: <label for="username"> not found' );
-		$this->assertEquals( '(createdpageslist-username)', $label->textContent );
-
-		$submit = $xpath->query( '//input[@type="submit"]', $form )->item( 0 );
+		$submit = $xpath->query( '//button[@type="submit"]', $form )->item( 0 );
 		$this->assertNotNull( $submit, 'Special:CreatedPagesList: Submit button not found' );
 		$this->assertEquals( '(createdpageslist-submit)', $submit->getAttribute( 'value' ) );
 	}

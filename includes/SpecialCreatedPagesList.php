@@ -67,22 +67,24 @@ class SpecialCreatedPagesList extends PageQueryPage {
 	}
 
 	protected function showForm( $error = false ) {
-		$form = new HTMLForm( [
+		$formDescriptor = [
 			'username' => [
-				'type' => 'text',
+				'type' => 'user',
 				'name' => 'username',
 				'id' => 'username',
 				'size' => 50,
 				'label-message' => 'createdpageslist-username'
 			]
-		], $this->getContext() );
+		];
+		$htmlForm = HTMLForm::factory( 'ooui', $formDescriptor, $this->getContext() );
 ;
-		$form->setWrapperLegendMsg( 'createdpageslist' );
-		$form->setSubmitTextMsg( 'createdpageslist-submit' );
-		$form->setAction( $this->getPageTitle()->getFullURL() );
-		$form->setMethod( 'get' );
-
-		$form->prepareForm()->displayForm( $error );
+		$htmlForm
+			->setWrapperLegendMsg( 'createdpageslist' )
+			->setSubmitTextMsg( 'createdpageslist-submit' )
+			->setAction( $this->getPageTitle()->getFullURL() )
+			->setMethod( 'get' )
+			->prepareForm()
+			->displayForm( $error );
 	}
 
 	function getQueryInfo() {
