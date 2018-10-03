@@ -1,9 +1,12 @@
 {
 	"@metadata": {
 		"authors": [
-			"夢蝶葬花"
+			"夢蝶葬花",
+			"A Chinese Wikipedian"
 		]
 	},
+	"createdpageslist": "创建页面列表",
+	"createdpageslist-notfound": "找不到用户。",
 	"createdpageslist-username": "用户",
 	"createdpageslist-submit": "查找",
 	"createdpageslist-summary": "此特殊页面列出了特定用户创建的所有页面（即主名字空间中的页面）。"
