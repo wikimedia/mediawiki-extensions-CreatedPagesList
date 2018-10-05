@@ -50,9 +50,11 @@ class SpecialCreatedPagesListTest extends SpecialPageTestBase {
 
 		$this->assertNotNull( $form, 'Special:CreatedPagesList: <form> element not found' );
 
-		$legend = $xpath->query( '//form/fieldset/legend', $form )->item( 0 );
-		$this->assertNotNull( $legend, 'Special:CreatedPagesList: <legend> not found' );
-		$this->assertEquals( '(createdpageslist)', $legend->textContent );
+		if ( !$this->is1_27() ) { // In MediaWiki 1.27 (old LTS) OOUI forms don't have <legend> tag
+			$legend = $xpath->query( '//form/fieldset/legend', $form )->item( 0 );
+			$this->assertNotNull( $legend, 'Special:CreatedPagesList: <legend> not found' );
+			$this->assertEquals( '(createdpageslist)', $legend->textContent );
+		}
 
 		$input = $xpath->query( '//input[@name="username"]', $form )->item( 0 );
 		$this->assertNotNull( $input, 'Special:CreatedPagesList: <input name="username"/> not found' );
@@ -154,6 +156,22 @@ class SpecialCreatedPagesListTest extends SpecialPageTestBase {
 			new FauxRequest( $query, false ), // GET request
 			$wgLang
 		);
+
+		if ( $this->is1_27() ) {
+			// Backward compatibility with MediaWiki 1.27,
+			// where OOUI prints </input> tag (libxml doesn't like it).
+			$html = str_replace( '</input>', '', $html );
+		}
+
 		return $html;
+	}
+
+	/**
+	 * @brief True if this is MediaWiki 1.27 (old LTS), false otherwise.
+	 * @return bool
+	 */
+	public function is1_27() {
+		global $wgVersion;
+		return version_compare( $wgVersion, '1.28.0', '<' );
 	}
 }
