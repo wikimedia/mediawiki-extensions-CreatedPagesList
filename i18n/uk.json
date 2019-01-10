@@ -1,0 +1,13 @@
+{
+	"@metadata": {
+		"authors": [
+			"Piramidion"
+		]
+	},
+	"createdpageslist": "Список створених сторінок",
+	"createdpageslist-desc": "Додає сторінку [[Special:CreatedPagesList]], на якій перелічено всі статті, створені вибраним автором",
+	"createdpageslist-notfound": "Користувача не знайдено.",
+	"createdpageslist-username": "Користувач",
+	"createdpageslist-submit": "Знайти",
+	"createdpageslist-summary": "Ця спеціальна сторінка перелічує всі статті (тобто сторінки в контентних просторах назв), створені конкретним користувачем."
+}
