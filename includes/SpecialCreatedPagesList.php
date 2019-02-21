@@ -73,7 +73,8 @@ class SpecialCreatedPagesList extends PageQueryPage {
 				'name' => 'username',
 				'id' => 'username',
 				'size' => 50,
-				'label-message' => 'createdpageslist-username'
+				'label-message' => 'createdpageslist-username',
+				'required' => true
 			]
 		];
 		$htmlForm = HTMLForm::factory( 'ooui', $formDescriptor, $this->getContext() );
