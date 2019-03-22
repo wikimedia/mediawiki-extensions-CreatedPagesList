@@ -46,7 +46,7 @@ class SpecialCreatedPagesList extends PageQueryPage {
 
 	function execute( $param ) {
 		$username = $this->getRequest()->getVal( 'username', $param );
-		if ( !$username ) {
+		if ( strval( $username ) == '' ) {
 			$this->setHeaders();
 			$this->outputHeader();
 			$this->showForm();
