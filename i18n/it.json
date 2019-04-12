@@ -4,7 +4,10 @@
 			"Beta16"
 		]
 	},
+	"createdpageslist": "Elenco delle pagine create",
+	"createdpageslist-desc": "Aggiunge la pagina [[Special:CreatedPagesList]], che elenca tutte le voci create dall'autore selezionato",
 	"createdpageslist-notfound": "Utente non trovato.",
 	"createdpageslist-username": "Utente",
-	"createdpageslist-submit": "Trova"
+	"createdpageslist-submit": "Trova",
+	"createdpageslist-summary": "Questa pagina speciale elenca tutte le voci (ad esempio pagine nel namespace di contenuti) create da un utente specifico."
 }
