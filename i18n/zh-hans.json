@@ -2,10 +2,12 @@
 	"@metadata": {
 		"authors": [
 			"夢蝶葬花",
-			"A Chinese Wikipedian"
+			"A Chinese Wikipedian",
+			"佛壁灯"
 		]
 	},
 	"createdpageslist": "创建页面列表",
+	"createdpageslist-desc": "添加列出由选定作者创建的所有条目的 [[Special:CreatedPagesList]] 页面",
 	"createdpageslist-notfound": "找不到用户。",
 	"createdpageslist-username": "用户",
 	"createdpageslist-submit": "查找",
