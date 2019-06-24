@@ -1,9 +1,13 @@
 {
 	"@metadata": {
 		"authors": [
-			"Erelon"
+			"Erelon",
+			"Steeve815"
 		]
 	},
+	"createdpageslist": "רשימת הדפים שנוצרו",
+	"createdpageslist-notfound": "המשתמש לא נמצא.",
 	"createdpageslist-username": "משתמש",
-	"createdpageslist-submit": "חיפוש"
+	"createdpageslist-submit": "חיפוש",
+	"createdpageslist-summary": "דף מיוחד זה מציג רשימה של כל הערכים (כלומר דפים במרחבי התוכן) שנוצרו על ידי משתמש מסוים."
 }
