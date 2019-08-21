@@ -6,7 +6,7 @@
 		]
 	},
 	"createdpageslist": "Списък на създадени страници",
-	"createdpageslist-desc": "Добавя специална страница „[[Special:CreatedPagesList|Списък на създадени страници]]“, къде са изброени всички статии, създадени от избрания потребител",
+	"createdpageslist-desc": "Добавя страница „[[Special:CreatedPagesList]]“, в която са изброени всички статии, създадени от съответния автор",
 	"createdpageslist-notfound": "Потребителят не е намерен.",
 	"createdpageslist-username": "Потребител",
 	"createdpageslist-submit": "Търсене",
