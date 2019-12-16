@@ -26,7 +26,7 @@ require_once __DIR__ . '/CreatedPagesListTestBase.php';
  * @group Database
  */
 class CreatedPagesListUserMergeTest extends CreatedPagesListTestBase {
-	public static function setUpBeforeClass() {
+	public static function setUpBeforeClass() : void {
 		if ( !class_exists( 'MergeUser' ) ) {
 			self::markTestSkipped( 'Test skipped: UserMerge extension must be installed to run it.' );
 		}

@@ -33,7 +33,7 @@ class SpecialCreatedPagesListTest extends SpecialPageTestBase {
 		return true;
 	}
 
-	protected function setUp() {
+	protected function setUp() : void {
 		parent::setUp();
 		$this->tablesUsed[] = 'createdpageslist';
 	}
