@@ -51,7 +51,12 @@ class CreatedPagesListRecalculateTest extends CreatedPagesListTestBase {
 			$ts->timestamp->modify( '-' . count( $authors ) . ' seconds' );
 
 			foreach ( $authors as $username ) {
-				$user = User::newFromName( $username, false );
+				if ( User::isIP( $username ) ) {
+					$user = User::newFromName( $username, false );
+				} else {
+					$user = User::newSystemUser( $username, [ 'steal' => true ] );
+				}
+
 				$revision = new Revision( [
 					'page'       => $page->getId(),
 					'comment'    => '',

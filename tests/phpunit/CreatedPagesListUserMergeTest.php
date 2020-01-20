@@ -72,6 +72,12 @@ class CreatedPagesListUserMergeTest extends CreatedPagesListTestBase {
 
 		$this->assertCreatedBy( $oldUser, $title );  // Assert starting conditions
 
+		/* Update site_stats table, because default value of site_stats.ss_users is 0,
+			deleting a user will decrease it by 1,
+			and trying to set it to -1 will fail.
+		*/
+		SiteStatsInit::doAllAndCommit( true );
+
 		$mu = new MergeUser( $oldUser, $newUser, new UserMergeLogger() );
 		$mu->delete( $this->getPerformer(), 'wfMessage' );
 

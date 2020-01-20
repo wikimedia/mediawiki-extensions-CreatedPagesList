@@ -32,21 +32,26 @@ class CreatedPagesList {
 		$dbw->startAtomic( __METHOD__ );
 		$dbw->delete( 'createdpageslist', '*', __METHOD__ );
 
+		$actorQuery = ActorMigration::newMigration()->getJoin( 'rev_user' );
+
+		$tables = array_merge( $actorQuery['tables'], [
+			'page',
+			'revision'
+		] );
+		$fields = array_merge( $actorQuery['fields'], [
+			'page_namespace AS namespace',
+			'page_title AS title',
+			'rev_timestamp AS timestamp'
+		] );
+
 		$res = $dbw->select(
-			[
-				'page',
-				'revision',
-			],
-			[
-				'page_namespace AS namespace',
-				'page_title AS title',
-				'MIN(rev_timestamp) AS timestamp', // First revision on the page
-				'rev_user_text AS user_text',
-				'rev_user AS user'
-			],
+			$tables,
+			$fields,
 			[
 				'page_is_redirect' => 0,
-				'page_namespace' => MWNamespace::getContentNamespaces()
+				'page_namespace' => MWNamespace::getContentNamespaces(),
+				'rev_page=page_id',
+				'rev_parent_id' => 0// First revision on the page
 			],
 			__METHOD__,
 			[
@@ -56,11 +61,7 @@ class CreatedPagesList {
 					'revision' => 'rev_page_id'
 				]
 			],
-			[
-				'revision' => [ 'INNER JOIN', [
-					'rev_page=page_id'
-				] ]
-			]
+			$actorQuery['joins']
 		);
 
 		foreach ( $res as $row ) {
@@ -70,8 +71,8 @@ class CreatedPagesList {
 					'cpl_namespace' => $row->namespace,
 					'cpl_title' => $row->title,
 					'cpl_timestamp' => $row->timestamp,
-					'cpl_user_text' => $row->user_text,
-					'cpl_user' => $row->user
+					'cpl_user_text' => $row->rev_user_text,
+					'cpl_user' => $row->rev_user ?? 0
 				],
 				__METHOD__
 			);
