@@ -24,27 +24,13 @@
 		"SpecialCreatedPagesList": "includes/SpecialCreatedPagesList.php"
 	},
 	"Hooks": {
-		"ArticleDeleteComplete": [
-			"CreatedPagesListHooks::onArticleDeleteComplete"
-		],
-		"ArticleUndelete": [
-			"CreatedPagesListHooks::onArticleUndelete"
-		],
-		"LoadExtensionSchemaUpdates": [
-			"CreatedPagesListUpdater::onLoadExtensionSchemaUpdates"
-		],
-		"PageContentInsertComplete": [
-			"CreatedPagesListHooks::onPageContentInsertComplete"
-		],
-		"TitleMoveComplete": [
-			"CreatedPagesListHooks::onTitleMoveComplete"
-		],
-		"UserMergeAccountFields": [
-			"CreatedPagesListHooks::onUserMergeAccountFields"
-		],
-		"UserMergeAccountDeleteTables": [
-			"CreatedPagesListHooks::onUserMergeAccountDeleteTables"
-		]
+		"ArticleDeleteComplete": "CreatedPagesListHooks::onArticleDeleteComplete",
+		"ArticleUndelete": "CreatedPagesListHooks::onArticleUndelete",
+		"LoadExtensionSchemaUpdates": "CreatedPagesListUpdater::onLoadExtensionSchemaUpdates",
+		"PageContentInsertComplete": "CreatedPagesListHooks::onPageContentInsertComplete",
+		"TitleMoveComplete": "CreatedPagesListHooks::onTitleMoveComplete",
+		"UserMergeAccountFields": "CreatedPagesListHooks::onUserMergeAccountFields",
+		"UserMergeAccountDeleteTables": "CreatedPagesListHooks::onUserMergeAccountDeleteTables"
 	},
 	"manifest_version": 1
 }
