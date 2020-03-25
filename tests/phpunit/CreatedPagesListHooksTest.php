@@ -63,7 +63,12 @@ class CreatedPagesListHooksTest extends CreatedPagesListTestBase {
 		$user = $page->getCreator();
 		$this->assertCreatedBy( $user, $title ); // Assert starting conditions
 
-		$page->doDeleteArticle( 'for some reason' );
+		$reason = 'for some reason';
+		if ( version_compare( MW_VERSION, '1.35', '<' ) ) {
+			$page->doDeleteArticle( $reason );
+		} else {
+			$page->doDeleteArticleReal( $reason, $this->getTestSysop()->getUser() );
+		}
 
 		$this->assertCreatedBy( null, $title );
 	}
@@ -95,7 +100,13 @@ class CreatedPagesListHooksTest extends CreatedPagesListTestBase {
 		$page = WikiPage::factory( $title );
 		$user = $page->getCreator();
 
-		$page->doDeleteArticle( 'for some reason' );
+		$reason = 'for some reason';
+		if ( version_compare( MW_VERSION, '1.35', '<' ) ) {
+			$page->doDeleteArticle( $reason );
+		} else {
+			$page->doDeleteArticleReal( $reason, $this->getTestSysop()->getUser() );
+		}
+
 		$this->assertCreatedBy( null, $title ); // Assert starting conditions
 
 		$archive = new PageArchive( $title );
