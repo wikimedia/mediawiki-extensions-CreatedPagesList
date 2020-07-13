@@ -6,6 +6,9 @@
 	"descriptionmsg": "createdpageslist-desc",
 	"license-name": "GPL-2.0+",
 	"type": "specialpage",
+	"requires": {
+		"MediaWiki": ">= 1.35.0"
+	},
 	"SpecialPages": {
 		"CreatedPagesList": "SpecialCreatedPagesList"
 	},
@@ -27,8 +30,8 @@
 		"ArticleDeleteComplete": "CreatedPagesListHooks::onArticleDeleteComplete",
 		"ArticleUndelete": "CreatedPagesListHooks::onArticleUndelete",
 		"LoadExtensionSchemaUpdates": "CreatedPagesListUpdater::onLoadExtensionSchemaUpdates",
-		"PageContentInsertComplete": "CreatedPagesListHooks::onPageContentInsertComplete",
-		"TitleMoveComplete": "CreatedPagesListHooks::onTitleMoveComplete",
+		"PageSaveComplete": "CreatedPagesListHooks::onPageSaveComplete",
+		"PageMoveComplete": "CreatedPagesListHooks::onPageMoveComplete",
 		"UserMergeAccountFields": "CreatedPagesListHooks::onUserMergeAccountFields",
 		"UserMergeAccountDeleteTables": "CreatedPagesListHooks::onUserMergeAccountDeleteTables"
 	},

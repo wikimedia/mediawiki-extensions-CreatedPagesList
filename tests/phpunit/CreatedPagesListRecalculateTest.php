@@ -22,6 +22,8 @@
 
 require_once __DIR__ . '/CreatedPagesListTestBase.php';
 
+use MediaWiki\MediaWikiServices;
+
 /**
  * @group Database
  */
@@ -43,6 +45,8 @@ class CreatedPagesListRecalculateTest extends CreatedPagesListTestBase {
 		];
 
 		$dbw = wfGetDB( DB_MASTER );
+		$services = MediaWikiServices::getInstance();
+		$revStore = $services->getRevisionStore();
 		foreach ( $testData as $title => $authors ) {
 			$page = WikiPage::factory( Title::newFromText( $title ) );
 			$page->insertOn( $dbw );
@@ -57,7 +61,7 @@ class CreatedPagesListRecalculateTest extends CreatedPagesListTestBase {
 					$user = User::newSystemUser( $username, [ 'steal' => true ] );
 				}
 
-				$revision = new Revision( [
+				$recordToInsert = $revStore->newMutableRevisionFromArray( [
 					'page'       => $page->getId(),
 					'comment'    => '',
 					'text'       => 'Whatever',
@@ -67,8 +71,8 @@ class CreatedPagesListRecalculateTest extends CreatedPagesListTestBase {
 					'content_model' => CONTENT_MODEL_WIKITEXT
 				] );
 
-				$revision->insertOn( $dbw );
-				$page->updateRevisionOn( $dbw, $revision );
+				$storedRecord = $revStore->insertRevisionOn( $recordToInsert, $dbw );
+				$page->updateRevisionOn( $dbw, $storedRecord );
 
 				$ts->timestamp->modify( '+1 second' );
 			}

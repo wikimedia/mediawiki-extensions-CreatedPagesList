@@ -29,7 +29,7 @@ require_once __DIR__ . '/CreatedPagesListTestBase.php';
 class CreatedPagesListHooksTest extends CreatedPagesListTestBase {
 	/**
 		@brief Ensures that newly created page appears in 'createdpageslist' table.
-		@covers CreatedPagesListHooks::onPageContentInsertComplete
+		@covers CreatedPagesListHooks::onPageSaveComplete
 	*/
 	public function testNewPage() {
 		$title = Title::newFromText( 'Non-existent page' );
@@ -75,7 +75,7 @@ class CreatedPagesListHooksTest extends CreatedPagesListTestBase {
 
 	/**
 		@brief Ensures that moved page remains in 'createdpageslist' table.
-		@covers CreatedPagesListHooks::onTitleMoveComplete
+		@covers CreatedPagesListHooks::onPageMoveComplete
 	*/
 	public function testMovedPage() {
 		$ot = $this->getExistingTitle();

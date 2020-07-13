@@ -15,6 +15,11 @@
 	GNU General Public License for more details.
 */
 
+use MediaWiki\Linker\LinkTarget;
+use MediaWiki\MediaWikiServices;
+use MediaWiki\Revision\RevisionRecord;
+use MediaWiki\User\UserIdentity;
+
 /**
 	@file
 	@brief Hooks of Extension:CreatedPagesList.
@@ -23,13 +28,13 @@
 class CreatedPagesListHooks {
 
 	/** @brief Add newly created article into the 'createdpageslist' SQL table. */
-	public static function onPageContentInsertComplete( $wikiPage, User $user, $content,
-		$summary, $isMinor, $isWatch, $section, $flags, Revision $revision
+	public static function onPageSaveComplete( WikiPage $wikiPage,
+		UserIdentity $user, $summary, $flags, RevisionRecord $revisionRecord
 	) {
 		CreatedPagesList::add(
-			$user,
+			User::newFromIdentity( $user ),
 			$wikiPage->getTitle(),
-			$revision->getTimestamp(),
+			$revisionRecord->getTimestamp(),
 			$wikiPage->isRedirect()
 		);
 	}
@@ -46,9 +51,9 @@ class CreatedPagesListHooks {
 		$title, $created, $comment, $oldPageId, $restoredPages = []
 	) {
 		DeferredUpdates::addCallableUpdate( function () use ( $title ) {
-			$rev = $title->getFirstRevision();
+			$rev = MediaWikiServices::getInstance()->getRevisionLookup()->getFirstRevision( $title );
 			$user = User::newFromName(
-				$rev->getUserText( Revision::RAW ),
+				$rev->getUser( RevisionRecord::RAW )->getName(),
 				false
 			);
 
@@ -57,11 +62,11 @@ class CreatedPagesListHooks {
 	}
 
 	/** @brief Rename the moved article in 'createdpageslist' SQL table. */
-	public static function onTitleMoveComplete(
-		Title &$title, Title &$newTitle, User $user,
-		$oldid, $newid, $reason, Revision $revision
-	) {
-		CreatedPagesList::move( $title, $newTitle );
+	public static function onPageMoveComplete( LinkTarget $old, LinkTarget $new ) {
+		CreatedPagesList::move(
+			Title::newFromLinkTarget( $old ),
+			Title::newFromLinkTarget( $new )
+		);
 	}
 
 	/** @brief Extra DB fields to rename when user is renamed via Extension:UserMerge. */
