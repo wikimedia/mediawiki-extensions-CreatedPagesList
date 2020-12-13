@@ -71,7 +71,7 @@ class SpecialCreatedPagesListTest extends SpecialPageTestBase {
 		$dom = new DomDocument;
 		$dom->loadHTML( $this->runSpecial( 'ItIsHighlyUnlikelyThatSomeUserWouldChooseThisName' ) );
 
-		$this->assertContains( '(createdpageslist-notfound)', $dom->textContent );
+		$this->assertStringContainsString( '(createdpageslist-notfound)', $dom->textContent );
 	}
 
 	/**
@@ -114,7 +114,7 @@ class SpecialCreatedPagesListTest extends SpecialPageTestBase {
 		$dom = new DomDocument;
 		$dom->loadHTML( $html );
 
-		$this->assertNotContains( '(createdpageslist-notfound)', $dom->textContent );
+		$this->assertStringNotContainsString( '(createdpageslist-notfound)', $dom->textContent );
 
 		$foundTitles = []; /* [ 'Title1' => 'HTML of link1', ... ] */
 		$xpath = new DomXpath( $dom );
