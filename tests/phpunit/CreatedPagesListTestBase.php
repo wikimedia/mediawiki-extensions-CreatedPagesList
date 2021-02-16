@@ -15,6 +15,9 @@
 	GNU General Public License for more details.
 */
 
+use MediaWiki\User\UserIdentity;
+use MediaWiki\Linker\LinkTarget;
+
 /**
 	@file
 	@brief Parent class for tests that check 'createdpageslist' SQL table.
@@ -48,10 +51,10 @@ class CreatedPagesListTestBase extends MediaWikiTestCase {
 
 	/**
 	 * @brief Asserts that $expectedAuthor is recorded as creator of $title.
-	 * @param User|null $expectedAuthor
-	 * @param Title $title
+	 * @param UserIdentity|null $expectedAuthor
+	 * @param LinkTarget $title
 	 */
-	protected function assertCreatedBy( User $expectedAuthor = null, Title $title ) {
+	protected function assertCreatedBy( ?UserIdentity $expectedAuthor, LinkTarget $title ) {
 		$this->assertSelect( 'createdpageslist',
 			[ 'cpl_user', 'cpl_user_text' ],
 			[
