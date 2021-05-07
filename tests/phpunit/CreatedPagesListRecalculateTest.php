@@ -23,6 +23,7 @@
 require_once __DIR__ . '/CreatedPagesListTestBase.php';
 
 use MediaWiki\MediaWikiServices;
+use Wikimedia\IPUtils;
 
 /**
  * @group Database
@@ -55,7 +56,7 @@ class CreatedPagesListRecalculateTest extends CreatedPagesListTestBase {
 			$ts->timestamp->modify( '-' . count( $authors ) . ' seconds' );
 
 			foreach ( $authors as $username ) {
-				if ( User::isIP( $username ) ) {
+				if ( IPUtils::isValid( $username ) ) {
 					$user = User::newFromName( $username, false );
 				} else {
 					$user = User::newSystemUser( $username, [ 'steal' => true ] );
