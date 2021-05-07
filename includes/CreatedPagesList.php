@@ -100,7 +100,7 @@ class CreatedPagesList {
 		$dbw = wfGetDB( DB_MASTER );
 		$dbw->replace(
 			'createdpageslist',
-			[ 'cpl_namespace', 'cpl_title' ],
+			[ [ 'cpl_namespace', 'cpl_title' ] ],
 			[
 				'cpl_timestamp' => $dbw->timestamp( $timestamp ),
 				'cpl_user' => $user->getId(),
