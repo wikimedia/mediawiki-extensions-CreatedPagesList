@@ -23,6 +23,8 @@
 require_once __DIR__ . '/CreatedPagesListTestBase.php';
 
 use MediaWiki\MediaWikiServices;
+use MediaWiki\Revision\MutableRevisionRecord;
+use MediaWiki\Revision\SlotRecord;
 use Wikimedia\IPUtils;
 
 /**
@@ -48,8 +50,9 @@ class CreatedPagesListRecalculateTest extends CreatedPagesListTestBase {
 		$dbw = wfGetDB( DB_MASTER );
 		$services = MediaWikiServices::getInstance();
 		$revStore = $services->getRevisionStore();
-		foreach ( $testData as $title => $authors ) {
-			$page = WikiPage::factory( Title::newFromText( $title ) );
+		foreach ( $testData as $subject => $authors ) {
+			$title = Title::newFromText( $subject );
+			$page = WikiPage::factory( $title );
 			$page->insertOn( $dbw );
 
 			$ts = new MWTimestamp();
@@ -62,15 +65,15 @@ class CreatedPagesListRecalculateTest extends CreatedPagesListTestBase {
 					$user = User::newSystemUser( $username, [ 'steal' => true ] );
 				}
 
-				$recordToInsert = $revStore->newMutableRevisionFromArray( [
-					'page'       => $page->getId(),
-					'comment'    => '',
-					'text'       => 'Whatever',
-					'user'       => $user->getId(),
-					'user_text'  => $user->getName(),
-					'timestamp'  => $ts->getTimestamp( TS_MW ),
-					'content_model' => CONTENT_MODEL_WIKITEXT
-				] );
+				$recordToInsert = new MutableRevisionRecord( $title );
+				$recordToInsert->setContent(
+					SlotRecord::MAIN,
+					ContentHandler::makeContent( 'Whatever', null, CONTENT_MODEL_WIKITEXT )
+				);
+				$recordToInsert->setUser( $user );
+				$recordToInsert->setTimestamp( $ts->getTimestamp( TS_MW ) );
+				$recordToInsert->setPageId( $page->getId() );
+				$recordToInsert->setComment( CommentStoreComment::newUnsavedComment( '' ) );
 
 				$storedRecord = $revStore->insertRevisionOn( $recordToInsert, $dbw );
 				$page->updateRevisionOn( $dbw, $storedRecord );
