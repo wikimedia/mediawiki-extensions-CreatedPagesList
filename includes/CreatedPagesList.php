@@ -55,7 +55,7 @@ class CreatedPagesList {
 			],
 			__METHOD__,
 			[
-				'GROUP BY' => 'rev_page',
+				'DISTINCT',
 				'INDEX' => [
 					'page' => 'page_redirect_namespace_len',
 					'revision' => 'rev_page_id'
