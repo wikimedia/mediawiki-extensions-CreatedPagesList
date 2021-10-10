@@ -15,6 +15,8 @@
 	GNU General Public License for more details.
 */
 
+use MediaWiki\MediaWikiServices;
+
 /**
 	@file
 	@brief Methods to keep 'createdpageslist' SQL table up to date.
@@ -49,7 +51,9 @@ class CreatedPagesList {
 			$fields,
 			[
 				'page_is_redirect' => 0,
-				'page_namespace' => MWNamespace::getContentNamespaces(),
+				'page_namespace' => MediaWikiServices::getInstance()
+					->getNamespaceInfo()
+					->getContentNamespaces(),
 				'rev_page=page_id',
 				'rev_parent_id' => 0// First revision on the page
 			],
