@@ -23,7 +23,7 @@ use MediaWiki\Linker\LinkTarget;
 	@brief Parent class for tests that check 'createdpageslist' SQL table.
 */
 
-class CreatedPagesListTestBase extends MediaWikiTestCase {
+class CreatedPagesListTestBase extends MediaWikiIntegrationTestCase {
 	public function needsDB() {
 		return true;
 	}
@@ -45,7 +45,7 @@ class CreatedPagesListTestBase extends MediaWikiTestCase {
 
 	/** @brief Returns Title object of existing test page. */
 	protected function getExistingTitle() {
-		// Always created in MediaWikiTestCase::addCoreDBData()
+		// Always created in MediaWikiIntegrationTestCase::addCoreDBData()
 		return Title::newFromText( 'UTPage' );
 	}
 
