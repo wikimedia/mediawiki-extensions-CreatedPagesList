@@ -84,7 +84,7 @@ class CreatedPagesListHooksTest extends CreatedPagesListTestBase {
 
 		$this->assertCreatedBy( $user, $ot );  // Assert starting conditions
 
-		$mp = new MovePage( $ot, $nt );
+		$mp = $this->getServiceContainer()->getMovePageFactory()->newMovePage( $ot, $nt );
 		$mp->move( $this->getUser(), 'for some reason', true );
 
 		$this->assertCreatedBy( $user, $nt );
