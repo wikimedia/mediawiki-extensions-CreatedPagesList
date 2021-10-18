@@ -2,6 +2,7 @@
 	"@metadata": {
 		"authors": [
 			"A Chinese Wikipedian",
+			"Xiplus",
 			"佛壁灯",
 			"夢蝶葬花"
 		]
@@ -11,5 +12,5 @@
 	"createdpageslist-notfound": "找不到用户。",
 	"createdpageslist-username": "用户",
 	"createdpageslist-submit": "查找",
-	"createdpageslist-summary": "此特殊页面列出了特定用户创建的所有页面（即主名字空间中的页面）。"
+	"createdpageslist-summary": "此特殊页面列出了特定用户创建的所有页面（即主命名空间中的页面）。"
 }
