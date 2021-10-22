@@ -96,10 +96,10 @@ class SpecialCreatedPagesList extends PageQueryPage {
 				'cpl_title AS title'
 			],
 			'conds' => [
-				'cpl_user_text' => str_replace( '_', ' ', $this->user->getName() )
+				'cpl_actor' => $this->user->getActorId()
 			],
 			'options' => [
-				'USE INDEX' => 'createdpageslist_user_timestamp'
+				'USE INDEX' => 'createdpageslist_actor_timestamp'
 			],
 			'join_conds' => []
 		];

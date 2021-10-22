@@ -2,7 +2,7 @@
 
 /*
 	Extension:CreatedPagesList - MediaWiki extension.
-	Copyright (C) 2018 Edward Chernenko.
+	Copyright (C) 2018-2021 Edward Chernenko.
 
 	This program is free software; you can redistribute it and/or modify
 	it under the terms of the GNU General Public License as published by
@@ -16,14 +16,14 @@
 */
 
 /**
-	@file
-	@brief Checks [[Special:CreatedPagesList]] special page.
-*/
+ * @file
+ * Checks [[Special:CreatedPagesList]] special page.
+ */
 
 /**
-	@covers SpecialCreatedPagesList
-	@group Database
-*/
+ * @covers SpecialCreatedPagesList
+ * @group Database
+ */
 class SpecialCreatedPagesListTest extends SpecialPageTestBase {
 	protected function newSpecialPage() {
 		return new SpecialCreatedPagesList();
@@ -39,8 +39,8 @@ class SpecialCreatedPagesListTest extends SpecialPageTestBase {
 	}
 
 	/**
-		@brief Checks the form when Special:CreatedPagesList is opened without a parameter.
-	*/
+	 * Checks the form when Special:CreatedPagesList is opened without a parameter.
+	 */
 	public function testForm() {
 		$dom = new DomDocument;
 		$dom->loadHTML( $this->runSpecial() );
@@ -50,11 +50,9 @@ class SpecialCreatedPagesListTest extends SpecialPageTestBase {
 
 		$this->assertNotNull( $form, 'Special:CreatedPagesList: <form> element not found' );
 
-		if ( !$this->is1_27() ) { // In MediaWiki 1.27 (old LTS) OOUI forms don't have <legend> tag
-			$legend = $xpath->query( '//form/fieldset/legend', $form )->item( 0 );
-			$this->assertNotNull( $legend, 'Special:CreatedPagesList: <legend> not found' );
-			$this->assertEquals( '(createdpageslist)', $legend->textContent );
-		}
+		$legend = $xpath->query( '//form/fieldset/legend', $form )->item( 0 );
+		$this->assertNotNull( $legend, 'Special:CreatedPagesList: <legend> not found' );
+		$this->assertEquals( '(createdpageslist)', $legend->textContent );
 
 		$input = $xpath->query( '//input[@name="username"]', $form )->item( 0 );
 		$this->assertNotNull( $input, 'Special:CreatedPagesList: <input name="username"/> not found' );
@@ -65,8 +63,8 @@ class SpecialCreatedPagesListTest extends SpecialPageTestBase {
 	}
 
 	/**
-		@brief Checks the error message "there is no such user".
-	*/
+	 * Checks the error message "there is no such user".
+	 */
 	public function testNoSuchUser() {
 		$dom = new DomDocument;
 		$dom->loadHTML( $this->runSpecial( 'ItIsHighlyUnlikelyThatSomeUserWouldChooseThisName' ) );
@@ -75,9 +73,9 @@ class SpecialCreatedPagesListTest extends SpecialPageTestBase {
 	}
 
 	/**
-		@brief Checks how Special:CreatedPagesList prints the list of pages.
-		@dataProvider dataProviderShowPages
-	*/
+	 * Checks how Special:CreatedPagesList prints the list of pages.
+	 * @dataProvider dataProviderShowPages
+	 */
 	public function testShowPages( $subpageHasUsername ) {
 		/* Populate 'createdpagelist' table */
 		$user = User::newFromName( 'UTSysop' ); // Created in MediaWikiIntegrationTestCase
@@ -95,8 +93,7 @@ class SpecialCreatedPagesListTest extends SpecialPageTestBase {
 				'createdpageslist',
 				[
 					'cpl_timestamp' => $dbw->timestamp(),
-					'cpl_user' => $user->getId(),
-					'cpl_user_text' => $user->getName(),
+					'cpl_actor' => $user->getActorId(),
 					'cpl_namespace' => $titleObj->getNamespace(),
 					'cpl_title' => $titleObj->getDBKey()
 				],
@@ -142,11 +139,11 @@ class SpecialCreatedPagesListTest extends SpecialPageTestBase {
 	}
 
 	/**
-		@brief Render Special:CreatedPagesList.
-		@param $param Subpage, e.g. 'User1' for [[Special:CreatedPagesList/User1]].
-		@param $query Query string parameters..
-		@returns HTML of the result.
-	*/
+	 * Render Special:CreatedPagesList.
+	 * @param $param Subpage, e.g. 'User1' for [[Special:CreatedPagesList/User1]].
+	 * @param $query Query string parameters.
+	 * @returns HTML of the result.
+	 */
 	public function runSpecial( $param = '', array $query = [] ) {
 		global $wgLang; /* HTMLForm sometimes calls wfMessage() without context  */
 		$wgLang = Language::factory( 'qqx' );
@@ -157,21 +154,6 @@ class SpecialCreatedPagesListTest extends SpecialPageTestBase {
 			$wgLang
 		);
 
-		if ( $this->is1_27() ) {
-			// Backward compatibility with MediaWiki 1.27,
-			// where OOUI prints </input> tag (libxml doesn't like it).
-			$html = str_replace( '</input>', '', $html );
-		}
-
 		return $html;
-	}
-
-	/**
-	 * @brief True if this is MediaWiki 1.27 (old LTS), false otherwise.
-	 * @return bool
-	 */
-	public function is1_27() {
-		global $wgVersion;
-		return version_compare( $wgVersion, '1.28.0', '<' );
 	}
 }
