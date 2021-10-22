@@ -2,7 +2,7 @@
 
 /*
 	Extension:CreatedPagesList - MediaWiki extension.
-	Copyright (C) 2018 Edward Chernenko.
+	Copyright (C) 2018-2021 Edward Chernenko.
 
 	This program is free software; you can redistribute it and/or modify
 	it under the terms of the GNU General Public License as published by
@@ -20,6 +20,8 @@
 	@brief Checks situation when user is renamed/deleted by Extension:UserMerge.
 */
 
+use MediaWiki\MediaWikiServices;
+
 require_once __DIR__ . '/CreatedPagesListTestBase.php';
 
 /**
@@ -35,21 +37,21 @@ class CreatedPagesListUserMergeTest extends CreatedPagesListTestBase {
 	}
 
 	/**
-		@brief Returns User object of performer for MergeUser methods.
-		Doesn't matter for these tests, so we'll use an anonymous user.
-	*/
+	 * Returns User object of performer for MergeUser methods.
+	 * Doesn't matter for these tests, so we'll use an anonymous user.
+	 */
 	protected function getPerformer() {
 		return User::newFromName( '127.0.0.1', false );
 	}
 
 	/**
-		@brief Ensures that user being renamed by Extension:UserMerge updates 'createdpageslist' table.
-		@covers CreatedPagesListHooks::onUserMergeAccountFields
-	*/
+	 * Ensures that user being renamed by Extension:UserMerge updates 'createdpageslist' table.
+	 * @covers CreatedPagesListHooks::onUserMergeAccountFields
+	 */
 	public function testRenamedUser() {
 		$title = $this->getExistingTitle();
 
-		$oldUser = WikiPage::factory( $title )->getCreator();
+		$oldUser = $this->getCreatorOf( $title );
 		$newUser = ( new TestUser( 'Some other user' ) )->getUser();
 
 		$this->assertCreatedBy( $oldUser, $title );  // Assert starting conditions
@@ -61,13 +63,13 @@ class CreatedPagesListUserMergeTest extends CreatedPagesListTestBase {
 	}
 
 	/**
-		@brief Ensures that user being deleted by Extension:UserMerge updates 'createdpageslist' table.
-		@covers CreatedPagesListHooks::onUserMergeAccountDeleteTables
-	*/
+	 * Ensures that user being deleted by Extension:UserMerge updates 'createdpageslist' table.
+	 * @covers CreatedPagesListHooks::onUserMergeAccountDeleteTables
+	 */
 	public function testDeletedUser() {
 		$title = $this->getExistingTitle();
 
-		$oldUser = WikiPage::factory( $title )->getCreator();
+		$oldUser = $this->getCreatorOf( $title );
 		$newUser = ( new TestUser( 'Some other user' ) )->getUser();
 
 		$this->assertCreatedBy( $oldUser, $title );  // Assert starting conditions
@@ -82,5 +84,16 @@ class CreatedPagesListUserMergeTest extends CreatedPagesListTestBase {
 		$mu->delete( $this->getPerformer(), 'wfMessage' );
 
 		$this->assertCreatedBy( null, $title );
+	}
+
+	/**
+	 * Convenience method: get User object of whoever created the page $title.
+	 * @return User
+	 */
+	private function getCreatorOf( Title $title ) {
+		$page = WikiPage::factory( $title );
+		$identity = $page->getCreator();
+
+		return $this->getServiceContainer()->getUserFactory()->newFromUserIdentity( $identity );
 	}
 }
