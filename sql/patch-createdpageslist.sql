@@ -1,6 +1,6 @@
 --
 --	Extension:CreatedPagesList - MediaWiki extension.
---	Copyright (C) 2018 Edward Chernenko.
+--	Copyright (C) 2018-2021 Edward Chernenko.
 --
 --	This program is free software; you can redistribute it and/or modify
 --	it under the terms of the GNU General Public License as published by
@@ -18,8 +18,7 @@ CREATE TABLE /*_*/createdpageslist (
 	cpl_id int unsigned NOT NULL PRIMARY KEY AUTO_INCREMENT,
 	cpl_timestamp varbinary(14) NOT NULL DEFAULT '',
 
-	cpl_user int unsigned NOT NULL default 0,
-	cpl_user_text varchar(255) binary NOT NULL,
+	cpl_actor bigint unsigned NOT NULL default 0,
 
 	cpl_namespace int NOT NULL default 0,
 	cpl_title varchar(255) binary NOT NULL default ''
@@ -29,4 +28,4 @@ CREATE TABLE /*_*/createdpageslist (
 CREATE UNIQUE INDEX /*i*/createdpageslist_page ON /*_*/createdpageslist (cpl_namespace, cpl_title);
 
 -- Index used by Special:CreatedPageList
-CREATE INDEX /*i*/createdpageslist_user_timestamp ON /*_*/createdpageslist (cpl_user_text, cpl_timestamp);
+CREATE INDEX /*i*/createdpageslist_actor_timestamp ON /*_*/createdpageslist (cpl_actor, cpl_timestamp);

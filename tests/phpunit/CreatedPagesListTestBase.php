@@ -2,7 +2,7 @@
 
 /*
 	Extension:CreatedPagesList - MediaWiki extension.
-	Copyright (C) 2018 Edward Chernenko.
+	Copyright (C) 2018-2021 Edward Chernenko.
 
 	This program is free software; you can redistribute it and/or modify
 	it under the terms of the GNU General Public License as published by
@@ -15,13 +15,13 @@
 	GNU General Public License for more details.
 */
 
-use MediaWiki\User\UserIdentity;
 use MediaWiki\Linker\LinkTarget;
+use MediaWiki\User\UserIdentity;
 
 /**
-	@file
-	@brief Parent class for tests that check 'createdpageslist' SQL table.
-*/
+ * @file
+ * Parent class for tests that check 'createdpageslist' SQL table.
+ */
 
 class CreatedPagesListTestBase extends MediaWikiTestCase {
 	public function needsDB() {
@@ -38,12 +38,16 @@ class CreatedPagesListTestBase extends MediaWikiTestCase {
 		] );
 	}
 
-	/** @brief Returns User object of test user. */
+	/**
+	 * @return User
+	 */
 	protected function getUser() {
 		return User::newFromName( 'UTSysop' );
 	}
 
-	/** @brief Returns Title object of existing test page. */
+	/**
+	 * @return Title
+	 */
 	protected function getExistingTitle() {
 		// Always created in MediaWikiTestCase::addCoreDBData()
 		return Title::newFromText( 'UTPage' );
@@ -55,15 +59,21 @@ class CreatedPagesListTestBase extends MediaWikiTestCase {
 	 * @param LinkTarget $title
 	 */
 	protected function assertCreatedBy( ?UserIdentity $expectedAuthor, LinkTarget $title ) {
+		// Don't want to use ActorNormalization service (1.36+) to get actor ID from UserIdentity,
+		// as this change may be backported to MediaWiki 1.35 (LTS).
+		if ( $expectedAuthor ) {
+			$user = $this->getServiceContainer()->getUserFactory()->newFromUserIdentity( $expectedAuthor );
+			$expectedActorId = $user->getActorId();
+		}
+
 		$this->assertSelect( 'createdpageslist',
-			[ 'cpl_user', 'cpl_user_text' ],
+			[ 'cpl_actor' ],
 			[
 				'cpl_namespace' => $title->getNamespace(),
 				'cpl_title' => $title->getDBKey()
 			],
 			$expectedAuthor ? [ [
-				$expectedAuthor->getId(),
-				$expectedAuthor->getName()
+				$expectedActorId
 			] ] : [],
 			[],
 			[]

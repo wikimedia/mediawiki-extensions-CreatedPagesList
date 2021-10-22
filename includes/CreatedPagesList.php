@@ -16,9 +16,9 @@
 */
 
 /**
-	@file
-	@brief Methods to keep 'createdpageslist' SQL table up to date.
-*/
+ * @file
+ * Methods to keep 'createdpageslist' SQL table up to date.
+ */
 
 use MediaWiki\MediaWikiServices;
 
@@ -73,8 +73,7 @@ class CreatedPagesList {
 					'cpl_namespace' => $row->namespace,
 					'cpl_title' => $row->title,
 					'cpl_timestamp' => $row->timestamp,
-					'cpl_user_text' => $row->rev_user_text,
-					'cpl_user' => $row->rev_user ?? 0
+					'cpl_actor' => $row->rev_actor ?? 0
 				],
 				__METHOD__
 			);
@@ -105,8 +104,7 @@ class CreatedPagesList {
 			[ [ 'cpl_namespace', 'cpl_title' ] ],
 			[
 				'cpl_timestamp' => $dbw->timestamp( $timestamp ),
-				'cpl_user' => $user->getId(),
-				'cpl_user_text' => $user->getName(),
+				'cpl_actor' => $user->getActorId(),
 				'cpl_namespace' => $title->getNamespace(),
 				'cpl_title' => $title->getDBKey()
 			],
