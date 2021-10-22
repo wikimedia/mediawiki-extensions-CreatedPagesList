@@ -2,7 +2,7 @@
 
 /*
 	Extension:CreatedPagesList - MediaWiki extension.
-	Copyright (C) 2018 Edward Chernenko.
+	Copyright (C) 2018-2021 Edward Chernenko.
 
 	This program is free software; you can redistribute it and/or modify
 	it under the terms of the GNU General Public License as published by
@@ -22,40 +22,42 @@
 
 require_once __DIR__ . '/CreatedPagesListTestBase.php';
 
+use MediaWiki\Revision\SlotRecord;
+
 /**
 	@group Database
 	@covers CreatedPagesListHooks
 */
 class CreatedPagesListHooksTest extends CreatedPagesListTestBase {
 	/**
-		@brief Ensures that newly created page appears in 'createdpageslist' table.
-		@covers CreatedPagesListHooks::onPageSaveComplete
-	*/
+	 * Ensures that newly created page appears in 'createdpageslist' table.
+	 * @covers CreatedPagesListHooks::onPageSaveComplete
+	 */
 	public function testNewPage() {
 		$title = Title::newFromText( 'Non-existent page' );
-		$user = $this->getUser();
-
 		$this->assertCreatedBy( null, $title ); // Assert starting conditions
 
+		$user = $this->getUser();
+		$content = new WikitextContent( 'UTContent' );
+		$summary = CommentStoreComment::newUnsavedComment( 'UTPageSummary' );
+
 		$page = WikiPage::factory( $title );
-		$status = $page->doEditContent(
-			new WikitextContent( 'UTContent' ),
-			'UTPageSummary',
-			EDIT_NEW,
-			false,
-			$user
-		);
-		if ( !$status->isOK() ) {
-			throw new MWException( 'Preparing the test: doEditContent() failed: ' . $status->getMessage() );
+		$updater = $page->newPageUpdater( $user );
+
+		$updater->setContent( SlotRecord::MAIN, $content );
+		$updater->saveRevision( $summary, EDIT_INTERNAL );
+
+		if ( !$updater->getStatus()->isOK() ) {
+			throw new MWException( 'Preparing the test: saveRevision() failed: ' . $status->getMessage() );
 		}
 
 		$this->assertCreatedBy( $user, $title );
 	}
 
 	/**
-		@brief Ensures that deleted page is deleted from 'createdpageslist' table.
-		@covers CreatedPagesListHooks::onArticleDeleteComplete
-	*/
+	 * Ensures that deleted page is deleted from 'createdpageslist' table.
+	 * @covers CreatedPagesListHooks::onArticleDeleteComplete
+	 */
 	public function testDeletedPage() {
 		$title = $this->getExistingTitle();
 		$page = WikiPage::factory( $title );
@@ -74,9 +76,9 @@ class CreatedPagesListHooksTest extends CreatedPagesListTestBase {
 	}
 
 	/**
-		@brief Ensures that moved page remains in 'createdpageslist' table.
-		@covers CreatedPagesListHooks::onPageMoveComplete
-	*/
+	 * Ensures that moved page remains in 'createdpageslist' table.
+	 * @covers CreatedPagesListHooks::onPageMoveComplete
+	 */
 	public function testMovedPage() {
 		$ot = $this->getExistingTitle();
 		$nt = Title::newFromText( 'New page title' );
@@ -92,9 +94,9 @@ class CreatedPagesListHooksTest extends CreatedPagesListTestBase {
 	}
 
 	/**
-		@brief Ensures that undeleted page is restored in 'createdpageslist' table.
-		@covers CreatedPagesListHooks::onArticleUndelete
-	*/
+	 * Ensures that undeleted page is restored in 'createdpageslist' table.
+	 * @covers CreatedPagesListHooks::onArticleUndelete
+	 */
 	public function testUndeletedPage() {
 		$title = $this->getExistingTitle();
 		$page = WikiPage::factory( $title );

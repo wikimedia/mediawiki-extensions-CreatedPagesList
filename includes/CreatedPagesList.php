@@ -2,7 +2,7 @@
 
 /*
 	Extension:CreatedPagesList - MediaWiki extension.
-	Copyright (C) 2018 Edward Chernenko.
+	Copyright (C) 2018-2021 Edward Chernenko.
 
 	This program is free software; you can redistribute it and/or modify
 	it under the terms of the GNU General Public License as published by
@@ -15,17 +15,17 @@
 	GNU General Public License for more details.
 */
 
-use MediaWiki\MediaWikiServices;
-
 /**
 	@file
 	@brief Methods to keep 'createdpageslist' SQL table up to date.
 */
 
+use MediaWiki\MediaWikiServices;
+
 class CreatedPagesList {
 
 	/**
-	 * @brief Update createdpageslist table.
+	 * Update createdpageslist table.
 	 * This is called from update.php.
 	 */
 	public static function recalculateSqlTable() {
@@ -86,14 +86,14 @@ class CreatedPagesList {
 	}
 
 	/**
-	 * @brief Add page $title into the CreatedPagesList of $user.
+	 * Add page $title into the CreatedPagesList of $user.
 	 * @param User $user
 	 * @param Title $title
 	 * @param string $timestamp MediaWiki timestamp.
 	 * @param bool|null $isRedirect True/false if known, null to get from $title.
 	 */
 	public static function add( User $user, Title $title, $timestamp, $isRedirect = null ) {
-		if ( !MWNamespace::isContent( $title->getNamespace() ) ) {
+		if ( !MediaWikiServices::getInstance()->getNamespaceInfo()->isContent( $title->getNamespace() ) ) {
 			return; /* We only need articles, not templates, etc. */
 		}
 
@@ -116,7 +116,7 @@ class CreatedPagesList {
 		);
 	}
 
-	/** @brief Delete page $title from the CreatedPagesList. */
+	/** Delete page $title from the CreatedPagesList. */
 	public static function delete( Title $title ) {
 		$dbw = wfGetDB( DB_MASTER );
 		$dbw->delete(
@@ -129,7 +129,7 @@ class CreatedPagesList {
 		);
 	}
 
-	/** @brief Rename page $title in the CreatedPagesList. */
+	/** Rename page $title in the CreatedPagesList. */
 	public static function move( Title $title, Title $newTitle ) {
 		$dbw = wfGetDB( DB_MASTER );
 		$dbw->update(
