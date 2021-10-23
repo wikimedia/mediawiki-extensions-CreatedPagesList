@@ -2,7 +2,7 @@
 
 /*
 	Extension:CreatedPagesList - MediaWiki extension.
-	Copyright (C) 2012-2018 Edward Chernenko.
+	Copyright (C) 2012-2021 Edward Chernenko.
 
 	This program is free software; you can redistribute it and/or modify
 	it under the terms of the GNU General Public License as published by
@@ -16,27 +16,28 @@
 */
 
 /**
-	@file
-	@brief Implements [[Special:CreatedPagesList]].
-*/
+ * @file
+ * Implements [[Special:CreatedPagesList]].
+ */
 
 class SpecialCreatedPagesList extends PageQueryPage {
 
 	/** @var User Author of the pages we need to list */
 	protected $user = null;
 
-	function __construct( $name = 'CreatedPagesList' ) {
+	public function __construct( $name = 'CreatedPagesList' ) {
 		parent::__construct( $name );
 	}
 
-	function isSyndicated() {
+	public function isSyndicated() {
 		return false;
 	}
-	function getOrderFields() {
+
+	protected function getOrderFields() {
 		return [ 'cpl_timestamp' ];
 	}
 
-	function sortDescending() {
+	protected function sortDescending() {
 		return true;
 	}
 
@@ -44,7 +45,7 @@ class SpecialCreatedPagesList extends PageQueryPage {
 		return false;
 	}
 
-	function execute( $param ) {
+	public function execute( $param ) {
 		$username = $this->getRequest()->getVal( 'username', $param );
 		if ( strval( $username ) == '' ) {
 			$this->setHeaders();
@@ -58,7 +59,7 @@ class SpecialCreatedPagesList extends PageQueryPage {
 		parent::execute( $param );
 	}
 
-	function linkParameters() {
+	protected function linkParameters() {
 		return $this->user ? [ 'username' => $this->user->getName() ] : [];
 	}
 
@@ -78,7 +79,6 @@ class SpecialCreatedPagesList extends PageQueryPage {
 			]
 		];
 		$htmlForm = HTMLForm::factory( 'ooui', $formDescriptor, $this->getContext() );
-;
 		$htmlForm
 			->setWrapperLegendMsg( 'createdpageslist' )
 			->setSubmitTextMsg( 'createdpageslist-submit' )
@@ -88,7 +88,7 @@ class SpecialCreatedPagesList extends PageQueryPage {
 			->displayForm( $error );
 	}
 
-	function getQueryInfo() {
+	public function getQueryInfo() {
 		return [
 			'tables' => [ 'createdpageslist' ],
 			'fields' => [

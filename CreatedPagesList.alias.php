@@ -16,13 +16,13 @@
 */
 
 /**
-	@file
-	@brief Aliases of [[Special:CreatedPagesList]] in other languages.
-*/
+ * @file
+ * Aliases of [[Special:CreatedPagesList]] in other languages.
+ */
 
 $specialPageAliases = [];
 
- /** English
+/** English
  * @author Edward Chernenko
  */
 $specialPageAliases['en'] = [

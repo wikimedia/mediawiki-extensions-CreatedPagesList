@@ -33,7 +33,7 @@ class SpecialCreatedPagesListTest extends SpecialPageTestBase {
 		return true;
 	}
 
-	protected function setUp() : void {
+	protected function setUp(): void {
 		parent::setUp();
 		$this->tablesUsed[] = 'createdpageslist';
 	}
@@ -74,6 +74,7 @@ class SpecialCreatedPagesListTest extends SpecialPageTestBase {
 
 	/**
 	 * Checks how Special:CreatedPagesList prints the list of pages.
+	 * @param bool $subpageHasUsername
 	 * @dataProvider dataProviderShowPages
 	 */
 	public function testShowPages( $subpageHasUsername ) {
@@ -129,7 +130,8 @@ class SpecialCreatedPagesListTest extends SpecialPageTestBase {
 	}
 
 	/**
-	 * @brief Provide datasets for testShowPages() runs.
+	 * Provide datasets for testShowPages() runs.
+	 * @return array
 	 */
 	public function dataProviderShowPages() {
 		return [
@@ -140,9 +142,9 @@ class SpecialCreatedPagesListTest extends SpecialPageTestBase {
 
 	/**
 	 * Render Special:CreatedPagesList.
-	 * @param $param Subpage, e.g. 'User1' for [[Special:CreatedPagesList/User1]].
-	 * @param $query Query string parameters.
-	 * @returns HTML of the result.
+	 * @param string $param Subpage, e.g. 'User1' for [[Special:CreatedPagesList/User1]].
+	 * @param array $query Query string parameters.
+	 * @return HTML of the result.
 	 */
 	public function runSpecial( $param = '', array $query = [] ) {
 		global $wgLang; /* HTMLForm sometimes calls wfMessage() without context  */

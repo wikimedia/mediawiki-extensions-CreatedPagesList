@@ -96,7 +96,7 @@ class CreatedPagesList {
 			return; /* We only need articles, not templates, etc. */
 		}
 
-		if ( $isRedirect !== null ? $isRedirect : $title->isRedirect() ) {
+		if ( $isRedirect ?? $title->isRedirect() ) {
 			return; /* Redirects are not worthy */
 		}
 
@@ -114,7 +114,10 @@ class CreatedPagesList {
 		);
 	}
 
-	/** Delete page $title from the CreatedPagesList. */
+	/**
+	 * Delete page $title from the CreatedPagesList.
+	 * @param Title $title
+	 */
 	public static function delete( Title $title ) {
 		$dbw = wfGetDB( DB_MASTER );
 		$dbw->delete(
@@ -127,7 +130,11 @@ class CreatedPagesList {
 		);
 	}
 
-	/** Rename page $title in the CreatedPagesList. */
+	/**
+	 * Rename page $title in the CreatedPagesList.
+	 * @param Title $title
+	 * @param Title $newTitle
+	 */
 	public static function move( Title $title, Title $newTitle ) {
 		$dbw = wfGetDB( DB_MASTER );
 		$dbw->update(

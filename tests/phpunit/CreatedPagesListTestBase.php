@@ -28,7 +28,7 @@ class CreatedPagesListTestBase extends MediaWikiIntegrationTestCase {
 		return true;
 	}
 
-	protected function setUp() : void {
+	protected function setUp(): void {
 		parent::setUp();
 		$this->tablesUsed = array_merge( $this->tablesUsed, [
 			'createdpageslist',
@@ -54,7 +54,7 @@ class CreatedPagesListTestBase extends MediaWikiIntegrationTestCase {
 	}
 
 	/**
-	 * @brief Asserts that $expectedAuthor is recorded as creator of $title.
+	 * Asserts that $expectedAuthor is recorded as creator of $title.
 	 * @param UserIdentity|null $expectedAuthor
 	 * @param LinkTarget $title
 	 */
@@ -80,8 +80,12 @@ class CreatedPagesListTestBase extends MediaWikiIntegrationTestCase {
 		);
 	}
 
-	/** @brief Same as assertCreatedBy(), but expects User/Title as strings. */
-	protected function assertCreatedByText( $username = '', $pageName ) {
+	/**
+	 * Same as assertCreatedBy(), but expects User/Title as strings.
+	 * @param string $username
+	 * @param string $pageName
+	 */
+	protected function assertCreatedByText( $username, $pageName ) {
 		$this->assertCreatedBy(
 			$username ? User::newFromName( $username, false ) : null,
 			Title::newFromText( $pageName )

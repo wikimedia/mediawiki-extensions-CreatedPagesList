@@ -27,7 +27,14 @@ use MediaWiki\User\UserIdentity;
 
 class CreatedPagesListHooks {
 
-	/** Add newly created article into the 'createdpageslist' SQL table. */
+	/**
+	 * Add newly created article into the 'createdpageslist' SQL table.
+	 * @param WikiPage $wikiPage
+	 * @param UserIdentity $user
+	 * @param string $summary
+	 * @param int $flags
+	 * @param RevisionRecord $revisionRecord
+	 */
 	public static function onPageSaveComplete( WikiPage $wikiPage,
 		UserIdentity $user, $summary, $flags, RevisionRecord $revisionRecord
 	) {
@@ -39,18 +46,33 @@ class CreatedPagesListHooks {
 		);
 	}
 
-	/** Remove deleted article from the 'createdpageslist' SQL table. */
+	/**
+	 * Remove deleted article from the 'createdpageslist' SQL table.
+	 * @param WikiPage $wikiPage
+	 * @param User $user
+	 * @param string $reason
+	 * @param int $id
+	 * @param Content|null $content
+	 * @param ManualLogEntry $logEntry
+	 */
 	public static function onArticleDeleteComplete(
-		&$article, User &$user, $reason, $id, $content, LogEntry $logEntry
+		$wikiPage, User $user, $reason, $id, $content, LogEntry $logEntry
 	) {
-		CreatedPagesList::delete( $article->getTitle() );
+		CreatedPagesList::delete( $wikiPage->getTitle() );
 	}
 
-	/** Add newly undeleted article into the 'createdpageslist' SQL table. */
+	/**
+	 * Add newly undeleted article into the 'createdpageslist' SQL table.
+	 * @param Title $title
+	 * @param bool $create
+	 * @param string $comment
+	 * @param int $oldPageId
+	 * @param array $restoredPages
+	 */
 	public static function onArticleUndelete(
-		$title, $created, $comment, $oldPageId, $restoredPages = []
+		$title, $create, $comment, $oldPageId, $restoredPages = []
 	) {
-		DeferredUpdates::addCallableUpdate( function () use ( $title ) {
+		DeferredUpdates::addCallableUpdate( static function () use ( $title ) {
 			$rev = MediaWikiServices::getInstance()->getRevisionLookup()->getFirstRevision( $title );
 			$user = User::newFromName(
 				$rev->getUser( RevisionRecord::RAW )->getName(),
@@ -61,7 +83,11 @@ class CreatedPagesListHooks {
 		} );
 	}
 
-	/** Rename the moved article in 'createdpageslist' SQL table. */
+	/**
+	 * Rename the moved article in 'createdpageslist' SQL table.
+	 * @param LinkTarget $old
+	 * @param LinkTarget $new
+	 */
 	public static function onPageMoveComplete( LinkTarget $old, LinkTarget $new ) {
 		CreatedPagesList::move(
 			Title::newFromLinkTarget( $old ),

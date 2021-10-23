@@ -16,18 +16,18 @@
 */
 
 /**
-	@file
-	@brief Tests of the hooks that update 'createdpageslist' SQL table.
-*/
+ * @file
+ * Tests of the hooks that update 'createdpageslist' SQL table.
+ */
 
 require_once __DIR__ . '/CreatedPagesListTestBase.php';
 
 use MediaWiki\Revision\SlotRecord;
 
 /**
-	@group Database
-	@covers CreatedPagesListHooks
-*/
+ * @group Database
+ * @covers CreatedPagesListHooks
+ */
 class CreatedPagesListHooksTest extends CreatedPagesListTestBase {
 	/**
 	 * Ensures that newly created page appears in 'createdpageslist' table.

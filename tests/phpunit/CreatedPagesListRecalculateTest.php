@@ -16,9 +16,9 @@
 */
 
 /**
-	@file
-	@brief Tests of recalculation of 'createdpageslist' SQL table.
-*/
+ * @file
+ * Tests of recalculation of 'createdpageslist' SQL table.
+ */
 
 require_once __DIR__ . '/CreatedPagesListTestBase.php';
 
@@ -32,9 +32,9 @@ use Wikimedia\IPUtils;
  */
 class CreatedPagesListRecalculateTest extends CreatedPagesListTestBase {
 	/**
-		@brief Ensures that 'createdpageslist' table is correctly populated.
-		@covers CreatedPagesList::recalculateSqlTable
-	*/
+	 * Ensures that 'createdpageslist' table is correctly populated.
+	 * @covers CreatedPagesList::recalculateSqlTable
+	 */
 	public function testInitialize() {
 		// Fill 'revision' table with fake edits,
 		// then call recalculateSqlTable() and check the results.

@@ -43,8 +43,6 @@ class CreatedPagesListUpdater {
 			// Recalculate only when needed, not on every update.php
 			$updater->addExtensionUpdate( [ [ __CLASS__, 'populateSqlTable' ] ] );
 		}
-
-		return true;
 	}
 
 	public static function populateSqlTable( DatabaseUpdater $updater ) {
