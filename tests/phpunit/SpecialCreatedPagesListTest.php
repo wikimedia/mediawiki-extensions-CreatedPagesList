@@ -78,24 +78,32 @@ class SpecialCreatedPagesListTest extends SpecialPageTestBase {
 	 */
 	public function testShowPages( $subpageHasUsername ) {
 		/* Populate 'createdpagelist' table */
-		$user = User::newFromName( 'UTSysop' ); // Created in MediaWikiTestCase
-		$titles = [
+		$user = User::newFromName( 'UTSysop' ); // Created in MediaWikiIntegrationTestCase
+		$pageNames = [
 			'Test page 1',
 			'Test page 2',
 			'Test page 3'
 		];
 
+		// Pages must exist before the test, or else they wouldn't have a valid page_id.
+		foreach ( $pageNames as $pageName ) {
+			$this->getExistingTestPage( $pageName );
+		}
+
+		// Empty the table before the test.
+		$this->truncateTable( 'createdpageslist' );
+
+		// Populate the table with test data.
 		$dbw = wfGetDB( DB_MASTER );
-		foreach ( $titles as $title ) {
-			$titleObj = Title::newFromText( $title );
+		foreach ( $pageNames as $pageName ) {
+			$title = Title::newFromText( $pageName );
 
 			$dbw->insert(
 				'createdpageslist',
 				[
 					'cpl_timestamp' => $dbw->timestamp(),
 					'cpl_actor' => $user->getActorId(),
-					'cpl_namespace' => $titleObj->getNamespace(),
-					'cpl_title' => $titleObj->getDBKey()
+					'cpl_page' => $title->getArticleId()
 				],
 				__METHOD__,
 				[ 'IGNORE' ]
@@ -119,7 +127,7 @@ class SpecialCreatedPagesListTest extends SpecialPageTestBase {
 			$foundTitles[$link->textContent] = $link->ownerDocument->saveXML( $link );
 		}
 
-		foreach ( $titles as $expectedTitle ) {
+		foreach ( $pageNames as $expectedTitle ) {
 			$this->assertArrayHasKey( $expectedTitle, $foundTitles,
 				"Special:CreatedPagesList: expected page [$expectedTitle] wasn't listed" );
 

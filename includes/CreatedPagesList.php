@@ -41,8 +41,7 @@ class CreatedPagesList {
 			'revision'
 		] );
 		$fields = array_merge( $actorQuery['fields'], [
-			'page_namespace AS namespace',
-			'page_title AS title',
+			'page_id AS page',
 			'rev_timestamp AS timestamp'
 		] );
 
@@ -70,8 +69,7 @@ class CreatedPagesList {
 			$dbw->insert(
 				'createdpageslist',
 				[
-					'cpl_namespace' => $row->namespace,
-					'cpl_title' => $row->title,
+					'cpl_page' => $row->page,
 					'cpl_timestamp' => $row->timestamp,
 					'cpl_actor' => $row->rev_actor ?? 0
 				],
@@ -101,12 +99,11 @@ class CreatedPagesList {
 		$dbw = wfGetDB( DB_MASTER );
 		$dbw->replace(
 			'createdpageslist',
-			[ [ 'cpl_namespace', 'cpl_title' ] ],
+			[ [ 'cpl_page' ] ],
 			[
 				'cpl_timestamp' => $dbw->timestamp( $timestamp ),
 				'cpl_actor' => $user->getActorId(),
-				'cpl_namespace' => $title->getNamespace(),
-				'cpl_title' => $title->getDBKey()
+				'cpl_page' => $title->getArticleId()
 			],
 			__METHOD__
 		);
@@ -118,28 +115,9 @@ class CreatedPagesList {
 		$dbw->delete(
 			'createdpageslist',
 			[
-				'cpl_namespace' => $title->getNamespace(),
-				'cpl_title' => $title->getDBKey()
+				'cpl_page' => $title->getArticleId()
 			],
 			__METHOD__
-		);
-	}
-
-	/** Rename page $title in the CreatedPagesList. */
-	public static function move( Title $title, Title $newTitle ) {
-		$dbw = wfGetDB( DB_MASTER );
-		$dbw->update(
-			'createdpageslist',
-			[
-				'cpl_namespace' => $newTitle->getNamespace(),
-				'cpl_title' => $newTitle->getDBKey()
-			],
-			[
-				'cpl_namespace' => $title->getNamespace(),
-				'cpl_title' => $title->getDBKey()
-			],
-			__METHOD__,
-			[ 'IGNORE' ]
 		);
 	}
 }

@@ -90,18 +90,24 @@ class SpecialCreatedPagesList extends PageQueryPage {
 
 	function getQueryInfo() {
 		return [
-			'tables' => [ 'createdpageslist' ],
+			'tables' => [ 'createdpageslist', 'page' ],
 			'fields' => [
-				'cpl_namespace AS namespace',
-				'cpl_title AS title'
+				'page_namespace AS namespace',
+				'page_title AS title'
 			],
 			'conds' => [
 				'cpl_actor' => $this->user->getActorId()
 			],
 			'options' => [
-				'USE INDEX' => 'createdpageslist_actor_timestamp'
+				'USE INDEX' => [
+					'createdpageslist' => 'createdpageslist_actor_timestamp'
+				]
 			],
-			'join_conds' => []
+			'join_conds' => [
+				'page' => [ 'INNER JOIN', [
+					'page_id=cpl_page'
+				] ]
+			]
 		];
 	}
 }
