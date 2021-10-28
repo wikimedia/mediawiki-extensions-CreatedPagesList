@@ -69,8 +69,7 @@ class CreatedPagesListTestBase extends MediaWikiIntegrationTestCase {
 		$this->assertSelect( 'createdpageslist',
 			[ 'cpl_actor' ],
 			[
-				'cpl_namespace' => $title->getNamespace(),
-				'cpl_title' => $title->getDBKey()
+				'cpl_page' => $title->getArticleId()
 			],
 			$expectedAuthor ? [ [
 				$expectedActorId

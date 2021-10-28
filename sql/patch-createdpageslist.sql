@@ -19,13 +19,11 @@ CREATE TABLE /*_*/createdpageslist (
 	cpl_timestamp varbinary(14) NOT NULL DEFAULT '',
 
 	cpl_actor bigint unsigned NOT NULL default 0,
-
-	cpl_namespace int NOT NULL default 0,
-	cpl_title varchar(255) binary NOT NULL default ''
+	cpl_page int unsigned NOT NULL
 
 ) /*$wgDBTableOptions*/;
 
-CREATE UNIQUE INDEX /*i*/createdpageslist_page ON /*_*/createdpageslist (cpl_namespace, cpl_title);
+CREATE UNIQUE INDEX /*i*/createdpageslist_page ON /*_*/createdpageslist (cpl_page);
 
 -- Index used by Special:CreatedPageList
 CREATE INDEX /*i*/createdpageslist_actor_timestamp ON /*_*/createdpageslist (cpl_actor, cpl_timestamp);

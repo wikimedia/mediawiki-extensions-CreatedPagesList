@@ -76,24 +76,6 @@ class CreatedPagesListHooksTest extends CreatedPagesListTestBase {
 	}
 
 	/**
-	 * Ensures that moved page remains in 'createdpageslist' table.
-	 * @covers CreatedPagesListHooks::onPageMoveComplete
-	 */
-	public function testMovedPage() {
-		$ot = $this->getExistingTitle();
-		$nt = Title::newFromText( 'New page title' );
-		$user = WikiPage::factory( $ot )->getCreator();
-
-		$this->assertCreatedBy( $user, $ot );  // Assert starting conditions
-
-		$mp = $this->getServiceContainer()->getMovePageFactory()->newMovePage( $ot, $nt );
-		$mp->move( $this->getUser(), 'for some reason', true );
-
-		$this->assertCreatedBy( $user, $nt );
-		$this->assertCreatedBy( null, $ot );
-	}
-
-	/**
 	 * Ensures that undeleted page is restored in 'createdpageslist' table.
 	 * @covers CreatedPagesListHooks::onArticleUndelete
 	 */

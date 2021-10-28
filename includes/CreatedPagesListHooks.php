@@ -20,7 +20,6 @@
  * Hooks of Extension:CreatedPagesList.
  */
 
-use MediaWiki\Hook\PageMoveCompleteHook;
 use MediaWiki\Page\Hook\ArticleDeleteCompleteHook;
 use MediaWiki\Page\Hook\ArticleUndeleteHook;
 use MediaWiki\Revision\RevisionLookup;
@@ -30,7 +29,6 @@ use MediaWiki\Storage\Hook\PageSaveCompleteHook;
 class CreatedPagesListHooks implements
 	ArticleDeleteCompleteHook,
 	ArticleUndeleteHook,
-	PageMoveCompleteHook,
 	PageSaveCompleteHook
 {
 	/** @var RevisionLookup */
@@ -87,17 +85,5 @@ class CreatedPagesListHooks implements
 
 			CreatedPagesList::add( $user, $title, $rev->getTimestamp() );
 		} );
-	}
-
-	/**
-	 * Rename the moved article in 'createdpageslist' SQL table.
-	 *
-	 * @inheritDoc
-	 */
-	public function onPageMoveComplete( $old, $new, $user, $pageid, $redirid, $reason, $revision ) {
-		CreatedPagesList::move(
-			Title::newFromLinkTarget( $old ),
-			Title::newFromLinkTarget( $new )
-		);
 	}
 }

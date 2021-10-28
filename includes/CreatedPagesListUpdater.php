@@ -27,25 +27,29 @@ class CreatedPagesListUpdater implements LoadExtensionSchemaUpdatesHook {
 	 * @inheritDoc
 	 */
 	public function onLoadExtensionSchemaUpdates( $updater ) {
-		$sqlDir = __DIR__ . '/../sql';
-		$updater->addExtensionTable( 'createdpageslist', "$sqlDir/patch-createdpageslist.sql" );
-
 		$db = $updater->getDB();
-		$needRecalculation = false;
 
-		if ( !$db->fieldInfo( 'createdpageslist', 'cpl_actor' ) ) {
-			// Old schema, table needs to be recalculated.
-			$needRecalculation = true;
-		} elseif ( $db->selectRowCount( 'createdpageslist' ) === 0 ) {
-			// Table is empty (extension was just installed), needs to be populated.
-			$needRecalculation = true;
+		// Because the table "createdpageslist" can be completely recalculated with recalculateSqlTable(),
+		// there is no reason to patch individual fields when the schema changes.
+		// Instead we drop the table and recreate it with the new schema.
+		$mustCreateTable = false;
+		if ( !$updater->tableExists( 'createdpageslist' ) ) {
+			$mustCreateTable = true;
+		} elseif (
+			!$db->fieldInfo( 'createdpageslist', 'cpl_actor' ) ||
+			!$db->fieldInfo( 'createdpageslist', 'cpl_page' ) ||
+			!$db->indexUnique( 'createdpageslist', 'createdpageslist_page' )
+		) {
+			// Table already exists, but the schema is outdated.
+			$updater->dropExtensionTable( 'createdpageslist' );
+			$mustCreateTable = true;
 		}
 
-		$updater->addExtensionField( 'createdpageslist', 'cpl_actor',
-				"$sqlDir/patch-createdpageslist-cpl_actor.sql" );
+		if ( $mustCreateTable ) {
+			$sqlDir = __DIR__ . '/../sql';
+			$updater->addExtensionTable( 'createdpageslist', "$sqlDir/patch-createdpageslist.sql" );
 
-		if ( $needRecalculation ) {
-			// Recalculate only when needed, not on every update.php
+			// Repopulate the entire table. This only happens when needed, not on every update.php
 			$updater->addExtensionUpdate( [ [ __CLASS__, 'populateSqlTable' ] ] );
 		}
 	}

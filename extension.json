@@ -1,6 +1,6 @@
 {
 	"name": "CreatedPagesList",
-	"version": "1.2.0",
+	"version": "1.2.1",
 	"author": "Edward Chernenko",
 	"url": "https://www.mediawiki.org/wiki/Extension:CreatedPagesList",
 	"descriptionmsg": "createdpageslist-desc",
@@ -41,7 +41,6 @@
 		"ArticleDeleteComplete": "main",
 		"ArticleUndelete": "main",
 		"LoadExtensionSchemaUpdates": "updater",
-		"PageMoveComplete": "main",
 		"PageSaveComplete": "main"
 	},
 	"manifest_version": 1
