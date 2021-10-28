@@ -26,12 +26,23 @@
 		"CreatedPagesListUpdater": "includes/CreatedPagesListUpdater.php",
 		"SpecialCreatedPagesList": "includes/SpecialCreatedPagesList.php"
 	},
+	"HookHandlers": {
+		"main": {
+			"class": "CreatedPagesListHooks",
+			"services": [
+				"RevisionLookup"
+			]
+		},
+		"updater": {
+			"class": "CreatedPagesListUpdater"
+		}
+	},
 	"Hooks": {
-		"ArticleDeleteComplete": "CreatedPagesListHooks::onArticleDeleteComplete",
-		"ArticleUndelete": "CreatedPagesListHooks::onArticleUndelete",
-		"LoadExtensionSchemaUpdates": "CreatedPagesListUpdater::onLoadExtensionSchemaUpdates",
-		"PageSaveComplete": "CreatedPagesListHooks::onPageSaveComplete",
-		"PageMoveComplete": "CreatedPagesListHooks::onPageMoveComplete"
+		"ArticleDeleteComplete": "main",
+		"ArticleUndelete": "main",
+		"LoadExtensionSchemaUpdates": "updater",
+		"PageMoveComplete": "main",
+		"PageSaveComplete": "main"
 	},
 	"manifest_version": 1
 }

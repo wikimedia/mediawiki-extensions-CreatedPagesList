@@ -20,8 +20,13 @@
  * Creates/updates the SQL tables when 'update.php' is invoked.
  */
 
-class CreatedPagesListUpdater {
-	public static function onLoadExtensionSchemaUpdates( DatabaseUpdater $updater ) {
+use MediaWiki\Installer\Hook\LoadExtensionSchemaUpdatesHook;
+
+class CreatedPagesListUpdater implements LoadExtensionSchemaUpdatesHook {
+	/**
+	 * @inheritDoc
+	 */
+	public function onLoadExtensionSchemaUpdates( $updater ) {
 		$sqlDir = __DIR__ . '/../sql';
 		$updater->addExtensionTable( 'createdpageslist', "$sqlDir/patch-createdpageslist.sql" );
 
