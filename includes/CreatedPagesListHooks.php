@@ -15,28 +15,41 @@
 	GNU General Public License for more details.
 */
 
-use MediaWiki\Linker\LinkTarget;
-use MediaWiki\MediaWikiServices;
-use MediaWiki\Revision\RevisionRecord;
-use MediaWiki\User\UserIdentity;
-
 /**
  * @file
  * Hooks of Extension:CreatedPagesList.
  */
 
-class CreatedPagesListHooks {
+use MediaWiki\Hook\PageMoveCompleteHook;
+use MediaWiki\Page\Hook\ArticleDeleteCompleteHook;
+use MediaWiki\Page\Hook\ArticleUndeleteHook;
+use MediaWiki\Revision\RevisionLookup;
+use MediaWiki\Revision\RevisionRecord;
+use MediaWiki\Storage\Hook\PageSaveCompleteHook;
+
+class CreatedPagesListHooks implements
+	ArticleDeleteCompleteHook,
+	ArticleUndeleteHook,
+	PageMoveCompleteHook,
+	PageSaveCompleteHook
+{
+	/** @var RevisionLookup */
+	protected $revisionLookup;
+
+	/**
+	 * @param RevisionLookup $revisionLookup
+	 */
+	public function __construct( RevisionLookup $revisionLookup ) {
+		$this->revisionLookup = $revisionLookup;
+	}
 
 	/**
 	 * Add newly created article into the 'createdpageslist' SQL table.
-	 * @param WikiPage $wikiPage
-	 * @param UserIdentity $user
-	 * @param string $summary
-	 * @param int $flags
-	 * @param RevisionRecord $revisionRecord
+	 *
+	 * @inheritDoc
 	 */
-	public static function onPageSaveComplete( WikiPage $wikiPage,
-		UserIdentity $user, $summary, $flags, RevisionRecord $revisionRecord
+	public function onPageSaveComplete(
+		$wikiPage, $user, $summary, $flags, $revisionRecord, $editResult
 	) {
 		CreatedPagesList::add(
 			User::newFromIdentity( $user ),
@@ -48,32 +61,25 @@ class CreatedPagesListHooks {
 
 	/**
 	 * Remove deleted article from the 'createdpageslist' SQL table.
-	 * @param WikiPage $wikiPage
-	 * @param User $user
-	 * @param string $reason
-	 * @param int $id
-	 * @param Content|null $content
-	 * @param ManualLogEntry $logEntry
+	 *
+	 * @inheritDoc
 	 */
-	public static function onArticleDeleteComplete(
-		$wikiPage, User $user, $reason, $id, $content, LogEntry $logEntry
+	public function onArticleDeleteComplete(
+		$wikiPage, $user, $reason, $id, $content, $logEntry, $archivedRevisionCount
 	) {
 		CreatedPagesList::delete( $wikiPage->getTitle() );
 	}
 
 	/**
 	 * Add newly undeleted article into the 'createdpageslist' SQL table.
-	 * @param Title $title
-	 * @param bool $create
-	 * @param string $comment
-	 * @param int $oldPageId
-	 * @param array $restoredPages
+	 *
+	 * @inheritDoc
 	 */
-	public static function onArticleUndelete(
+	public function onArticleUndelete(
 		$title, $create, $comment, $oldPageId, $restoredPages = []
 	) {
-		DeferredUpdates::addCallableUpdate( static function () use ( $title ) {
-			$rev = MediaWikiServices::getInstance()->getRevisionLookup()->getFirstRevision( $title );
+		DeferredUpdates::addCallableUpdate( function () use ( $title ) {
+			$rev = $this->revisionLookup->getFirstRevision( $title );
 			$user = User::newFromName(
 				$rev->getUser( RevisionRecord::RAW )->getName(),
 				false
@@ -85,10 +91,10 @@ class CreatedPagesListHooks {
 
 	/**
 	 * Rename the moved article in 'createdpageslist' SQL table.
-	 * @param LinkTarget $old
-	 * @param LinkTarget $new
+	 *
+	 * @inheritDoc
 	 */
-	public static function onPageMoveComplete( LinkTarget $old, LinkTarget $new ) {
+	public function onPageMoveComplete( $old, $new, $user, $pageid, $redirid, $reason, $revision ) {
 		CreatedPagesList::move(
 			Title::newFromLinkTarget( $old ),
 			Title::newFromLinkTarget( $new )
