@@ -1,11 +1,12 @@
 {
 	"@metadata": {
 		"authors": [
-			"Hedda"
+			"Hedda",
+			"MuratTheTurkish"
 		]
 	},
-	"createdpageslist": "Oluşturulan sayfalar listesi",
-	"createdpageslist-desc": "Seçilen yazarın oluşturduğu tüm maddeleri listeleyen [[Special:CreatedPagesList|OluşturulanSayfalarListesi]] sayfasını ekler",
+	"createdpageslist": "Oluşturulan sayfa listesi",
+	"createdpageslist-desc": "Seçilen yazarın oluşturduğu tüm maddeleri listeleyen [[Special:CreatedPagesList]] sayfasını ekler",
 	"createdpageslist-notfound": "Kullanıcı bulunamadı.",
 	"createdpageslist-username": "Kullanıcı",
 	"createdpageslist-submit": "Bul",

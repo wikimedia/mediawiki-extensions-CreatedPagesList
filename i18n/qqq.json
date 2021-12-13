@@ -1,10 +1,11 @@
 {
 	"@metadata": {
 		"authors": [
-			"Robby"
+			"Robby",
+			"Umherirrender"
 		]
 	},
-	"createdpageslist": "{{name}}",
+	"createdpageslist": "{{doc-special}}",
 	"createdpageslist-desc": "{{desc|name=CreatedPagesList|url=https://www.mediawiki.org/wiki/Extension:CreatedPagesList}}",
 	"createdpageslist-notfound": "Used as error message",
 	"createdpageslist-username": "Used as label message\n{{Identical|User}}",

@@ -1,10 +1,13 @@
 {
 	"@metadata": {
 		"authors": [
-			"Suyama"
+			"Suyama",
+			"What here area team"
 		]
 	},
+	"createdpageslist": "作成したページ一覧",
 	"createdpageslist-notfound": "利用者が見つかりません。",
 	"createdpageslist-username": "利用者",
-	"createdpageslist-submit": "検索"
+	"createdpageslist-submit": "検索",
+	"createdpageslist-summary": "この特別ページは特定の利用者によって作成された全ての記事（標準名前空間のページ）を一覧にして表示します。"
 }

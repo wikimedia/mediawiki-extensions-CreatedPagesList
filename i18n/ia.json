@@ -1,0 +1,13 @@
+{
+	"@metadata": {
+		"authors": [
+			"McDutchie"
+		]
+	},
+	"createdpageslist": "Lista de paginas create",
+	"createdpageslist-desc": "Adde pagina [[Special:CreatedPagesList]] que lista tote le articulos create per le autor seligite",
+	"createdpageslist-notfound": "Usator non trovate.",
+	"createdpageslist-username": "Usator",
+	"createdpageslist-submit": "Cercar",
+	"createdpageslist-summary": "Iste pagina special lista tote le articulos (i.e. paginas in spatios de nomines de contento) create per usator specific."
+}
