@@ -1,0 +1,13 @@
+{
+	"@metadata": {
+		"authors": [
+			"Daud I.F. Argana"
+		]
+	},
+	"createdpageslist": "Daftar halaman yang dibuat",
+	"createdpageslist-desc": "Menambahkan halaman [[Special:CreatedPagesList]], yang berisi daftar semua artikel yang telah dibuat oleh penulis yang dipilih",
+	"createdpageslist-notfound": "Pengguna tidak ditemukan.",
+	"createdpageslist-username": "Pengguna",
+	"createdpageslist-submit": "Cari",
+	"createdpageslist-summary": "Halaman istimewa ini berisi daftar semua artikel (halaman dalam ruang nama konten) yang dibuat oleh seorang pengguna tertentu."
+}
