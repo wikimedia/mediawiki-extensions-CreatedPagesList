@@ -2,10 +2,11 @@
 	"@metadata": {
 		"authors": [
 			"Gomoko",
+			"Pols12",
 			"Wladek92"
 		]
 	},
-	"createdpageslist": "Liste de pages créée",
+	"createdpageslist": "Liste des pages créées",
 	"createdpageslist-desc": "Ajoute la page [[Special:CreatedPagesList]], qui liste tous les articles créés par l’auteur sélectionné",
 	"createdpageslist-notfound": "Utilisateur non trouvé.",
 	"createdpageslist-username": "Utilisateur",
