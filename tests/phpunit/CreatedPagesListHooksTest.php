@@ -22,6 +22,7 @@
 
 require_once __DIR__ . '/CreatedPagesListTestBase.php';
 
+use MediaWiki\MediaWikiServices;
 use MediaWiki\Revision\SlotRecord;
 
 /**
@@ -41,7 +42,12 @@ class CreatedPagesListHooksTest extends CreatedPagesListTestBase {
 		$content = new WikitextContent( 'UTContent' );
 		$summary = CommentStoreComment::newUnsavedComment( 'UTPageSummary' );
 
-		$page = WikiPage::factory( $title );
+		if ( method_exists( MediaWikiServices::class, 'getWikiPageFactory' ) ) {
+			// MW 1.36+
+			$page = MediaWikiServices::getInstance()->getWikiPageFactory()->newFromTitle( $title );
+		} else {
+			$page = WikiPage::factory( $title );
+		}
 		$updater = $page->newPageUpdater( $user );
 
 		$updater->setContent( SlotRecord::MAIN, $content );
@@ -60,7 +66,12 @@ class CreatedPagesListHooksTest extends CreatedPagesListTestBase {
 	 */
 	public function testDeletedPage() {
 		$title = $this->getExistingTitle();
-		$page = WikiPage::factory( $title );
+		if ( method_exists( MediaWikiServices::class, 'getWikiPageFactory' ) ) {
+			// MW 1.36+
+			$page = MediaWikiServices::getInstance()->getWikiPageFactory()->newFromTitle( $title );
+		} else {
+			$page = WikiPage::factory( $title );
+		}
 
 		$user = $page->getCreator();
 		$this->assertCreatedBy( $user, $title ); // Assert starting conditions
@@ -81,7 +92,12 @@ class CreatedPagesListHooksTest extends CreatedPagesListTestBase {
 	 */
 	public function testUndeletedPage() {
 		$title = $this->getExistingTitle();
-		$page = WikiPage::factory( $title );
+		if ( method_exists( MediaWikiServices::class, 'getWikiPageFactory' ) ) {
+			// MW 1.36+
+			$page = MediaWikiServices::getInstance()->getWikiPageFactory()->newFromTitle( $title );
+		} else {
+			$page = WikiPage::factory( $title );
+		}
 		$user = $page->getCreator();
 
 		$reason = 'for some reason';
