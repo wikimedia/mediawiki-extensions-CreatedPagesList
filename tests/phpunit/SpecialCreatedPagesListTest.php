@@ -20,6 +20,8 @@
  * Checks [[Special:CreatedPagesList]] special page.
  */
 
+use MediaWiki\MediaWikiServices;
+
 /**
  * @covers SpecialCreatedPagesList
  * @group Database
@@ -128,11 +130,13 @@ class SpecialCreatedPagesListTest extends SpecialPageTestBase {
 			$foundTitles[$link->textContent] = $link->ownerDocument->saveXML( $link );
 		}
 
+		$linkRenderer = MediaWikiServices::getInstance()->getLinkRenderer();
+
 		foreach ( $pageNames as $expectedTitle ) {
 			$this->assertArrayHasKey( $expectedTitle, $foundTitles,
 				"Special:CreatedPagesList: expected page [$expectedTitle] wasn't listed" );
 
-			$expectedHtml = Linker::link( Title::newFromText( $expectedTitle ) );
+			$expectedHtml = $linkRenderer->makeLink( Title::newFromText( $expectedTitle ) );
 			$this->assertEquals( $expectedHtml, $foundTitles[$expectedTitle] );
 		}
 	}
