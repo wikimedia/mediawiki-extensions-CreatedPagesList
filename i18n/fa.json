@@ -5,7 +5,9 @@
 		]
 	},
 	"createdpageslist": "فهرست صفحه‌های ایجادشده",
+	"createdpageslist-desc": "صفحهٔ [[Special:CreatedPagesList]] را که تمام مقاله‌های ایجادشده توسط نگارندهٔ منتخب را فهرست می‌کند، اضافه می‌کند",
 	"createdpageslist-notfound": "کاربر یافت نشد.",
 	"createdpageslist-username": "کاربر",
-	"createdpageslist-submit": "یافتن"
+	"createdpageslist-submit": "یافتن",
+	"createdpageslist-summary": "این صفحهٔ ویژه تمام مقاله‌ها (صفحه‌های حاضر در فضای نام اصلی) را که توسط یک کاربر خاص ایجاد شده‌اند، فهرست می‌کند."
 }
