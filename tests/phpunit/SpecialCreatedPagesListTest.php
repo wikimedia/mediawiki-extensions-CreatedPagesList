@@ -38,6 +38,14 @@ class SpecialCreatedPagesListTest extends SpecialPageTestBase {
 	protected function setUp(): void {
 		parent::setUp();
 		$this->tablesUsed[] = 'createdpageslist';
+
+		// LibXML (used by DomDocument) has trouble parsing certain parts of pages in MediaWiki 1.39+.
+		// This is unrelated to Extension:CreatedPagesList, so we ignore the warnings caused by it.
+		libxml_use_internal_errors( true );
+	}
+
+	protected function tearDown(): void {
+		libxml_use_internal_errors( false );
 	}
 
 	/**
