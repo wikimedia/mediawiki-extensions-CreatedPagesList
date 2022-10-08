@@ -34,16 +34,15 @@ class CreatedPagesList {
 		$dbw->startAtomic( __METHOD__ );
 		$dbw->delete( 'createdpageslist', '*', __METHOD__ );
 
-		$actorQuery = ActorMigration::newMigration()->getJoin( 'rev_user' );
-
-		$tables = array_merge( $actorQuery['tables'], [
+		$tables = [
 			'page',
 			'revision'
-		] );
-		$fields = array_merge( $actorQuery['fields'], [
+		];
+		$fields = [
+			'rev_actor AS actor',
 			'page_id AS page',
 			'rev_timestamp AS timestamp'
-		] );
+		];
 
 		$res = $dbw->select(
 			$tables,
@@ -63,8 +62,7 @@ class CreatedPagesList {
 					'page' => 'page_redirect_namespace_len',
 					'revision' => 'rev_page_id'
 				]
-			],
-			$actorQuery['joins']
+			]
 		);
 
 		foreach ( $res as $row ) {
@@ -73,7 +71,7 @@ class CreatedPagesList {
 				[
 					'cpl_page' => $row->page,
 					'cpl_timestamp' => $row->timestamp,
-					'cpl_actor' => $row->rev_actor ?? 0
+					'cpl_actor' => $row->actor ?? 0
 				],
 				__METHOD__
 			);
