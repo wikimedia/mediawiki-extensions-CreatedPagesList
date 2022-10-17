@@ -1,11 +1,13 @@
 {
 	"@metadata": {
 		"authors": [
+			"Amire80",
 			"Erelon",
 			"Steeve815"
 		]
 	},
 	"createdpageslist": "רשימת הדפים שנוצרו",
+	"createdpageslist-desc": "הוספת הדף [[Special:CreatedPagesList]], המפרט את את כל הערכים שנוצרו על־ידי המחבר הנבחר",
 	"createdpageslist-notfound": "המשתמש לא נמצא.",
 	"createdpageslist-username": "משתמש",
 	"createdpageslist-submit": "חיפוש",
