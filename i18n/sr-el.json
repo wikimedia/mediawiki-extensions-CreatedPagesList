@@ -1,0 +1,11 @@
+{
+	"@metadata": {
+		"authors": []
+	},
+	"createdpageslist": "Napravljen spisak stranica",
+	"createdpageslist-desc": "Dodaje stranicu [[Special:CreatedPagesList]], na kojoj se nalaze svi članci koje je napravio izabrani autor",
+	"createdpageslist-notfound": "Korisnik nije pronađen.",
+	"createdpageslist-username": "Korisnik",
+	"createdpageslist-submit": "Pronađi",
+	"createdpageslist-summary": "Na ovoj posebnoj stranici se nalaze svi članci (npr. stranice u imenskim prostorima sadržaja) koje je napravio određeni korisnik."
+}
