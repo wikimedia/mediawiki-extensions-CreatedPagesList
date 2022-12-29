@@ -167,13 +167,11 @@ class SpecialCreatedPagesListTest extends SpecialPageTestBase {
 	 * @return HTML of the result.
 	 */
 	public function runSpecial( $param = '', array $query = [] ) {
-		global $wgLang; /* HTMLForm sometimes calls wfMessage() without context  */
-		$wgLang = Language::factory( 'qqx' );
+		$this->setUserLang( 'qqx' );
 
 		list( $html, ) = $this->executeSpecialPage(
 			$param,
-			new FauxRequest( $query, false ), // GET request
-			$wgLang
+			new FauxRequest( $query, false ) // GET request
 		);
 
 		return $html;
