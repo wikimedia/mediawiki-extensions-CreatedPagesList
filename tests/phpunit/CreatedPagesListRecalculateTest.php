@@ -47,7 +47,7 @@ class CreatedPagesListRecalculateTest extends CreatedPagesListTestBase {
 			'Page 6' => [ '127.0.0.1', 'User 1' ],
 		];
 
-		$dbw = wfGetDB( DB_MASTER );
+		$dbw = wfGetDB( DB_PRIMARY );
 		$services = MediaWikiServices::getInstance();
 		$revStore = $services->getRevisionStore();
 		if ( method_exists( MediaWikiServices::class, 'getWikiPageFactory' ) ) {

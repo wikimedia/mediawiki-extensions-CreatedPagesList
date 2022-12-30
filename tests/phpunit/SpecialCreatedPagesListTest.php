@@ -105,7 +105,7 @@ class SpecialCreatedPagesListTest extends SpecialPageTestBase {
 		$this->truncateTable( 'createdpageslist' );
 
 		// Populate the table with test data.
-		$dbw = wfGetDB( DB_MASTER );
+		$dbw = wfGetDB( DB_PRIMARY );
 		foreach ( $pageNames as $pageName ) {
 			$title = Title::newFromText( $pageName );
 
