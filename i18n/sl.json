@@ -1,0 +1,13 @@
+{
+	"@metadata": {
+		"authors": [
+			"Eleassar"
+		]
+	},
+	"createdpageslist": "Seznam ustvarjenih strani",
+	"createdpageslist-desc": "Doda stran [[Special:CreatedPagesList]], na kateri so navedeni vsi članki, ki jih je ustvaril izbrani avtor",
+	"createdpageslist-notfound": "Uporabnik ni bil najden.",
+	"createdpageslist-username": "Uporabnik",
+	"createdpageslist-submit": "Poišči",
+	"createdpageslist-summary": "Na tej posebni strani so navedeni vsi članki (tj. strani v imenskih prostorih vsebine), ki jih je ustvaril določen uporabnik."
+}
