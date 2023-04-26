@@ -1,0 +1,13 @@
+{
+	"@metadata": {
+		"authors": [
+			"Nokeoo"
+		]
+	},
+	"createdpageslist": "Sukurtų puslapių sąrašas",
+	"createdpageslist-desc": "Prideda [[Special:CreatedPagesList]] puslapį, kuris rodo visus straipsnius, kuriuos sukūrė pasirinktas autorius",
+	"createdpageslist-notfound": "Naudotojas nerastas.",
+	"createdpageslist-username": "Naudotojas",
+	"createdpageslist-submit": "Rasti",
+	"createdpageslist-summary": "Šis specialusis puslapis nurodo visus straipsnius (pvz., puslapius turinio vardų srityje), kuriuos sukūrė konkretus naudotojas."
+}
