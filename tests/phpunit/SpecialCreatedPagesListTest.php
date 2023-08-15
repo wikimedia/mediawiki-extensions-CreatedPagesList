@@ -31,10 +31,6 @@ class SpecialCreatedPagesListTest extends SpecialPageTestBase {
 		return new SpecialCreatedPagesList();
 	}
 
-	public function needsDB() {
-		return true;
-	}
-
 	protected function setUp(): void {
 		parent::setUp();
 		$this->tablesUsed[] = 'createdpageslist';

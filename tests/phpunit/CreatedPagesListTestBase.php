@@ -24,10 +24,6 @@ use MediaWiki\User\UserIdentity;
  */
 
 class CreatedPagesListTestBase extends MediaWikiIntegrationTestCase {
-	public function needsDB() {
-		return true;
-	}
-
 	protected function setUp(): void {
 		parent::setUp();
 		$this->tablesUsed = array_merge( $this->tablesUsed, [
