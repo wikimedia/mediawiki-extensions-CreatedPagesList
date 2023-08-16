@@ -38,9 +38,9 @@ class CreatedPagesListHooksTest extends CreatedPagesListTestBase {
 		$title = Title::newFromText( 'Non-existent page' );
 		$this->assertCreatedBy( null, $title ); // Assert starting conditions
 
-		$user = $this->getUser();
-		$content = new WikitextContent( 'UTContent' );
-		$summary = CommentStoreComment::newUnsavedComment( 'UTPageSummary' );
+		$user = self::getTestSysop()->getUser();
+		$content = new WikitextContent( 'TestNewPage Content' );
+		$summary = CommentStoreComment::newUnsavedComment( 'TestNewPage PageSummary' );
 
 		if ( method_exists( MediaWikiServices::class, 'getWikiPageFactory' ) ) {
 			// MW 1.36+
@@ -65,14 +65,8 @@ class CreatedPagesListHooksTest extends CreatedPagesListTestBase {
 	 * @covers CreatedPagesListHooks::onArticleDeleteComplete
 	 */
 	public function testDeletedPage() {
-		$title = $this->getExistingTitle();
-		if ( method_exists( MediaWikiServices::class, 'getWikiPageFactory' ) ) {
-			// MW 1.36+
-			$page = MediaWikiServices::getInstance()->getWikiPageFactory()->newFromTitle( $title );
-		} else {
-			$page = WikiPage::factory( $title );
-		}
-
+		$page = $this->getExistingTestPage();
+		$title = $page->getTitle();
 		$user = $page->getCreator();
 		$this->assertCreatedBy( $user, $title ); // Assert starting conditions
 
@@ -91,13 +85,8 @@ class CreatedPagesListHooksTest extends CreatedPagesListTestBase {
 	 * @covers CreatedPagesListHooks::onArticleUndelete
 	 */
 	public function testUndeletedPage() {
-		$title = $this->getExistingTitle();
-		if ( method_exists( MediaWikiServices::class, 'getWikiPageFactory' ) ) {
-			// MW 1.36+
-			$page = MediaWikiServices::getInstance()->getWikiPageFactory()->newFromTitle( $title );
-		} else {
-			$page = WikiPage::factory( $title );
-		}
+		$page = $this->getExistingTestPage();
+		$title = $page->getTitle();
 		$user = $page->getCreator();
 
 		$reason = 'for some reason';

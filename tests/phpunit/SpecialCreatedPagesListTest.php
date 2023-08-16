@@ -85,7 +85,7 @@ class SpecialCreatedPagesListTest extends SpecialPageTestBase {
 	 */
 	public function testShowPages( $subpageHasUsername ) {
 		/* Populate 'createdpagelist' table */
-		$user = User::newFromName( 'UTSysop' ); // Created in MediaWikiIntegrationTestCase
+		$user = self::getTestSysop()->getUser();
 		$pageNames = [
 			'Test page 1',
 			'Test page 2',

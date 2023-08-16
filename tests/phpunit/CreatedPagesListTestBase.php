@@ -35,21 +35,6 @@ class CreatedPagesListTestBase extends MediaWikiIntegrationTestCase {
 	}
 
 	/**
-	 * @return User
-	 */
-	protected function getUser() {
-		return User::newFromName( 'UTSysop' );
-	}
-
-	/**
-	 * @return Title
-	 */
-	protected function getExistingTitle() {
-		// Always created in MediaWikiIntegrationTestCase::addCoreDBData()
-		return Title::newFromText( 'UTPage' );
-	}
-
-	/**
 	 * Asserts that $expectedAuthor is recorded as creator of $title.
 	 * @param UserIdentity|null $expectedAuthor
 	 * @param LinkTarget $title

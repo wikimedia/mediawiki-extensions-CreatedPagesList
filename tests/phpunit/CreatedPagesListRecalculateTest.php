@@ -104,14 +104,8 @@ class CreatedPagesListRecalculateTest extends CreatedPagesListTestBase {
 		$this->assertCreatedByText( 'User 3', 'Page 5' );
 		$this->assertCreatedByText( '127.0.0.1', 'Page 6' );
 
-		// Also check the testpage from MediaWikiIntegrationTestCase::addCoreDBData()
-		$title = $this->getExistingTitle();
-		if ( $wikiPageFactory !== null ) {
-			// MW 1.36+
-			$user = $wikiPageFactory->newFromTitle( $title )->getCreator();
-		} else {
-			$user = WikiPage::factory( $title )->getCreator();
-		}
-		$this->assertCreatedBy( $user, $title );
+		// Also check some random testpage
+		$page = $this->getExistingTestPage();
+		$this->assertCreatedBy( $page->getCreator(), $page->getTitle() );
 	}
 }
