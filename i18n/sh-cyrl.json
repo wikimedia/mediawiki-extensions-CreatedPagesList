@@ -1,0 +1,13 @@
+{
+	"@metadata": {
+		"authors": [
+			"Vlad5250"
+		]
+	},
+	"createdpageslist": "Списак направљених страница",
+	"createdpageslist-desc": "Додаје страницу „[[Special:CreatedPagesList|Списак направљених страница]]“, гдје се налазе сви чланци које је направио изабрани корисник",
+	"createdpageslist-notfound": "Корисник није пронађен",
+	"createdpageslist-username": "Корисник",
+	"createdpageslist-submit": "Пронађи",
+	"createdpageslist-summary": "На овој посебној страници се налазе сви чланци (нпр. странице у именским просторима садржаја) које је направио одређени корисник."
+}
