@@ -2,9 +2,11 @@
 	"@metadata": {
 		"authors": [
 			"Goefie",
-			"Mainframe98"
+			"Mainframe98",
+			"McDutchie"
 		]
 	},
+	"createdpageslist": "Lijst aangemaakte pagina’s",
 	"createdpageslist-desc": "Voegt een [[Special:CreatedPagesList]] pagina toe, die alle artikelen toont die door de geselecteerde auteur werden aangemaakt.",
 	"createdpageslist-notfound": "Gebruiker niet gevonden.",
 	"createdpageslist-username": "Gebruiker",
