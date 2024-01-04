@@ -2,10 +2,12 @@
 	"@metadata": {
 		"authors": [
 			"Suyama",
-			"What here area team"
+			"What here area team",
+			"Ant176"
 		]
 	},
 	"createdpageslist": "作成したページ一覧",
+	"createdpageslist-desc": "選択した利用者によって作成された全ての記事を一覧表示する[[Special:CreatedPagesList]]ページを追加します",
 	"createdpageslist-notfound": "利用者が見つかりません。",
 	"createdpageslist-username": "利用者",
 	"createdpageslist-submit": "検索",
