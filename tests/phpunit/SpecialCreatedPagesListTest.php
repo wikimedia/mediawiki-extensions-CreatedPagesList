@@ -165,7 +165,7 @@ class SpecialCreatedPagesListTest extends SpecialPageTestBase {
 	public function runSpecial( $param = '', array $query = [] ) {
 		$this->setUserLang( 'qqx' );
 
-		list( $html, ) = $this->executeSpecialPage(
+		[ $html, ] = $this->executeSpecialPage(
 			$param,
 			new FauxRequest( $query, false ) // GET request
 		);
