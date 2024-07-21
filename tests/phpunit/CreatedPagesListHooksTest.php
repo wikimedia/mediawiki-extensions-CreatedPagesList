@@ -98,13 +98,9 @@ class CreatedPagesListHooksTest extends CreatedPagesListTestBase {
 
 		$this->assertCreatedBy( null, $title ); // Assert starting conditions
 
-		$archive = new PageArchive( $title );
-
-		if ( method_exists( $archive, 'undeleteAsUser' ) ) {
-			$archive->undeleteAsUser( [], $this->getTestSysop()->getUser() );
-		} else {
-			$archive->undelete( [] );
-		}
+		$this->getServiceContainer()->getUndeletePageFactory()
+			->newUndeletePage( $page, $this->getTestSysop()->getAuthority() )
+			->undeleteUnsafe( 'for some reason' );
 
 		$this->assertCreatedBy( $user, $title );
 	}
