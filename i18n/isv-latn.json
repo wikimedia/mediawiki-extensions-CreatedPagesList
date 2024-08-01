@@ -1,0 +1,13 @@
+{
+	"@metadata": {
+		"authors": [
+			"IJzeren Jan"
+		]
+	},
+	"createdpageslist": "Spisok stvorjenyh stranic",
+	"createdpageslist-desc": "Dodavaje [[Special:CreatedPagesList]], ktory pokazyvaje vse članky stvorjenyh izbranym avtorom",
+	"createdpageslist-notfound": "Koristnik ne najden.",
+	"createdpageslist-username": "Koristnik",
+	"createdpageslist-submit": "Najdti",
+	"createdpageslist-summary": "Tuta specialna stranica sodrživaje vse članky (t.j. stranice nahodeče se v imennyh prostorah za sodržanje) stvorjene oprěděljenogo koristnika."
+}
