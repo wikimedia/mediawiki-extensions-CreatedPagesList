@@ -101,7 +101,12 @@ class SpecialCreatedPagesListTest extends SpecialPageTestBase {
 		$this->truncateTable( 'createdpageslist' );
 
 		// Populate the table with test data.
-		$dbw = wfGetDB( DB_PRIMARY );
+		if ( method_exists( MediaWikiServices::class, 'getConnectionProvider' ) ) {
+			// MW 1.42+
+			$dbw = MediaWikiServices::getInstance()->getConnectionProvider()->getPrimaryDatabase();
+		} else {
+			$dbw = wfGetDB( DB_PRIMARY );
+		}
 		foreach ( $pageNames as $pageName ) {
 			$title = Title::newFromText( $pageName );
 
