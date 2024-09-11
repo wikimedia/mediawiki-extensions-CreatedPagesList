@@ -17,6 +17,8 @@
 
 use MediaWiki\SpecialPage\PageQueryPage;
 use MediaWiki\User\User;
+use MediaWiki\User\UserFactory;
+use MediaWiki\User\UserRigorOptions;
 
 /**
  * @file
@@ -25,14 +27,13 @@ use MediaWiki\User\User;
 
 class SpecialCreatedPagesList extends PageQueryPage {
 
-	/** @var User Author of the pages we need to list */
-	protected $user = null;
+	/** Author of the pages we need to list */
+	protected ?User $user = null;
 
-	/**
-	 * @param string $name
-	 */
-	public function __construct( $name = 'CreatedPagesList' ) {
-		parent::__construct( $name );
+	public function __construct(
+		private readonly UserFactory $userFactory,
+	) {
+		parent::__construct( 'CreatedPagesList' );
 	}
 
 	/** @inheritDoc */
@@ -68,7 +69,7 @@ class SpecialCreatedPagesList extends PageQueryPage {
 			return;
 		}
 
-		$this->user = User::newFromName( $username, false );
+		$this->user = $this->userFactory->newFromName( $username, UserRigorOptions::RIGOR_NONE );
 		parent::execute( $param );
 	}
 

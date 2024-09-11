@@ -29,7 +29,9 @@ use MediaWiki\Title\Title;
  */
 class SpecialCreatedPagesListTest extends SpecialPageTestBase {
 	protected function newSpecialPage() {
-		return new SpecialCreatedPagesList();
+		return new SpecialCreatedPagesList(
+			$this->getServiceContainer()->getUserFactory()
+		);
 	}
 
 	protected function setUp(): void {

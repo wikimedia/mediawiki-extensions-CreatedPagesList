@@ -25,7 +25,8 @@ use MediaWiki\Page\Hook\ArticleUndeleteHook;
 use MediaWiki\Revision\RevisionLookup;
 use MediaWiki\Revision\RevisionRecord;
 use MediaWiki\Storage\Hook\PageSaveCompleteHook;
-use MediaWiki\User\User;
+use MediaWiki\User\UserFactory;
+use MediaWiki\User\UserRigorOptions;
 
 class CreatedPagesListHooks implements
 	ArticleDeleteCompleteHook,
@@ -34,6 +35,7 @@ class CreatedPagesListHooks implements
 {
 	public function __construct(
 		protected readonly RevisionLookup $revisionLookup,
+		private readonly UserFactory $userFactory,
 	) {
 	}
 
@@ -46,7 +48,7 @@ class CreatedPagesListHooks implements
 		$wikiPage, $user, $summary, $flags, $revisionRecord, $editResult
 	) {
 		CreatedPagesList::add(
-			User::newFromIdentity( $user ),
+			$this->userFactory->newFromUserIdentity( $user ),
 			$wikiPage->getTitle(),
 			$revisionRecord->getTimestamp(),
 			$wikiPage->isRedirect()
@@ -74,12 +76,14 @@ class CreatedPagesListHooks implements
 	) {
 		DeferredUpdates::addCallableUpdate( function () use ( $title ) {
 			$rev = $this->revisionLookup->getFirstRevision( $title );
-			$user = User::newFromName(
+			$user = $this->userFactory->newFromName(
 				$rev->getUser( RevisionRecord::RAW )->getName(),
-				false
+				UserRigorOptions::RIGOR_NONE
 			);
 
-			CreatedPagesList::add( $user, $title, $rev->getTimestamp() );
+			if ( $user ) {
+				CreatedPagesList::add( $user, $title, $rev->getTimestamp() );
+			}
 		} );
 	}
 }
