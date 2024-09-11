@@ -55,20 +55,10 @@ class CreatedPagesListRecalculateTest extends CreatedPagesListTestBase {
 			$dbw = wfGetDB( DB_PRIMARY );
 		}
 		$revStore = $services->getRevisionStore();
-		if ( method_exists( MediaWikiServices::class, 'getWikiPageFactory' ) ) {
-			// MW 1.36+
-			$wikiPageFactory = $services->getWikiPageFactory();
-		} else {
-			$wikiPageFactory = null;
-		}
+		$wikiPageFactory = $services->getWikiPageFactory();
 		foreach ( $testData as $subject => $authors ) {
 			$title = Title::newFromText( $subject );
-			if ( $wikiPageFactory !== null ) {
-				// MW 1.36+
-				$page = $wikiPageFactory->newFromTitle( $title );
-			} else {
-				$page = WikiPage::factory( $title );
-			}
+			$page = $wikiPageFactory->newFromTitle( $title );
 			$page->insertOn( $dbw );
 
 			$ts = new MWTimestamp();
