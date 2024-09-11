@@ -47,8 +47,13 @@ class CreatedPagesListRecalculateTest extends CreatedPagesListTestBase {
 			'Page 6' => [ '127.0.0.1', 'User 1' ],
 		];
 
-		$dbw = wfGetDB( DB_PRIMARY );
 		$services = MediaWikiServices::getInstance();
+		if ( method_exists( MediaWikiServices::class, 'getConnectionProvider' ) ) {
+			// MW 1.42+
+			$dbw = $services->getConnectionProvider()->getPrimaryDatabase();
+		} else {
+			$dbw = wfGetDB( DB_PRIMARY );
+		}
 		$revStore = $services->getRevisionStore();
 		if ( method_exists( MediaWikiServices::class, 'getWikiPageFactory' ) ) {
 			// MW 1.36+

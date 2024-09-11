@@ -29,7 +29,12 @@ class CreatedPagesList {
 	 * This is called from update.php.
 	 */
 	public static function recalculateSqlTable() {
-		$dbw = wfGetDB( DB_PRIMARY );
+		if ( method_exists( MediaWikiServices::class, 'getConnectionProvider' ) ) {
+			// MW 1.42+
+			$dbw = MediaWikiServices::getInstance()->getConnectionProvider()->getPrimaryDatabase();
+		} else {
+			$dbw = wfGetDB( DB_PRIMARY );
+		}
 
 		$dbw->startAtomic( __METHOD__ );
 		$dbw->delete( 'createdpageslist', '*', __METHOD__ );
@@ -96,7 +101,12 @@ class CreatedPagesList {
 			return; /* Redirects are not worthy */
 		}
 
-		$dbw = wfGetDB( DB_PRIMARY );
+		if ( method_exists( MediaWikiServices::class, 'getConnectionProvider' ) ) {
+			// MW 1.42+
+			$dbw = MediaWikiServices::getInstance()->getConnectionProvider()->getPrimaryDatabase();
+		} else {
+			$dbw = wfGetDB( DB_PRIMARY );
+		}
 		$dbw->replace(
 			'createdpageslist',
 			[ [ 'cpl_page' ] ],
@@ -114,7 +124,12 @@ class CreatedPagesList {
 	 * @param Title $title
 	 */
 	public static function delete( Title $title ) {
-		$dbw = wfGetDB( DB_PRIMARY );
+		if ( method_exists( MediaWikiServices::class, 'getConnectionProvider' ) ) {
+			// MW 1.42+
+			$dbw = MediaWikiServices::getInstance()->getConnectionProvider()->getPrimaryDatabase();
+		} else {
+			$dbw = wfGetDB( DB_PRIMARY );
+		}
 		$dbw->delete(
 			'createdpageslist',
 			[
