@@ -38,7 +38,7 @@ class CreatedPagesListUpdater implements LoadExtensionSchemaUpdatesHook {
 		} elseif (
 			!$db->fieldInfo( 'createdpageslist', 'cpl_actor' ) ||
 			!$db->fieldInfo( 'createdpageslist', 'cpl_page' ) ||
-			!$db->indexUnique( 'createdpageslist', 'createdpageslist_page' )
+			!$db->indexUnique( 'createdpageslist', 'createdpageslist_page', __METHOD__ )
 		) {
 			// Table already exists, but the schema is outdated.
 			$updater->dropExtensionTable( 'createdpageslist' );
