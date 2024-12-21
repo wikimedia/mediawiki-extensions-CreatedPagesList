@@ -25,26 +25,36 @@ class SpecialCreatedPagesList extends PageQueryPage {
 	/** @var User Author of the pages we need to list */
 	protected $user = null;
 
+	/**
+	 * @param string $name
+	 */
 	public function __construct( $name = 'CreatedPagesList' ) {
 		parent::__construct( $name );
 	}
 
+	/** @inheritDoc */
 	public function isSyndicated() {
 		return false;
 	}
 
+	/** @inheritDoc */
 	protected function getOrderFields() {
 		return [ 'cpl_timestamp' ];
 	}
 
+	/** @inheritDoc */
 	protected function sortDescending() {
 		return true;
 	}
 
+	/** @inheritDoc */
 	public function isCacheable() {
 		return false;
 	}
 
+	/**
+	 * @param string|null $param
+	 */
 	public function execute( $param ) {
 		$username = $this->getRequest()->getVal( 'username', $param );
 		if ( strval( $username ) == '' ) {
@@ -67,6 +77,7 @@ class SpecialCreatedPagesList extends PageQueryPage {
 		$this->showForm( Status::newFatal( 'createdpageslist-notfound' ) );
 	}
 
+	/** @inheritDoc */
 	protected function showForm( $error = false ) {
 		$formDescriptor = [
 			'username' => [
@@ -88,6 +99,7 @@ class SpecialCreatedPagesList extends PageQueryPage {
 			->displayForm( $error );
 	}
 
+	/** @inheritDoc */
 	public function getQueryInfo() {
 		return [
 			'tables' => [ 'createdpageslist', 'page' ],
