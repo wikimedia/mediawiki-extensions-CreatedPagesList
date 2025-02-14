@@ -24,16 +24,6 @@ use MediaWiki\User\UserIdentity;
  */
 
 class CreatedPagesListTestBase extends MediaWikiIntegrationTestCase {
-	protected function setUp(): void {
-		parent::setUp();
-		$this->tablesUsed = array_merge( $this->tablesUsed, [
-			'createdpageslist',
-			'revision',
-			'page',
-			'text'
-		] );
-	}
-
 	/**
 	 * Asserts that $expectedAuthor is recorded as creator of $title.
 	 * @param UserIdentity|null $expectedAuthor
