@@ -16,6 +16,7 @@
 */
 
 use MediaWiki\Linker\LinkTarget;
+use MediaWiki\Title\Title;
 use MediaWiki\User\UserIdentity;
 
 /**

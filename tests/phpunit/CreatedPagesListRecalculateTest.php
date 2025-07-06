@@ -25,6 +25,7 @@ require_once __DIR__ . '/CreatedPagesListTestBase.php';
 use MediaWiki\MediaWikiServices;
 use MediaWiki\Revision\MutableRevisionRecord;
 use MediaWiki\Revision\SlotRecord;
+use MediaWiki\Title\Title;
 use Wikimedia\IPUtils;
 
 /**
@@ -56,6 +57,7 @@ class CreatedPagesListRecalculateTest extends CreatedPagesListTestBase {
 		}
 		$revStore = $services->getRevisionStore();
 		$wikiPageFactory = $services->getWikiPageFactory();
+		$userFactory = $services->getUserFactory();
 		foreach ( $testData as $subject => $authors ) {
 			$title = Title::newFromText( $subject );
 			$page = $wikiPageFactory->newFromTitle( $title );
@@ -66,7 +68,12 @@ class CreatedPagesListRecalculateTest extends CreatedPagesListTestBase {
 
 			foreach ( $authors as $username ) {
 				if ( IPUtils::isValid( $username ) ) {
-					$user = User::newFromName( $username, false );
+					if ( $services->getTempUserCreator()->isEnabled() ) {
+						$user = $userFactory->newUnsavedTempUser( null );
+						$user->addToDatabase();
+					} else {
+						$user = User::newFromName( $username, false );
+					}
 				} else {
 					$user = User::newSystemUser( $username, [ 'steal' => true ] );
 				}
@@ -97,7 +104,8 @@ class CreatedPagesListRecalculateTest extends CreatedPagesListTestBase {
 		$this->assertCreatedByText( 'User 2', 'Page 3' );
 		$this->assertCreatedByText( 'User 2', 'Page 4' );
 		$this->assertCreatedByText( 'User 3', 'Page 5' );
-		$this->assertCreatedByText( '127.0.0.1', 'Page 6' );
+		$page = $wikiPageFactory->newFromTitle( Title::makeTitle( NS_MAIN, 'Page 6' ) );
+		$this->assertCreatedBy( $page->getCreator(), $page->getTitle() );
 
 		// Also check some random testpage
 		$page = $this->getExistingTestPage();
