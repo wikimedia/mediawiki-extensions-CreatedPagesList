@@ -21,6 +21,7 @@
  */
 
 use MediaWiki\MediaWikiServices;
+use MediaWiki\Title\Title;
 
 class CreatedPagesList {
 
@@ -33,6 +34,7 @@ class CreatedPagesList {
 			// MW 1.42+
 			$dbw = MediaWikiServices::getInstance()->getConnectionProvider()->getPrimaryDatabase();
 		} else {
+			/* @phan-suppress-next-line PhanUndeclaredFunction Ignore in MW 1.44 */
 			$dbw = wfGetDB( DB_PRIMARY );
 		}
 
@@ -105,6 +107,7 @@ class CreatedPagesList {
 			// MW 1.42+
 			$dbw = MediaWikiServices::getInstance()->getConnectionProvider()->getPrimaryDatabase();
 		} else {
+			/* @phan-suppress-next-line PhanUndeclaredFunction Ignore in MW 1.44 */
 			$dbw = wfGetDB( DB_PRIMARY );
 		}
 		$dbw->replace(
@@ -128,6 +131,7 @@ class CreatedPagesList {
 			// MW 1.42+
 			$dbw = MediaWikiServices::getInstance()->getConnectionProvider()->getPrimaryDatabase();
 		} else {
+			/* @phan-suppress-next-line PhanUndeclaredFunction Ignore in MW 1.44 */
 			$dbw = wfGetDB( DB_PRIMARY );
 		}
 		$dbw->delete(
