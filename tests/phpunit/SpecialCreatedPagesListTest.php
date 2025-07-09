@@ -82,7 +82,7 @@ class SpecialCreatedPagesListTest extends SpecialPageTestBase {
 	/**
 	 * Checks how Special:CreatedPagesList prints the list of pages.
 	 * @param bool $subpageHasUsername
-	 * @dataProvider dataProviderShowPages
+	 * @dataProvider provideShowPages
 	 */
 	public function testShowPages( $subpageHasUsername ) {
 		/* Populate 'createdpagelist' table */
@@ -155,7 +155,7 @@ class SpecialCreatedPagesListTest extends SpecialPageTestBase {
 	 * Provide datasets for testShowPages() runs.
 	 * @return array
 	 */
-	public function dataProviderShowPages() {
+	public static function provideShowPages() {
 		return [
 			'subpage' => [ true ],
 			'querystring' => [ false ]

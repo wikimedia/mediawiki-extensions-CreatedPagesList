@@ -4,7 +4,6 @@
 		<!-- TODO: missing documentation: this can be fixed -->
 		<exclude name="MediaWiki.Commenting.FunctionComment.MissingDocumentationProtected" />
 		<exclude name="MediaWiki.Commenting.FunctionComment.MissingDocumentationPublic" />
-		<exclude name="MediaWiki.Commenting.PhpunitAnnotations.WrongDataProviderName" />
 
 		<!-- Don't want to apply this -->
 		<exclude name="MediaWiki.WhiteSpace.SpaceBeforeSingleLineComment.NewLineComment" />
