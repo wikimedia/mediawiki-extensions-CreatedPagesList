@@ -28,3 +28,24 @@ $specialPageAliases = [];
 $specialPageAliases['en'] = [
 	'CreatedPagesList' => [ 'CreatedPagesList' ]
 ];
+
+/** Chinese (中文)
+ * @author anterdc99
+ */
+$specialPageAliases['zh'] = [
+	'CreatedPagesList' => [ 'CreatedPagesList' ]
+];
+
+/** Simplified Chinese (中文（简体）)
+ * @author anterdc99
+ */
+$specialPageAliases['zh-hans'] = [
+	'CreatedPagesList' => [ '已创建页面列表' ]
+];
+
+/** Traditional Chinese (中文（繁體）)
+ * @author anterdc99
+ */
+$specialPageAliases['zh-hant'] = [
+	'CreatedPagesList' => [ '已建立頁面列表' ]
+];
