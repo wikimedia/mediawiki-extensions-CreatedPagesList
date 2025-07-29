@@ -1,0 +1,13 @@
+{
+	"@metadata": {
+		"authors": [
+			"JeffreyKim"
+		]
+	},
+	"createdpageslist": "建立咗嘅頁面清單",
+	"createdpageslist-desc": "加入[[Special:CreatedPagesList]]頁面, 列出晒所有由所選作者創作嘅文章",
+	"createdpageslist-notfound": "搵唔到用戶。",
+	"createdpageslist-username": "用戶",
+	"createdpageslist-submit": "搵",
+	"createdpageslist-summary": "呢個特別頁面會列出由特定使用者建立嘅所有文章（即係內容命名空間入面嘅頁面）。"
+}
