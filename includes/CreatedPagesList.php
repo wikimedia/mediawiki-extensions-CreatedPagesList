@@ -2,7 +2,7 @@
 
 /*
 	Extension:CreatedPagesList - MediaWiki extension.
-	Copyright (C) 2018-2021 Edward Chernenko.
+	Copyright (C) 2018-2025 Edward Chernenko.
 
 	This program is free software; you can redistribute it and/or modify
 	it under the terms of the GNU General Public License as published by
@@ -68,7 +68,8 @@ class CreatedPagesList {
 				'INDEX' => [
 					'page' => 'page_redirect_namespace_len',
 					'revision' => 'rev_page_id'
-				]
+				],
+				'ORDER BY' => 'rev_timestamp'
 			]
 		);
 
@@ -80,7 +81,8 @@ class CreatedPagesList {
 					'cpl_timestamp' => $row->timestamp,
 					'cpl_actor' => $row->actor ?? 0
 				],
-				__METHOD__
+				__METHOD__,
+				[ 'IGNORE' ]
 			);
 		}
 
