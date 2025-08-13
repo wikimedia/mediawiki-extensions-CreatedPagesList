@@ -1,7 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"JeffreyKim"
+			"JeffreyKim",
+			"Ktchankt"
 		]
 	},
 	"createdpageslist": "建立咗嘅頁面清單",
@@ -9,5 +10,5 @@
 	"createdpageslist-notfound": "搵唔到用戶。",
 	"createdpageslist-username": "用戶",
 	"createdpageslist-submit": "搵",
-	"createdpageslist-summary": "呢個特別頁面會列出由特定使用者建立嘅所有文章（即係內容命名空間入面嘅頁面）。"
+	"createdpageslist-summary": "呢個專門版會列出由特定用戶建立嘅所有文章（即係內容名空間入面嘅頁面）。"
 }
