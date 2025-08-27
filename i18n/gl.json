@@ -1,0 +1,13 @@
+{
+	"@metadata": {
+		"authors": [
+			"Toliño"
+		]
+	},
+	"createdpageslist": "Lista de páxinas creadas",
+	"createdpageslist-desc": "Engade a páxina [[Special:CreatedPagesList]], que enumera todos os artigos creados polo autor seleccionado",
+	"createdpageslist-notfound": "Non se atopou o usuario.",
+	"createdpageslist-username": "Usuario",
+	"createdpageslist-submit": "Procurar",
+	"createdpageslist-summary": "Esta páxina especial lista todos os artigos (é dicir, páxinas en espazos de nomes de contido) creados por un usuario específico."
+}
