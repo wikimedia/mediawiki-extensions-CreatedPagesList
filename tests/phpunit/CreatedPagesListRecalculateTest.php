@@ -22,6 +22,7 @@
 
 require_once __DIR__ . '/CreatedPagesListTestBase.php';
 
+use MediaWiki\CommentStore\CommentStoreComment;
 use MediaWiki\MediaWikiServices;
 use MediaWiki\Revision\MutableRevisionRecord;
 use MediaWiki\Revision\SlotRecord;
