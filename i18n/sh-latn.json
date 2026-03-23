@@ -5,8 +5,8 @@
 			"Winston Sung"
 		]
 	},
-	"createdpageslist": "Popis stvorenih stranica",
-	"createdpageslist-desc": "Dodaje posebnu stranicu „[[Special:CreatedPagesList|Popis stvorenih stranica]]“, gdje su navedeni svi članci koje je stvorio izabrani korisnik",
+	"createdpageslist": "Lista izrađenih stranica",
+	"createdpageslist-desc": "Dodaje posebnu stranicu \"[[Special:CreatedPagesList|Lista izrađenih stranica]]\", gdje su navedeni svi članci koje je stvorio izabrani korisnik",
 	"createdpageslist-notfound": "Korisnik nije pronađen",
 	"createdpageslist-username": "Korisnik",
 	"createdpageslist-submit": "Nađi",
