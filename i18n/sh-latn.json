@@ -1,11 +1,12 @@
 {
 	"@metadata": {
 		"authors": [
-			"Winston Sung"
+			"Winston Sung",
+			"Aca"
 		]
 	},
-	"createdpageslist": "Popis stvorenih stranica",
-	"createdpageslist-desc": "Dodava posebnu stranicu „[[Special:CreatedPagesList|Popis stvorenih stranica]]“, gdje su navedeni svi članci koje je stvorio odabrani korisnik",
+	"createdpageslist": "Lista izrađenih stranica",
+	"createdpageslist-desc": "Dodaje posebnu stranicu \"[[Special:CreatedPagesList|Lista izrađenih stranica]]\", gdje su navedeni svi članci koje je stvorio izabrani korisnik",
 	"createdpageslist-notfound": "Korisnik nije pronađen",
 	"createdpageslist-username": "Korisnik",
 	"createdpageslist-submit": "Nađi",
