@@ -30,13 +30,7 @@ class CreatedPagesList {
 	 * This is called from update.php.
 	 */
 	public static function recalculateSqlTable() {
-		if ( method_exists( MediaWikiServices::class, 'getConnectionProvider' ) ) {
-			// MW 1.42+
-			$dbw = MediaWikiServices::getInstance()->getConnectionProvider()->getPrimaryDatabase();
-		} else {
-			/* @phan-suppress-next-line PhanUndeclaredFunction Ignore in MW 1.44 */
-			$dbw = wfGetDB( DB_PRIMARY );
-		}
+		$dbw = MediaWikiServices::getInstance()->getConnectionProvider()->getPrimaryDatabase();
 
 		$dbw->startAtomic( __METHOD__ );
 		$dbw->delete( 'createdpageslist', '*', __METHOD__ );
@@ -105,13 +99,7 @@ class CreatedPagesList {
 			return; /* Redirects are not worthy */
 		}
 
-		if ( method_exists( MediaWikiServices::class, 'getConnectionProvider' ) ) {
-			// MW 1.42+
-			$dbw = MediaWikiServices::getInstance()->getConnectionProvider()->getPrimaryDatabase();
-		} else {
-			/* @phan-suppress-next-line PhanUndeclaredFunction Ignore in MW 1.44 */
-			$dbw = wfGetDB( DB_PRIMARY );
-		}
+		$dbw = MediaWikiServices::getInstance()->getConnectionProvider()->getPrimaryDatabase();
 		$dbw->replace(
 			'createdpageslist',
 			[ [ 'cpl_page' ] ],
@@ -129,13 +117,7 @@ class CreatedPagesList {
 	 * @param Title $title
 	 */
 	public static function delete( Title $title ) {
-		if ( method_exists( MediaWikiServices::class, 'getConnectionProvider' ) ) {
-			// MW 1.42+
-			$dbw = MediaWikiServices::getInstance()->getConnectionProvider()->getPrimaryDatabase();
-		} else {
-			/* @phan-suppress-next-line PhanUndeclaredFunction Ignore in MW 1.44 */
-			$dbw = wfGetDB( DB_PRIMARY );
-		}
+		$dbw = MediaWikiServices::getInstance()->getConnectionProvider()->getPrimaryDatabase();
 		$dbw->delete(
 			'createdpageslist',
 			[

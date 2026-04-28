@@ -50,12 +50,7 @@ class CreatedPagesListRecalculateTest extends CreatedPagesListTestBase {
 		];
 
 		$services = MediaWikiServices::getInstance();
-		if ( method_exists( MediaWikiServices::class, 'getConnectionProvider' ) ) {
-			// MW 1.42+
-			$dbw = $services->getConnectionProvider()->getPrimaryDatabase();
-		} else {
-			$dbw = wfGetDB( DB_PRIMARY );
-		}
+		$dbw = $services->getConnectionProvider()->getPrimaryDatabase();
 		$revStore = $services->getRevisionStore();
 		$wikiPageFactory = $services->getWikiPageFactory();
 		$userFactory = $services->getUserFactory();
