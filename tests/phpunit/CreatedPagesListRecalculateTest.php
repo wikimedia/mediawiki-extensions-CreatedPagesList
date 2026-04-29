@@ -23,7 +23,6 @@
 require_once __DIR__ . '/CreatedPagesListTestBase.php';
 
 use MediaWiki\CommentStore\CommentStoreComment;
-use MediaWiki\MediaWikiServices;
 use MediaWiki\Revision\MutableRevisionRecord;
 use MediaWiki\Revision\SlotRecord;
 use MediaWiki\Title\Title;
@@ -49,7 +48,7 @@ class CreatedPagesListRecalculateTest extends CreatedPagesListTestBase {
 			'Page 6' => [ '127.0.0.1', 'User 1' ],
 		];
 
-		$services = MediaWikiServices::getInstance();
+		$services = $this->getServiceContainer();
 		$dbw = $services->getConnectionProvider()->getPrimaryDatabase();
 		$revStore = $services->getRevisionStore();
 		$wikiPageFactory = $services->getWikiPageFactory();

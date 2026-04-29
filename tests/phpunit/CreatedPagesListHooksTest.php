@@ -23,7 +23,6 @@
 require_once __DIR__ . '/CreatedPagesListTestBase.php';
 
 use MediaWiki\CommentStore\CommentStoreComment;
-use MediaWiki\MediaWikiServices;
 use MediaWiki\Revision\SlotRecord;
 use MediaWiki\Title\Title;
 
@@ -44,7 +43,7 @@ class CreatedPagesListHooksTest extends CreatedPagesListTestBase {
 		$content = new WikitextContent( 'TestNewPage Content' );
 		$summary = CommentStoreComment::newUnsavedComment( 'TestNewPage PageSummary' );
 
-		$page = MediaWikiServices::getInstance()->getWikiPageFactory()->newFromTitle( $title );
+		$page = $this->getServiceContainer()->getWikiPageFactory()->newFromTitle( $title );
 		$updater = $page->newPageUpdater( $user );
 
 		$updater->setContent( SlotRecord::MAIN, $content );

@@ -20,7 +20,6 @@
  * Checks [[Special:CreatedPagesList]] special page.
  */
 
-use MediaWiki\MediaWikiServices;
 use MediaWiki\Request\FauxRequest;
 use MediaWiki\Title\Title;
 
@@ -102,7 +101,7 @@ class SpecialCreatedPagesListTest extends SpecialPageTestBase {
 		$this->truncateTable( 'createdpageslist' );
 
 		// Populate the table with test data.
-		$dbw = MediaWikiServices::getInstance()->getConnectionProvider()->getPrimaryDatabase();
+		$dbw = $this->getServiceContainer()->getConnectionProvider()->getPrimaryDatabase();
 		foreach ( $pageNames as $pageName ) {
 			$title = Title::newFromText( $pageName );
 
@@ -135,7 +134,7 @@ class SpecialCreatedPagesListTest extends SpecialPageTestBase {
 			$foundTitles[$link->textContent] = $link->ownerDocument->saveXML( $link );
 		}
 
-		$linkRenderer = MediaWikiServices::getInstance()->getLinkRenderer();
+		$linkRenderer = $this->getServiceContainer()->getLinkRenderer();
 
 		foreach ( $pageNames as $expectedTitle ) {
 			$this->assertArrayHasKey( $expectedTitle, $foundTitles,
