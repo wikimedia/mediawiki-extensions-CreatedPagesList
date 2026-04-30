@@ -25,6 +25,7 @@ use MediaWiki\Page\Hook\ArticleUndeleteHook;
 use MediaWiki\Revision\RevisionLookup;
 use MediaWiki\Revision\RevisionRecord;
 use MediaWiki\Storage\Hook\PageSaveCompleteHook;
+use MediaWiki\User\User;
 
 class CreatedPagesListHooks implements
 	ArticleDeleteCompleteHook,

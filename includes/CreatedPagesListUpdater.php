@@ -20,6 +20,7 @@
  * Creates/updates the SQL tables when 'update.php' is invoked.
  */
 
+use MediaWiki\Installer\DatabaseUpdater;
 use MediaWiki\Installer\Hook\LoadExtensionSchemaUpdatesHook;
 
 class CreatedPagesListUpdater implements LoadExtensionSchemaUpdatesHook {

@@ -15,6 +15,9 @@
 	GNU General Public License for more details.
 */
 
+use MediaWiki\SpecialPage\PageQueryPage;
+use MediaWiki\User\User;
+
 /**
  * @file
  * Implements [[Special:CreatedPagesList]].
