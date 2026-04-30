@@ -31,14 +31,9 @@ class CreatedPagesListHooks implements
 	ArticleUndeleteHook,
 	PageSaveCompleteHook
 {
-	/** @var RevisionLookup */
-	protected $revisionLookup;
-
-	/**
-	 * @param RevisionLookup $revisionLookup
-	 */
-	public function __construct( RevisionLookup $revisionLookup ) {
-		$this->revisionLookup = $revisionLookup;
+	public function __construct(
+		protected readonly RevisionLookup $revisionLookup,
+	) {
 	}
 
 	/**
