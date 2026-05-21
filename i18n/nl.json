@@ -3,13 +3,14 @@
 		"authors": [
 			"Goefie",
 			"Mainframe98",
-			"McDutchie"
+			"McDutchie",
+			"Siebrand"
 		]
 	},
 	"createdpageslist": "Lijst aangemaakte pagina’s",
-	"createdpageslist-desc": "Voegt een [[Special:CreatedPagesList]] pagina toe, die alle artikelen toont die door de geselecteerde auteur werden aangemaakt.",
+	"createdpageslist-desc": "Voegt een [[Special:CreatedPagesList]] pagina toe, die alle pagina's weergeeft die door de geselecteerde auteur werden aangemaakt.",
 	"createdpageslist-notfound": "Gebruiker niet gevonden.",
 	"createdpageslist-username": "Gebruiker",
 	"createdpageslist-submit": "Zoeken",
-	"createdpageslist-summary": "Deze bijzonder pagina toont alle artikelen (i.e. pagina's in inhoudsnaamruimten) aangemaakt door een specifieke gebruiker."
+	"createdpageslist-summary": "Deze bijzonder pagina geeft alle artikelen weer (i.e. pagina's in inhoudsnaamruimten) aangemaakt door een specifieke gebruiker."
 }
