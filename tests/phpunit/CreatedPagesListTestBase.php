@@ -39,17 +39,15 @@ class CreatedPagesListTestBase extends MediaWikiIntegrationTestCase {
 			$expectedActorId = $user->getActorId();
 		}
 
-		$this->assertSelect( 'createdpageslist',
-			[ 'cpl_actor' ],
-			[
-				'cpl_page' => $title->getArticleId()
-			],
-			$expectedAuthor ? [ [
-				$expectedActorId
-			] ] : [],
-			[],
-			[]
-		);
+		$queryBuilder = $this->newSelectQueryBuilder()
+			->select( 'cpl_actor' )
+			->from( 'createdpageslist' )
+			->where( [ 'cpl_page' => $title->getArticleId() ] );
+		if ( $expectedAuthor ) {
+			$queryBuilder->assertFieldValue( $expectedActorId );
+		} else {
+			$queryBuilder->assertEmptyResult();
+		}
 	}
 
 	/**
