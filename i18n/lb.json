@@ -1,10 +1,14 @@
 {
 	"@metadata": {
 		"authors": [
-			"Robby"
+			"Robby",
+			"Volvox"
 		]
 	},
+	"createdpageslist": "Lëscht vun den ugeluechte Säiten",
+	"createdpageslist-desc": "Sëtzt d'Säit [[Special:CreatedPagesList]] derbäi, déi all d'Artikelen oplëscht, déi vum ausgewielte Benotzer ugeluecht goufen",
 	"createdpageslist-notfound": "Benotzer net fonnt.",
 	"createdpageslist-username": "Benotzer",
-	"createdpageslist-submit": "Sichen"
+	"createdpageslist-submit": "Sichen",
+	"createdpageslist-summary": "Dës Spezialsäit lëscht all d'Artikelen (d.&nbsp;h. Säiten am Inhaltsnummraum) op, déi vun engem bestëmmte Benotzer ugeluecht goufen."
 }
