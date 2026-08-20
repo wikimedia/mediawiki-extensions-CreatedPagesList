@@ -1,0 +1,13 @@
+{
+	"@metadata": {
+		"authors": [
+			"شاه زمان پټان"
+		]
+	},
+	"createdpageslist": "جوړو شويو مخونو لړليک",
+	"createdpageslist-desc": "[[Special:CreatedPagesList]] مخ ورگډوي، کوم چې د ټاکل شوي ليکوال له‌خوا جوړې شوې ټولې ليکنې لړليکوي",
+	"createdpageslist-notfound": "کارن و نه موندل شو.",
+	"createdpageslist-username": "کارن",
+	"createdpageslist-submit": "موندل",
+	"createdpageslist-summary": "دا ځانگړی مخ ټولې هغه ليکنې (د بېلگې په توگه په منځپانگيز نوم‌تشيالونو کې مخونه) لړليکوي ېچې د ځانگړي کارن له‌خوا رامنځته شوې وي."
+}
