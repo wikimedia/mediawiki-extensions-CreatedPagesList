@@ -1,0 +1,13 @@
+{
+	"@metadata": {
+		"authors": [
+			"Wizzard"
+		]
+	},
+	"createdpageslist": "Zoznam vytvorených stránok",
+	"createdpageslist-desc": "Pridáva stránku [[Special:CreatedPagesList]], ktorá vypisuje všetky články vytvorené vybraným autorom",
+	"createdpageslist-notfound": "Používateľ sa nenašiel.",
+	"createdpageslist-username": "Používateľ",
+	"createdpageslist-submit": "Nájsť",
+	"createdpageslist-summary": "Táto špeciálna stránka vypisuje všetky články (t. j. stránky v obsahových menných priestoroch) vytvorené konkrétnym používateľom."
+}
